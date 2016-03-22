@@ -32,6 +32,7 @@ module.exports = {
                 loader: "url-loader",
                 query: { mimetype: "image/png" }
             },
+            { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
             { test: /\.css$/, loader: "style!css" },
             {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
             {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
