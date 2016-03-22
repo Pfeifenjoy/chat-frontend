@@ -65,8 +65,8 @@ export default class Video extends Component {
         serverConnection = null;
 
 
-        /*serverConnection = new WebSocket('ws://192.168.2.123:3434');
-        serverConnection.onmessage = this.gotMessageFromServer.bind(this);*/
+        serverConnection = new WebSocket('ws://localhost:3434');
+        serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 
         var constraints = {
             video: true,
