@@ -1,13 +1,17 @@
+var dev = process.env.NODE_ENV !== "production";
 var path = require('path');
 var webpack = require('webpack');
  
+var entry = [];
+entry.push("./src/index");
+if(dev) {
+    entry.push("webpack-dev-server/client?http://localhost:3000");
+    entry.push("webpack/hot/only-dev-server");
+}
+
 module.exports = {
     devtool: "eval",
-    entry: [
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        './src/index',
-    ],
+    entry: entry,
     output: { 
         path: __dirname + "/build" ,
         filename: 'bundle.js',
