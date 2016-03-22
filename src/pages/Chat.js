@@ -14,9 +14,11 @@ export default class Chat extends Component {
                     </h1>
                 </div>
 
+                <Video />
+
             </section>
 
-            <Video />
+
         </div>
     }
 }
