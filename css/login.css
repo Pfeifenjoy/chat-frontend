@@ -1,0 +1,17 @@
+body,html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background:url("../img/login_bg.png") no-repeat;
+    background-size:cover;
+    width:100%;
+    height:100%;
+}
+
+section#login {
+    width:30%;
+    margin:0px auto;
+    padding-top:10%;
+}

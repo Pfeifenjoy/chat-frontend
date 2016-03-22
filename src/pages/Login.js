@@ -10,30 +10,46 @@ export default class Login extends Component {
     }
 
     render() {
-        return <form action={this.props.action} className="login" onSubmit={this.handleSubmit.bind(this)} method="post">
-                <h1>Login</h1>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input 
-                        name="username" 
-                        type="text" 
-                        className="form-control"
-                        value={this.state.username}
-                        onChange={this.handleUsernameChange.bind(this)}
-                        />
+        return <div id="login_wrapper">
+            <section id="login">
+                <div className="row vertical-offset-100">
+
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">Please sign in</h3>
+                        </div>
+                        <div className="panel-body">
+                            <form accept-charset="UTF-8" role="form" action={this.props.action} method="post"
+                                  onSubmit={this.handleSubmit.bind(this)}>
+                                <fieldset>
+                                    <div className="form-group">
+                                        <input className="form-control" placeholder="Username"
+                                               value={this.state.username}
+                                               onChange={this.handleUsernameChange.bind(this)} name="username"
+                                               type="text"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <input className="form-control" placeholder="Password"
+                                               value={this.state.password}
+                                               onChange={this.handlePasswordChange.bind(this)} name="password"
+                                               type="password"
+                                               value=""/>
+                                    </div>
+                                    <div className="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me"> Remember
+                                                Me </input>
+                                        </label>
+                                    </div>
+                                    <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        name="password"
-                        type="password"
-                        className="form-control"
-                        value={this.state.password}
-                        onChange={this.handlePasswordChange.bind(this)}
-                        />
-                </div>
-                <button type="submit" className="btn btn-default">Login</button>
-            </form>;
+            </section>
+        </div>
     }
 
     handleUsernameChange(oEvent) {
@@ -52,10 +68,10 @@ export default class Login extends Component {
         oEvent.preventDefault();
         let username = this.state.username.trim();
         let password = this.state.password;
-        if(!username || !password) {
+        if (!username || !password) {
             return;
         }
-        
+
         //TODO
         this.setState({username: "", password: ""});
     }

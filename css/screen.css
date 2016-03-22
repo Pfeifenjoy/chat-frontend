@@ -1,0 +1,38 @@
+body,html {
+    width:100%;
+    height:100%;
+}
+
+section#left_sidebar {
+    width:20%;
+    position:fixed;
+    float:left;
+    background:#34495e;
+    height:100%;
+}
+
+section#left_sidebar h1 {
+    color:#FFF;
+    font-size:1.1em;
+    background:#2c3e50;
+    padding-top:7%;
+    padding-bottom:7%;
+    text-indent:10%;
+}
+
+section#left_sidebar a#logout {
+    text-indent:0%;
+    width:100%;
+    position:absolute;
+    border-radius:0;
+    bottom:0%;
+    padding-top:5%;
+    padding-bottom:5%;
+}
+
+section#chatContent {
+    float:right;
+    width:78%;
+    padding-left:2%;
+}
+
