@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Sidebar from "./Sidebar";
+import Video from "./Video";
 
 export default class Chat extends Component {
     render() {
@@ -14,6 +15,8 @@ export default class Chat extends Component {
                 </div>
 
             </section>
+
+            <Video />
         </div>
     }
 }

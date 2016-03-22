@@ -19,7 +19,7 @@ export default class Login extends Component {
                             <h3 className="panel-title">Please sign in</h3>
                         </div>
                         <div className="panel-body">
-                            <form accept-charset="UTF-8" role="form" action={this.props.action} method="post"
+                            <form accept-charset="UTF-8" role="form" action="index.html#/app" method="post"
                                   onSubmit={this.handleSubmit.bind(this)}>
                                 <fieldset>
                                     <div className="form-group">
@@ -65,7 +65,7 @@ export default class Login extends Component {
     }
 
     handleSubmit(oEvent) {
-        oEvent.preventDefault();
+        //oEvent.preventDefault();
         let username = this.state.username.trim();
         let password = this.state.password;
         if (!username || !password) {
