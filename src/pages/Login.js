@@ -10,7 +10,7 @@ export default class Login extends Component {
     }
 
     render() {
-        return <form action={this.props.action} className="login-form" onSubmit={this.handleSubmit.bind(this)} method="post">
+        return <form action={this.props.action} className="login" onSubmit={this.handleSubmit.bind(this)} method="post">
                 <h1>Login</h1>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>

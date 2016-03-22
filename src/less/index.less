@@ -1,0 +1,108 @@
+@import "colors.less";
+
+body, html {
+    padding: 0;
+    margin: 0;
+    height:100%;
+    width:100%;
+}
+
+.clear {
+	clear:both;
+}
+
+div.page-header {
+	padding-left:5%;
+	
+}
+
+#content {
+    background-color: @content-background;
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+}
+
+.login-form {
+    background-color: @cape-honey;
+    padding: 2.5em;
+    border-radius: 0.5em;
+}
+
+#videos {
+	padding-right:5%;
+	padding-left:5%;
+}
+
+#videos video {
+	float:left;
+	width:65%;
+}
+
+#videos input {
+	margin-bottom:2%;
+	outline:none;
+	position:fixed;
+	bottom:0%;
+	left:19%;
+}
+
+ video#localVideo {
+	width:20%;
+	position:fixed;
+	bottom:5%;
+	right:5%;
+}
+
+section#left_sidebar {
+	width:15%;
+	display:block;
+	float:left;
+	min-height:100%;
+	height:100%;
+	position:fixed;
+	background: #34495e;
+	text-indent:5%;
+}
+
+section#left_sidebar h1 {
+	color:#FFF;
+	font-size:1.1em;
+	background:#2c3e50;
+	padding-top:7%;
+	padding-bottom:7%;
+}
+
+section#left_sidebar a#logout {
+	text-indent:0%;
+	width:100%;
+	position:absolute;
+	border-radius:0;
+	bottom:0%;
+	padding-top:5%;
+	padding-bottom:5%;
+
+
+}
+
+section#chatContent {
+	float:right;
+	width:85%;
+}
+
+#login {
+    padding-top: 15em;
+}
+
+.wrapper {
+	background:url("../img/login_bg.png") no-repeat;
+	background-size:cover;
+	width:100%;
+	height:100%;
+}
+
+.contacts td {
+    //TODO styling
+    background-color: blue;
+}
+
