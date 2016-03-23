@@ -5,11 +5,27 @@ export default class Login extends Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            submitFailed: false
         };
     }
 
     render() {
+        const usernameState = "form-group" + (this.state.submitFailed && this.state.username.trim() === "" ? " has-error" : "");
+        const username = <div className={usernameState}>
+            <input className="form-control" placeholder="Username"
+               value={this.state.username}
+               onChange={this.handleUsernameChange.bind(this)} name="username"
+               type="text"/>
+           </div>;
+        const passwordState = "form-group" + (this.state.submitFailed && this.state.password.length < 10 ? " has-error" : "");
+        const password = <div className={passwordState}>
+            <input className="form-control" placeholder="Password"
+               value={this.state.password}
+               onChange={this.handlePasswordChange.bind(this)} name="password"
+               type="password"
+               />
+           </div>;
         return <div id="login_wrapper">
             <section id="login" className="container">
                 <div className="row">
@@ -22,23 +38,11 @@ export default class Login extends Component {
                                 <form accept-charset="UTF-8" role="form" action="index.html#/app" method="post"
                                       onSubmit={this.handleSubmit.bind(this)}>
                                     <fieldset>
-                                        <div className="form-group">
-                                            <input className="form-control" placeholder="Username"
-                                                   value={this.state.username}
-                                                   onChange={this.handleUsernameChange.bind(this)} name="username"
-                                                   type="text"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <input className="form-control" placeholder="Password"
-                                                   value={this.state.password}
-                                                   onChange={this.handlePasswordChange.bind(this)} name="password"
-                                                   type="password"
-                                                   value=""/>
-                                        </div>
+                                        {username}
+                                        {password}
                                         <div className="checkbox">
                                             <label>
-                                                <input name="remember" type="checkbox" value="Remember Me"> Remember
-                                                    Me </input>
+                                                <input name="remember" type="checkbox" value="Remember Me" />
                                             </label>
                                         </div>
                                         <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
@@ -66,10 +70,11 @@ export default class Login extends Component {
     }
 
     handleSubmit(oEvent) {
-        //oEvent.preventDefault();
+        oEvent.preventDefault();
         let username = this.state.username.trim();
         let password = this.state.password;
         if (!username || !password) {
+            this.setState({submitFailed: true});
             return;
         }
 
