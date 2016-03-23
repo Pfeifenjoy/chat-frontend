@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import $ from "jquery";
+import {hashHistory} from "react-router";
 
 export default class Login extends Component {
     constructor(props) {
@@ -70,7 +72,13 @@ export default class Login extends Component {
             return;
         }
 
-        //TODO
+        $.ajax({
+            url: "/api/v1/authenticate",
+            method: "POST",
+            data: { username, password }
+        }).done(oData => {
+            hashHistory.push("/app");
+        });
         this.setState({username: "", password: "", submitFailed: false});
     }
 

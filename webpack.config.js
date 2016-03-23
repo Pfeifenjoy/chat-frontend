@@ -10,13 +10,17 @@ if(dev) {
 }
 
 module.exports = {
-    devtool: "eval",
+    devtool: "source-map",
     entry: entry,
     output: { 
         path: __dirname + "/build" ,
         filename: 'bundle.js',
         publicPath: "/build/"
     },
+    devServer: {
+        contentBase: "./build",
+    },
+    progress: true,
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({

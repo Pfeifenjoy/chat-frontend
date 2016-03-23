@@ -8,7 +8,6 @@ import {Router, Route, IndexRoute, hashHistory} from "react-router";
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import Layout from "./pages/Layout";
-import Sidebar from "./pages/Sidebar";
 
 const app = document.getElementById("content");
 
