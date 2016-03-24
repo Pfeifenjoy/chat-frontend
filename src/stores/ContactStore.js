@@ -22,9 +22,9 @@ class ContactStore extends EventEmitter {
     }
     
     updateContacts() {
-        console.log(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim()+"/contacts");
+        console.log("Username: " + UserStore.config.username);
         $.ajax({
-            url: configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim() + "/contacts",
+            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim()+"/", "contacts"),
             method: "GET",
             crossDomain: true
         }).done(oData => {

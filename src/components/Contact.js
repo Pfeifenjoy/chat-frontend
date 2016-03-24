@@ -10,12 +10,9 @@ class Contact extends Component {
 
     constructor(props) {
         super(props);
-        console.log(UserStore.getAll().username);
         this.state = {
             contactStore: ContactStore.getAll()
         };
-
-        console.log("state initialized");
 
 
     }
@@ -51,7 +48,7 @@ class Contact extends Component {
     handleEnter(event) {
         if(event.keyCode === 13) {
            $.ajax({
-                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + UserStore.getAll().username+"/", "addContact"),
+                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + UserStore.config.username+"/", "addContact"),
                 method: "POST",
                 data: { username: event.target.value },
                 crossDomain: true

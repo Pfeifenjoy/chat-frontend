@@ -81,12 +81,14 @@ export default class Login extends Component {
             data: { username, password },
             crossDomain: true
         }).done(oData => {
+            console.log(oData);
             if(oData.success) {
                 newUsername(username);
-                console.log(UserStore.getAll());
+                
+
                 hashHistory.push("/app");
             }
-            console.log(oData);
+
             //
         });
         this.setState({username: "", password: "", submitFailed: false});

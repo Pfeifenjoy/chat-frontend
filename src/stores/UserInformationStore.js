@@ -10,7 +10,7 @@ class UserStore extends EventEmitter {
                 username: ""
             }
 
-        this.save();
+        //this.save();
     }
 
     save() {
@@ -24,6 +24,7 @@ class UserStore extends EventEmitter {
     updateUsername(username) {
         console.log("change username");
         this.config.username = username;
+        this.save();
         this.emit("change");
     }
 
