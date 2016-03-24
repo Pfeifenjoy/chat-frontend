@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
-import {selectUser, refreshContacts} from "../actions/ContactActions";
+import {selectUser, refreshContacts, addUser} from "../actions/ContactActions";
 import url from "url";
 import ConfigStore from "../stores/ConfigStore";
 import UserStore from "../stores/UserInformationStore";
@@ -35,6 +35,7 @@ class Contact extends Component {
 
             return <li key={i} onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
                 <a className={className} data-id={i} href="#">{contact.username}</a>
+                <span data-username = {contact.username} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
             </li>;
         });
         return <div>
@@ -47,18 +48,14 @@ class Contact extends Component {
 
     handleEnter(event) {
         if(event.keyCode === 13) {
-           $.ajax({
-                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + UserStore.config.username+"/", "addContact"),
-                method: "POST",
-                data: { username: event.target.value },
-                crossDomain: true
-            }).done(oData => {
-               if(oData.success) {
-                   refreshContacts();
-               }
-
-            });
+            addUser(event.target.value);
+          
         }
+    }
+
+    deleteUser(event) {
+        event.preventDefault();
+        //event.target.dataset.username
     }
 
     handleContactSelect(event) {
