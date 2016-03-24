@@ -15,7 +15,7 @@ new WebpackDevServer(webpack(config), {
           secure: false
       },
       ":3434*": {
-          target: "http://localhost:3434",
+          target: "ws://arwedhub:3434",
           secure: false
       }
   }

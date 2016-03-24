@@ -28,6 +28,7 @@ export default class BaseUrlInput extends Component {
                    value={this.state.config.serverRoot}
                    onChange={this.handleBaseUrlChange.bind(this)} 
                    type="text"/>
+                <br />
                </div>;
         }
         return <div></div>;

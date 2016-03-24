@@ -65,7 +65,7 @@ export default class Video extends Component {
         serverConnection = null;
 
 
-        serverConnection = new WebSocket('ws://' + location.hostname + ':3434');
+        serverConnection = new WebSocket('ws://arwedhub:3434');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 
         var constraints = {
