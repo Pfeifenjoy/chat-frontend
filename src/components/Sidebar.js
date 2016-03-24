@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Contact from "./Contact";
 
 export default class Sidebar extends Component {
     render() {
@@ -7,6 +8,8 @@ export default class Sidebar extends Component {
             <a id="logout" className="btn btn-warning" href="index.html">
                 <span className="glyphicon glyphicon-log-out"></span> Logout
             </a>
+
+            <Contact />
         </section>
     }
 }

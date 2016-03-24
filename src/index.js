@@ -1,5 +1,6 @@
 require("./less/index.less");
 require("bootstrap-webpack");
+require("font-awesome-webpack");
 
 import React from "react";
 import ReactDom from "react-dom";
