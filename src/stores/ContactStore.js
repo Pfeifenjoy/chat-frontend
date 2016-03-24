@@ -50,6 +50,26 @@ class ContactStore extends EventEmitter {
         });
     }
 
+    deleteUser(user) {
+        console.log("Delete user: " + user);
+        $.ajax({
+            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username + "/", "deleteContact"),
+            method: "POST",
+            data: {username: user},
+            crossDomain: true
+        }).done(oData => {
+            console.log("oData: " + oData);
+            if (oData.success) {
+                console.log("will update");
+                this.updateContacts();
+            }
+
+
+
+        });
+
+    }
+
     handleActions(action) {
         switch (action.type) {
             case constants.USER_SELECTED :
@@ -66,6 +86,11 @@ class ContactStore extends EventEmitter {
             case constants.ADD_USER :
             {
                 this.addUser(action.text);
+                break;
+            }
+            case constants.DELETE_USER :
+            {
+                this.deleteUser(action.text);
                 break;
             }
         }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
-import {selectUser, refreshContacts, addUser} from "../actions/ContactActions";
+import {selectUser, refreshContacts, addUser, deleteUser} from "../actions/ContactActions";
 import url from "url";
 import ConfigStore from "../stores/ConfigStore";
 import UserStore from "../stores/UserInformationStore";
@@ -49,12 +49,12 @@ class Contact extends Component {
     handleEnter(event) {
         if(event.keyCode === 13) {
             addUser(event.target.value);
-          
         }
     }
 
     deleteUser(event) {
         event.preventDefault();
+        deleteUser(event.target.dataset.username);
         //event.target.dataset.username
     }
 
