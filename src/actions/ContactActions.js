@@ -8,6 +8,20 @@ export function selectUser(id) {
     })
 }
 
+export function addUser(text) {
+    dispatcher.dispatch({
+        type: constants.ADD_USER,
+        text
+    })
+}
+
+export function deleteUser(text) {
+    dispatcher.dispatch({
+        type: constants.DELETE_USER,
+        text
+    })
+}
+
 export function refreshContacts() {
     dispatcher.dispatch({
         type: constants.REFRESH_CONTACTS
