@@ -2,7 +2,9 @@ import {EventEmitter} from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
 import configStore from "./ConfigStore";
+import UserStore from "./UserInformationStore";
 import url from "url";
+
 
 class ContactStore extends EventEmitter {
     constructor(props) {
@@ -20,12 +22,17 @@ class ContactStore extends EventEmitter {
     }
     
     updateContacts() {
+        console.log(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim()+"/contacts");
         $.ajax({
-            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation, "admin/contacts"),
+            url: configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim() + "/contacts",
             method: "GET",
             crossDomain: true
         }).done(oData => {
+            console.log(url);
+            console.log("oData: " + oData);
+            console.log(oData.result);
             this.store.contacts = oData.result;
+            console.log(this.store.contacts);
             this.emit("change");
         });
         

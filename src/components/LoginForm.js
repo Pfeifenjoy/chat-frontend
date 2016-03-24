@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import $ from "jquery";
 import {hashHistory, Link} from "react-router";
 import url from "url";
+import {newUsername} from "../actions/UserActions";
+import UserStore from "../stores/UserInformationStore";
 
 
 
@@ -79,7 +81,13 @@ export default class Login extends Component {
             data: { username, password },
             crossDomain: true
         }).done(oData => {
-            hashHistory.push("/app");
+            if(oData.success) {
+                newUsername(username);
+                console.log(UserStore.getAll());
+                hashHistory.push("/app");
+            }
+            console.log(oData);
+            //
         });
         this.setState({username: "", password: "", submitFailed: false});
     }

@@ -3,12 +3,14 @@ import ContactStore from "../stores/ContactStore";
 import {selectUser, refreshContacts} from "../actions/ContactActions";
 import url from "url";
 import ConfigStore from "../stores/ConfigStore";
+import UserStore from "../stores/UserInformationStore";
 
 
 class Contact extends Component {
 
     constructor(props) {
         super(props);
+        console.log(UserStore.getAll().username);
         this.state = {
             contactStore: ContactStore.getAll()
         };
@@ -49,7 +51,7 @@ class Contact extends Component {
     handleEnter(event) {
         if(event.keyCode === 13) {
            $.ajax({
-                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + "admin/", "addContact"),
+                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + UserStore.getAll().username+"/", "addContact"),
                 method: "POST",
                 data: { username: event.target.value },
                 crossDomain: true
