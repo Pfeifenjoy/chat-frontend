@@ -13,13 +13,6 @@ new WebpackDevServer(webpack(config), {
       "/api/v1*": {
           target: "http://localhost:3001",
           secure: false
-<<<<<<< HEAD
-=======
-      },
-      ":3434*": {
-          target: "ws://arwedhub:3434",
-          secure: false
->>>>>>> fae3b29da2cf742e4a0b80cc8d220ab672056c57
       }
   }
 }).listen(3000, "0.0.0.0", function (err, result) {
