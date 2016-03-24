@@ -1,27 +1,35 @@
 import {EventEmitter} from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
+import configStore from "./ConfigStore";
+import url from "url";
 
 class ContactStore extends EventEmitter {
     constructor(props) {
         super(props);
-
+        
         this.store = {
             contacts: [
-                {
-                    online: true,
-                    name: "Arwed"
-                },
-
-                {
-                    online: false,
-                    name: "Steffen"
-                }
+               
             ],
 
             selected: 0
         };
 
+
+    }
+    
+    updateContacts() {
+        $.ajax({
+            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation, "admin/contacts"),
+            method: "GET",
+            crossDomain: true
+        }).done(oData => {
+            this.store.contacts = oData.result;
+            this.emit("change");
+        });
+        
+        
     }
 
     getAll() {
@@ -33,6 +41,10 @@ class ContactStore extends EventEmitter {
             case constants.USER_SELECTED : {
                 this.store.selected = action.id;
                 this.emit("change");
+                break;
+            }
+            case constants.REFRESH_CONTACTS : {
+                this.updateContacts();
                 break;
             }
         }

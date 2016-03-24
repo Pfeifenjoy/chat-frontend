@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
-import {selectUser} from "../actions/ContactActions";
+import {selectUser, refreshContacts} from "../actions/ContactActions";
+
 
 class Contact extends Component {
 
@@ -9,11 +10,18 @@ class Contact extends Component {
         this.state = {
             contactStore: ContactStore.getAll()
         };
+
+        console.log("state initialized");
+
+
     }
 
     componentWillMount() {
         ContactStore.on("change", this.updateContacts.bind(this));
+        refreshContacts();
     }
+
+   
 
     updateContacts() {
         this.setState({contactStore: ContactStore.getAll()});
@@ -24,8 +32,8 @@ class Contact extends Component {
 
             let className = "fa" + (contact.online ? " fa-circle" : " fa-circle-thin");
 
-            return <li onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
-                <a className={className} data-id={i} href="#">{contact.name}</a>
+            return <li key={i} onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
+                <a className={className} data-id={i} href="#">{contact.username}</a>
             </li>;
         });
         return <div>
@@ -38,7 +46,6 @@ class Contact extends Component {
 
     handleContactSelect(event) {
         event.preventDefault();
-        console.log(event.target.dataset.id);
         selectUser(event.target.dataset.id);
     }
 }

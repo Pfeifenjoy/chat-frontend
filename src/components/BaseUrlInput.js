@@ -22,14 +22,15 @@ export default class BaseUrlInput extends Component {
     render() {
         //Only display in electron app
         if(this.state.device.electron) {
-            return <div className="input-group">
+            return <div className="input-group" id="url">
                 <span className="input-group-addon">host</span>
                 <input className="form-control" placeholder="http://www.chat.de"
                    value={this.state.config.serverRoot}
                    onChange={this.handleBaseUrlChange.bind(this)} 
                    type="text"/>
-                <br />
-               </div>;
+
+               </div>
+                ;
         }
         return <div></div>;
     }

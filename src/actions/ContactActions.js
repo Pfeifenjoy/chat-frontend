@@ -6,5 +6,10 @@ export function selectUser(id) {
         type: constants.USER_SELECTED,
         id
     })
-    
+}
+
+export function refreshContacts() {
+    dispatcher.dispatch({
+        type: constants.REFRESH_CONTACTS
+    })
 }
