@@ -40,12 +40,7 @@ export default class Login extends Component {
                                 {username}
                                 {password}
                                 {this.props.children}
-                                <div className="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me" />
-                                        <p>Remember me</p>
-                                    </label>
-                                </div>
+                              
                                 <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
                             </fieldset>
                         </form>
