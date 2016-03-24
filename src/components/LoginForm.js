@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import $ from "jquery";
 import {hashHistory} from "react-router";
+import url from "url";
 
 export default class Login extends Component {
     constructor(props) {
@@ -38,6 +39,7 @@ export default class Login extends Component {
                             <fieldset>
                                 {username}
                                 {password}
+                                {this.props.children}
                                 <div className="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me" />
@@ -73,9 +75,10 @@ export default class Login extends Component {
         }
 
         $.ajax({
-            url: "/api/v1/authenticate",
+            url: url.resolve(this.props.target, "authenticate"),
             method: "POST",
-            data: { username, password }
+            data: { username, password },
+            crossDomain: true
         }).done(oData => {
             hashHistory.push("/app");
         });

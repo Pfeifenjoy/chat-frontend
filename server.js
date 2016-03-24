@@ -13,6 +13,10 @@ new WebpackDevServer(webpack(config), {
       "/api/v1*": {
           target: "http://localhost:3001",
           secure: false
+      },
+      ":3434*": {
+          target: "http://localhost:3434",
+          secure: false
       }
   }
 }).listen(3000, 'localhost', function (err, result) {
