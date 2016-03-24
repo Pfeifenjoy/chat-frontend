@@ -111,6 +111,9 @@ export default class Video extends Component {
         if(isCaller) {
             peerConnection.createOffer(this.gotDescription.bind(this), this.createOfferError.bind(this));
         }
+        else {
+            console.log("error is caller");
+        }
 
         setInterval(() => { if(peerConnection.iceConnectionState == "disconnected") { this.stopVideo.bind(this)(); clearInterval(this);}}, 500);
         
@@ -186,7 +189,7 @@ export default class Video extends Component {
     }
 
     stopVideo() {
-        newNotify(true, "Video stopepd");
+        newNotify(true, "Video stopped");
         //console.log("video will be stoppedn");
         var videos = document.getElementsByTagName("video");
         for (var i = 0; i < videos.length; i++) {

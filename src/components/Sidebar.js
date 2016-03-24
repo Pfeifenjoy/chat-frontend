@@ -9,7 +9,7 @@ export default class Sidebar extends Component {
         return <section id="left_sidebar">
             <h1>Contacts</h1>
             <Link id="logout" className="btn btn-warning" onClick={this.logout} to="/">
-                <span className="glyphicon glyphicon-log-out"></span> Logout
+                <span className="fa fa-sign-out"></span> Logout
             </Link>
 
             <Contact />

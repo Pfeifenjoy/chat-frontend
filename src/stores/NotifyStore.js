@@ -21,11 +21,10 @@ class NotifyStore extends EventEmitter {
     handleActions(action) {
         switch(action.type) {
             case constants.NEW_NOTIFY: {
-                this.startNotify(action.boolean, action.text);
-                console.log("startNotify");
+                this.setNotify(action.boolean, action.text);
+
                 if(action.boolean) {
                     setTimeout(() => {
-                        console.log("inactive");
                         newNotify(false, this.notify.message);
                     }, 2000);
 
@@ -39,11 +38,9 @@ class NotifyStore extends EventEmitter {
         }
     }
 
-    startNotify(status, msg) {
+    setNotify(status, msg) {
         this.notify = {active: status, message: msg};
     }
-
-
 
 }
 

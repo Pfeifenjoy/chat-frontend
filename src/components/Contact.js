@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
 import {selectUser, refreshContacts} from "../actions/ContactActions";
+import url from "url";
+import ConfigStore from "../stores/ConfigStore";
 
 
 class Contact extends Component {
@@ -40,9 +42,25 @@ class Contact extends Component {
             <ul id="contacts">
                 {contacts}
             </ul>
+            <input type="text" name="addContact" id="newContact" placeholder="New Contact" onKeyDown={this.handleEnter.bind(this)}/>
         </div>
     }
 
+    handleEnter(event) {
+        if(event.keyCode === 13) {
+            console.log("enter hitted");
+            console.log(event.target.value);
+
+           $.ajax({
+                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation, "addContact"),
+                method: "POST",
+                data: { username: event.target.value },
+                crossDomain: true
+            }).done(oData => {
+                console.log(oData.result)
+            });
+        }
+    }
 
     handleContactSelect(event) {
         event.preventDefault();
