@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import NotifyStore from "../stores/NotifyStore";
+import {newNotify} from "../actions/NotifyActions";
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
@@ -20,10 +22,23 @@ export default class Video extends Component {
             buttonActive: false,
             
         };
+        this.notify = NotifyStore.getNotify();
+    }
+
+    componentWillMount() {
+        NotifyStore.on("notify", this.updateNotify.bind(this));
     }
     componentDidMount() {
         this.pageReady();
     }
+    
+    updateNotify() {
+
+        this.notify = NotifyStore.getNotify();
+
+        this.forceUpdate();
+    }
+
     render() {
       
         return <div id="videos">
@@ -35,6 +50,9 @@ export default class Video extends Component {
                     <br />
                   
                     <div className="clear"></div>
+                    <div id="notifyBox" className={(this.notify.active) ? 'notifyActive' : 'inactive'}>
+                        {this.notify.message}
+                    </div>
                 </div>
        
     }
@@ -65,7 +83,7 @@ export default class Video extends Component {
         serverConnection = null;
 
 
-        serverConnection = new WebSocket('ws://arwedhub:3434');
+        serverConnection = new WebSocket('ws://localhost:3434');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 
         var constraints = {
@@ -95,6 +113,7 @@ export default class Video extends Component {
         }
 
         setInterval(() => { if(peerConnection.iceConnectionState == "disconnected") { this.stopVideo.bind(this)(); clearInterval(this);}}, 500);
+        
     }
 
     getUserMediaSuccess(stream) {
@@ -122,13 +141,14 @@ export default class Video extends Component {
     }
 
     gotRemoteStream(event) {
-
+        newNotify(true, "Video started");
         //this.state.notify.setNotify("Video starts");
         
         //console.log("got remote stream");
         remoteVideo.src = window.URL.createObjectURL(event.stream);
         document.getElementById("remoteVideo").style.display = 'block';
         this.setState({buttonActive: true});
+
 
     }
 
@@ -166,6 +186,7 @@ export default class Video extends Component {
     }
 
     stopVideo() {
+        newNotify(true, "Video stopepd");
         //console.log("video will be stoppedn");
         var videos = document.getElementsByTagName("video");
         for (var i = 0; i < videos.length; i++) {
