@@ -52,12 +52,15 @@ class Contact extends Component {
             console.log(event.target.value);
 
            $.ajax({
-                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation, "addContact"),
+                url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + "admin/", "addContact"),
                 method: "POST",
                 data: { username: event.target.value },
                 crossDomain: true
             }).done(oData => {
-                console.log(oData.result)
+               if(oData.success) {
+                   refreshContacts();
+               }
+
             });
         }
     }
