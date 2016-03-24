@@ -28,6 +28,7 @@ module.exports = {
             jQuery: "jquery"
         })
     ],
+    host: "192.168.178.100",
     module: {
         loaders: [
             {
