@@ -15,7 +15,9 @@ new WebpackDevServer(webpack(config), {
           secure: false
       }
   }
-}).listen(3000, "0.0.0.0", function (err, result) {
+
+}).listen(3000, '0.0.0.0', function (err, result) {
+
   if (err) {
     return console.log(err);
   }
