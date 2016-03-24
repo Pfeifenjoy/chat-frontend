@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import $ from "jquery";
-import {hashHistory} from "react-router";
+import {hashHistory, Link} from "react-router";
 import url from "url";
+
+
 
 export default class Login extends Component {
     constructor(props) {
@@ -40,11 +42,13 @@ export default class Login extends Component {
                                 {username}
                                 {password}
                                 {this.props.children}
-                              
+
                                 <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
                             </fieldset>
                         </form>
+                        <span>Or <Link to="register">register</Link></span>
                     </div>
+
                 </div>;
     }
 
