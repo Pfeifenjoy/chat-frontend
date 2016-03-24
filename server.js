@@ -3,18 +3,19 @@ var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
 new WebpackDevServer(webpack(config), {
-  publicPath: config.output.publicPath,
-  hot: true,
-  historyApiFallback: true,
-  stats: {
+    publicPath: config.output.publicPath,
+    hot: true,
+    historyApiFallback: true,
+    stats: {
       colors: true
-  },
-  proxy: {
+    },
+    https: false,
+    proxy: {
       "/api/v1*": {
           target: "http://localhost:3001",
           secure: false
       }
-  }
+    }
 
 }).listen(3000, '0.0.0.0', function (err, result) {
 

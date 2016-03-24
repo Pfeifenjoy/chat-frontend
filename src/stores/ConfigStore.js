@@ -7,7 +7,7 @@ class ConfigStore extends EventEmitter {
         super();
 
         this.config = JSON.parse(window.localStorage.getItem("ConfigStore")) || {
-            serverRoot: "http://" + location.host,
+            serverRoot: location.origin,
             wssPort: 3434,
             apiLocation: "/api/v1/"
         }
