@@ -48,9 +48,6 @@ class Contact extends Component {
 
     handleEnter(event) {
         if(event.keyCode === 13) {
-            console.log("enter hitted");
-            console.log(event.target.value);
-
            $.ajax({
                 url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation + "admin/", "addContact"),
                 method: "POST",
