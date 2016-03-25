@@ -27,3 +27,10 @@ export function refreshContacts() {
         type: constants.REFRESH_CONTACTS
     })
 }
+
+export function updateLoadingAdnimation() {
+    dispatcher.dispatch({
+        type: constants.UPDATE_LOADING_ANIMATION
+    })
+
+}

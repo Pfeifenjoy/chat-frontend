@@ -83,6 +83,7 @@ export default class Video extends Component {
         serverConnection = null;
 
 
+        //serverConnection = new WebSocket('wss://ne4y-dev.de/ws');
         serverConnection = new WebSocket('ws://localhost:3434');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 

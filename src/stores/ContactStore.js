@@ -12,9 +12,11 @@ class ContactStore extends EventEmitter {
 
         this.store = {
             contacts: [],
-
+            status: false,
             selected: 0
         };
+
+
 
 
     }
@@ -28,12 +30,19 @@ class ContactStore extends EventEmitter {
             this.store.contacts = oData.result;
             this.emit("change");
         });
-
-
     }
 
     getAll() {
         return this.store;
+    }
+
+    getStat() {
+        return this.store.status;
+    }
+
+    setStat(status) {
+        console.log("set status");
+        this.store.status = status;
     }
 
     addUser(user) {
@@ -47,6 +56,9 @@ class ContactStore extends EventEmitter {
                 this.updateContacts();
             }
 
+            this.setStat(false);
+            this.emit("update");
+
         });
     }
 
@@ -58,14 +70,11 @@ class ContactStore extends EventEmitter {
             data: {username: user},
             crossDomain: true
         }).done(oData => {
-            console.log("oData: " + oData);
             if (oData.success) {
-                console.log("will update");
                 this.updateContacts();
+                this.setStat(false);
+                this.emit("update");
             }
-
-
-
         });
 
     }
@@ -91,6 +100,10 @@ class ContactStore extends EventEmitter {
             case constants.DELETE_USER :
             {
                 this.deleteUser(action.text);
+                break;
+            }
+            case constants.UPDATE_LOADING_ANIMATION : {
+                this.emit("update");
                 break;
             }
         }

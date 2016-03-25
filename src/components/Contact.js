@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
-import {selectUser, refreshContacts, addUser, deleteUser} from "../actions/ContactActions";
-import url from "url";
-import ConfigStore from "../stores/ConfigStore";
-import UserStore from "../stores/UserInformationStore";
+import {selectUser, refreshContacts, deleteUser} from "../actions/ContactActions";
+import AddContactForm from "./AddContactForm";
 
 
 class Contact extends Component {
@@ -42,15 +40,11 @@ class Contact extends Component {
             <ul id="contacts">
                 {contacts}
             </ul>
-            <input type="text" name="addContact" id="newContact" placeholder="New Contact" onKeyDown={this.handleEnter.bind(this)}/>
-        </div>
-    }
 
-    handleEnter(event) {
-        if(event.keyCode === 13) {
-            addUser(event.target.value);
-        }
+            <AddContactForm />
+           </div>
     }
+    
 
     deleteUser(event) {
         event.preventDefault();
