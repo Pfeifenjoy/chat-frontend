@@ -17,10 +17,10 @@ class Contact extends Component {
 
     componentWillMount() {
         ContactStore.on("change", this.updateContacts.bind(this));
-        refreshContacts();
     }
     componentDidMount() {
         this._isMounted = true;
+        refreshContacts();
     }
     componentWillUnmount() {
         this._isMounted = false;
