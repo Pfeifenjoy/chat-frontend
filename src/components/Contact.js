@@ -13,7 +13,7 @@ class Contact extends Component {
         this.state = {
             contactStore: ContactStore.getAll()
         };
-
+        this._isMounted = false;
 
     }
 
@@ -21,11 +21,17 @@ class Contact extends Component {
         ContactStore.on("change", this.updateContacts.bind(this));
         refreshContacts();
     }
-
+    componentDidMount() {
+        this._isMounted = true;
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
    
 
     updateContacts() {
-        this.setState({contactStore: ContactStore.getAll()});
+        if(this._isMounted)
+            this.setState({contactStore: ContactStore.getAll()});
     }
 
     render() {

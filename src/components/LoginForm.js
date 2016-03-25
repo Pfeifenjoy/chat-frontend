@@ -13,7 +13,8 @@ export default class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            submitFailed: false
+            submitFailed: false,
+            loading: false
         };
     }
 
@@ -23,6 +24,7 @@ export default class Login extends Component {
             <input className="form-control" placeholder="Username"
                value={this.state.username}
                onChange={this.handleUsernameChange.bind(this)} name="username"
+               disabled={this.state.loading}
                type="text"/>
            </div>;
         const passwordState = "form-group" + (this.state.submitFailed && this.state.password.length < 10 ? " has-error" : "");
@@ -31,13 +33,16 @@ export default class Login extends Component {
                value={this.state.password}
                onChange={this.handlePasswordChange.bind(this)} name="password"
                type="password"
+               disabled={this.state.loading}
                />
            </div>;
+       const loginFailed = <div className="alert alert-dange">Login failed.</div>;
        return <div className="panel panel-default">
                     <div className="panel-heading">
                         <h3 className="panel-title">Please sign in</h3>
                     </div>
                     <div className="panel-body">
+                        {(() => {if(this.state.submitFailed) return loginFailed})()}
                         <form acceptCharset="UTF-8" role="form" action="index.html#/app" method="post"
                               onSubmit={this.handleSubmit.bind(this)}>
                             <fieldset>
@@ -45,7 +50,7 @@ export default class Login extends Component {
                                 {password}
                                 {this.props.children}
 
-                                <input className="btn btn-lg btn-success btn-block" type="submit" value="Login"/>
+                                <input className="btn btn-lg btn-success btn-block" type="submit" value={this.state.loading ? "Loading..." : "Login"} disabled={this.state.loading} />
                             </fieldset>
                         </form>
                         <span>Or <Link to="register">register</Link></span>
@@ -75,23 +80,21 @@ export default class Login extends Component {
             return;
         }
 
+        this.setState({loading: true});
         $.ajax({
             url: url.resolve(this.props.target, "authenticate"),
             method: "POST",
             data: { username, password },
             crossDomain: true
         }).done(oData => {
-            console.log(oData);
             if(oData.success) {
                 newUsername(username);
-                
-
                 hashHistory.push("/app");
             }
 
-            //
+        }).fail(() => {
+            this.setState({submitFailed: true, loading: false, password: ""});
         });
-        this.setState({username: "", password: "", submitFailed: false});
     }
 
 }
