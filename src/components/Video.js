@@ -84,6 +84,7 @@ export default class Video extends Component {
 
 
         serverConnection = new WebSocket('ws://' + location.hostname + ':3434');
+        //serverConnection = new WebSocket('wss://ne4y-dev.de/ws');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 
         var constraints = {
