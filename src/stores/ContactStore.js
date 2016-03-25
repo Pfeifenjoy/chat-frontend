@@ -27,6 +27,7 @@ class ContactStore extends EventEmitter {
             method: "GET",
             crossDomain: true
         }).done(oData => {
+            console.log(oData.result);
             this.store.contacts = oData.result;
             this.emit("change");
         });

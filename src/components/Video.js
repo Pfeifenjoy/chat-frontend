@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import NotifyStore from "../stores/NotifyStore";
 import {newNotify} from "../actions/NotifyActions";
+import {refreshContacts} from "../actions/ContactActions";
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
@@ -96,6 +97,7 @@ export default class Video extends Component {
         serverConnection = new WebSocket('ws://localhost:3434');
         //serverConnection = new WebSocket('wss://ne4y-dev.de/ws');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
+        serverConnection.onclose = () => {console.log("closed")};
 
         var constraints = {
             video: true,
@@ -179,24 +181,31 @@ export default class Video extends Component {
         //console.log("got message from server");
         //console.log(message);
 
-        if(!peerConnection) this.start(false);
+
+        if (!peerConnection) this.start(false);
 
         var signal = JSON.parse(message.data);
 
-        if(signal.conState) {
-            this.stopVideo();
+        if (signal.update != undefined) {
+            refreshContacts();
         }
+        else {
 
-        if(signal.sdp) {
-            peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp), () => {
-                peerConnection.createAnswer(this.gotDescription.bind(this), this.createAnswerError.bind(this));
-            });
-        } else if(signal.ice) {
-            //console.log(signal.ice);
-            peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice));
+            if (signal.conState) {
+                this.stopVideo();
+            }
+
+            if (signal.sdp) {
+                peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp), () => {
+                    peerConnection.createAnswer(this.gotDescription.bind(this), this.createAnswerError.bind(this));
+                });
+            } else if (signal.ice) {
+                //console.log(signal.ice);
+                peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice));
+            }
+
+            //console.log(peerConnection.connectionState);
         }
-
-        //console.log(peerConnection.connectionState);
     }
 
     stopVideo() {
