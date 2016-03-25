@@ -7,6 +7,7 @@ export default class AddContactForm extends Component {
     constructor(props) {
         super(props);
         this.status = ContactStore.getStat();
+        this._isMounted = false;
 
     }
 
@@ -15,10 +16,19 @@ export default class AddContactForm extends Component {
         updateLoadingAdnimation()
     }
 
+    componentDidMount() {
+        this._isMounted = true;
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     updateLoading() {
         console.log("updateLoading: " + ContactStore.getStat());
-        this.status = ContactStore.getStat();
-        this.forceUpdate();
+        if(this._isMounted) {
+            this.status = ContactStore.getStat();
+            this.forceUpdate();
+        }
     }
 
     render() {

@@ -22,21 +22,31 @@ export default class Video extends Component {
             buttonActive: false,
             
         };
+
         this.notify = NotifyStore.getNotify();
+        this._isMounted = false;
     }
 
     componentWillMount() {
         NotifyStore.on("notify", this.updateNotify.bind(this));
     }
+
     componentDidMount() {
+        this._isMounted = true;
         this.pageReady();
     }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     
     updateNotify() {
+        if(this._isMounted) {
+            this.notify = NotifyStore.getNotify();
 
-        this.notify = NotifyStore.getNotify();
-
-        this.forceUpdate();
+            this.forceUpdate();
+        }
     }
 
     render() {
@@ -83,7 +93,7 @@ export default class Video extends Component {
         serverConnection = null;
 
 
-        serverConnection = new WebSocket('ws://' + location.hostname + ':3434');
+        serverConnection = new WebSocket('ws://localhost:3434');
         //serverConnection = new WebSocket('wss://ne4y-dev.de/ws');
         serverConnection.onmessage = this.gotMessageFromServer.bind(this);
 
