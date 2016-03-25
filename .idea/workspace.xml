@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c53e8df-d583-4b15-a062-1d1969d4b0e9" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/actions/test.js" afterPath="" />
-    </list>
+    <list default="true" id="1c53e8df-d583-4b15-a062-1d1969d4b0e9" name="Default" comment="" />
     <ignored path="chat-frontend.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -487,12 +485,12 @@
       <workItem from="1458853302248" duration="19000" />
       <workItem from="1458853334571" duration="2363000" />
       <workItem from="1458855933674" duration="138000" />
-      <workItem from="1458856098546" duration="6079000" />
+      <workItem from="1458856098546" duration="6649000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37561000" />
+    <option name="totallyTimeSpent" value="38131000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
