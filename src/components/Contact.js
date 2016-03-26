@@ -38,8 +38,8 @@ class Contact extends Component {
             let className = "fa" + (contact.online ? " fa-circle" : " fa-circle-thin");
 
             return <li key={i} onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
-                <a className={className} data-id={i} href="#">{contact.username}</a>
-                <span data-username = {contact.username} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
+                <a className={className} data-id={i} href="#">{contact.contactName}</a>
+                <span data-contactName = {contact.contactName} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
             </li>;
         });
         return <div>
@@ -54,8 +54,7 @@ class Contact extends Component {
 
     deleteUser(event) {
         event.preventDefault();
-        deleteUser(event.target.dataset.username);
-        //event.target.dataset.username
+        deleteUser(event.target.dataset.contactName);
     }
 
     handleContactSelect(event) {
