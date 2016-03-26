@@ -21,8 +21,11 @@ class UserStore extends EventEmitter {
         return this.config;
     }
 
+    getUsername() {
+        return this.config.username;
+    }
+
     updateUsername(username) {
-        console.log("change username");
         this.config.username = username;
         this.save();
         this.emit("change");

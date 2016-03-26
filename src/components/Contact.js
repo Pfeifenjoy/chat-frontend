@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
 import {selectUser, refreshContacts, deleteUser, updateLoadingAdnimation} from "../actions/ContactActions";
 import AddContactForm from "./AddContactForm";
+import UserStore from "../stores/UserInformationStore";
 
 
 class Contact extends Component {
@@ -18,17 +19,19 @@ class Contact extends Component {
     componentWillMount() {
         ContactStore.on("change", this.updateContacts.bind(this));
     }
+
     componentDidMount() {
         this._isMounted = true;
         refreshContacts();
     }
+
     componentWillUnmount() {
         this._isMounted = false;
     }
-   
+
 
     updateContacts() {
-        if(this._isMounted)
+        if (this._isMounted)
             this.setState({contactStore: ContactStore.getAll()});
     }
 
@@ -37,20 +40,27 @@ class Contact extends Component {
 
             let className = "fa" + (contact.online ? " fa-circle" : " fa-circle-thin");
 
-            return <li key={i} onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
+            return <li key={i} onClick={this.handleContactSelect.bind(this)}
+                       className={i == this.state.contactStore.selected ? "active" : ""}>
                 <a className={className} data-id={i} href="#">{contact.contactName}</a>
-                <span data-contactname = {contact.contactName} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
+                <span data-contactname={contact.contactName} className="delete fa fa-trash"
+                      onClick={this.deleteUser.bind(this)}></span>
             </li>;
         });
-        return <div>
+        return <div id="contactWrapper">
+            <div id="iconWrapper">
+                <img id="bigIcon" src="src/img/big_icon.jpg"/><i id="username">{UserStore.getUsername()}</i>
+                <img id="smallIcon" className="circular" src="src/img/small_icon.jpg"/>
+            </div>
+
             <ul id="contacts">
                 {contacts}
             </ul>
 
             <AddContactForm />
-           </div>
+        </div>
     }
-    
+
 
     deleteUser(event) {
         event.preventDefault();

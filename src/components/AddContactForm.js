@@ -34,10 +34,10 @@ export default class AddContactForm extends Component {
     render() {
         let className = "fa fa-circle-o-notch fa-spin " + (this.status ? " " : "hidden");
 
-        return <div id="addContactWrapper">
-        <input type="text" name="addContact" id="newContact" placeholder="New Contact"
+        return <div className="addWrapper">
+        <input type="text" name="addContact" className="newElement" placeholder="New Contact"
                onKeyDown={this.handleEnter.bind(this)}/>
-        <i id="addLoader" className={className}></i>
+        <i  className={"addLoader " + className}></i>
         </div>
     }
 
