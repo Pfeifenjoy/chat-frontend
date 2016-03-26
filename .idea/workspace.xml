@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c53e8df-d583-4b15-a062-1d1969d4b0e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/AddRoomForm.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/Room.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/AddContactForm.js" afterPath="$PROJECT_DIR$/src/components/AddContactForm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Contact.js" afterPath="$PROJECT_DIR$/src/components/Contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Sidebar.js" afterPath="$PROJECT_DIR$/src/components/Sidebar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/less/index.less" afterPath="$PROJECT_DIR$/src/less/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stores/UserInformationStore.js" afterPath="$PROJECT_DIR$/src/stores/UserInformationStore.js" />
-    </list>
+    <list default="true" id="1c53e8df-d583-4b15-a062-1d1969d4b0e9" name="Default" comment="" />
     <ignored path="chat-frontend.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,8 +58,8 @@
       <file leaf-file-name="Sidebar.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Sidebar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+            <state relative-caret-position="270">
+              <caret line="18" column="93" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="93" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -505,12 +496,12 @@
       <workItem from="1458892618467" duration="10513000" />
       <workItem from="1458997323937" duration="7704000" />
       <workItem from="1459015186164" duration="285000" />
-      <workItem from="1459026349910" duration="3765000" />
+      <workItem from="1459026349910" duration="4168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61464000" />
+    <option name="totallyTimeSpent" value="61867000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -881,8 +872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Sidebar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+        <state relative-caret-position="270">
+          <caret line="18" column="93" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="93" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
