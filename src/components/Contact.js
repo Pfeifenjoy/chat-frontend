@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
-import {selectUser, refreshContacts, deleteUser} from "../actions/ContactActions";
+import {selectUser, refreshContacts, deleteUser, updateLoadingAdnimation} from "../actions/ContactActions";
 import AddContactForm from "./AddContactForm";
 
 
@@ -39,7 +39,7 @@ class Contact extends Component {
 
             return <li key={i} onClick={this.handleContactSelect.bind(this)}  className={i == this.state.contactStore.selected ? "active" : ""}>
                 <a className={className} data-id={i} href="#">{contact.contactName}</a>
-                <span data-contactName = {contact.contactName} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
+                <span data-contactname = {contact.contactName} className="delete fa fa-trash" onClick={this.deleteUser.bind(this)}></span>
             </li>;
         });
         return <div>
@@ -54,7 +54,9 @@ class Contact extends Component {
 
     deleteUser(event) {
         event.preventDefault();
-        deleteUser(event.target.dataset.contactName);
+        ContactStore.setStat(true);
+        updateLoadingAdnimation();
+        deleteUser(event.target.dataset.contactname);
     }
 
     handleContactSelect(event) {
