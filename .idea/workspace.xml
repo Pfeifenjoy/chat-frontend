@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c53e8df-d583-4b15-a062-1d1969d4b0e9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/TxtChat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/LoginForm.js" afterPath="$PROJECT_DIR$/src/components/LoginForm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/VideoChat.js" afterPath="$PROJECT_DIR$/src/components/VideoChat.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/less/index.less" afterPath="$PROJECT_DIR$/src/less/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Chat.js" afterPath="$PROJECT_DIR$/src/pages/Chat.js" />
     </list>
     <ignored path="chat-frontend.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,10 +62,10 @@
       <file leaf-file-name="index.less" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/less/index.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="84" column="16" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
+            <state relative-caret-position="358">
+              <caret line="81" column="19" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
               <folding>
-                <marker date="1459033213000" expanded="true" signature="1074:1076" placeholder="{...}" />
+                <marker date="1459033710000" expanded="true" signature="1092:1094" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -508,12 +503,12 @@
       <workItem from="1458892618467" duration="10513000" />
       <workItem from="1458997323937" duration="7704000" />
       <workItem from="1459015186164" duration="285000" />
-      <workItem from="1459026349910" duration="5539000" />
+      <workItem from="1459026349910" duration="5927000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63238000" />
+    <option name="totallyTimeSpent" value="63626000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -895,10 +890,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/less/index.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="84" column="16" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
+        <state relative-caret-position="358">
+          <caret line="81" column="19" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="19" />
           <folding>
-            <marker date="1459033213000" expanded="true" signature="1074:1076" placeholder="{...}" />
+            <marker date="1459033710000" expanded="true" signature="1092:1094" placeholder="{...}" />
           </folding>
         </state>
       </provider>
