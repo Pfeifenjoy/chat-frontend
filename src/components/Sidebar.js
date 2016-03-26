@@ -3,6 +3,8 @@ import Contact from "./Contact";
 import {Link} from "react-router";
 import ConfigStore from "../stores/ConfigStore";
 import url from "url";
+import {closeSocket} from "../actions/SocketActions";
+import Videos from "./Video";
 
 export default class Sidebar extends Component {
     render() {
@@ -17,6 +19,7 @@ export default class Sidebar extends Component {
     }
 
     logout() {
+        closeSocket();
         $.ajax({
             url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation, "logout"),
             method: "GET",

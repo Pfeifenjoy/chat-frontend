@@ -6,6 +6,9 @@ const constants = {
     NEW_NOTIFY: "NEW_NOTIFY",
     NEW_USER_NAME: "NEW_USER_NAME",
     ADD_USER: "ADD_USER",
-    DELETE_USER: "DELETE_USER"
+    DELETE_USER: "DELETE_USER",
+    STOP_VIDEO: "STOP_VIDEO",
+    CLOSE_SOCKET: "CLOSE_SOCKET",
+    VIDEO_MESSAGE: "VIDEO_MESSAGE"
 };
 export default constants;

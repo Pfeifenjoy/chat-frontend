@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Sidebar from "../components/Sidebar";
-import Video from "../components/Video";
+import Video from "../components/VideoChat";
 
 export default class Chat extends Component {
     render() {
