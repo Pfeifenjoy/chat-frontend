@@ -13,7 +13,6 @@ window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSess
 export default class Video extends Component {
     constructor(props) {
         super(props);
-        SocketStore.setConnection('ws://localhost:3434');
         this.state = {
             buttonActive: false,
             localVideo: null,

@@ -3,7 +3,7 @@ import $ from "jquery";
 import {hashHistory, Link} from "react-router";
 import url from "url";
 import {newUsername} from "../actions/UserActions";
-import UserStore from "../stores/UserInformationStore";
+import SocketStore from "../stores/SocketStore";
 
 
 
@@ -89,6 +89,7 @@ export default class Login extends Component {
         }).done(oData => {
             if(oData.success) {
                 newUsername(username);
+                SocketStore.setConnection('ws://localhost:3434');
                 hashHistory.push("/app");
             }
 
