@@ -4,6 +4,7 @@ import Room from "./Room";
 import {Link} from "react-router";
 import ConfigStore from "../stores/ConfigStore";
 import url from "url";
+import {closeSocket} from "../actions/SocketActions";
 
 
 export default class Sidebar extends Component {
