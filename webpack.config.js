@@ -17,9 +17,9 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: "/build/"
     },
-    devServer: {
-        contentBase: "./build",
-    },
+//    devServer: {
+//        contentBase: "./build",
+//    },
     progress: true,
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

@@ -10,10 +10,14 @@ import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 import Layout from "./pages/Layout";
 import Register from "./pages/Register";
+import NotificationBar from "./components/NotificationBar";
+
 
 const app = document.getElementById("content");
 
 ReactDom.render(
+    <div className="wrapper">
+    <NotificationBar />
     <Router history={hashHistory}>
         <Route path="/" component={Layout}>
             <IndexRoute component={Login}></IndexRoute>
@@ -25,4 +29,5 @@ ReactDom.render(
             <IndexRoute component={Register}></IndexRoute>
         </Route>
     </Router>
+    </div>
 , app);
