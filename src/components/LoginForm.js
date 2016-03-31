@@ -89,7 +89,7 @@ export default class Login extends Component {
         }).done(oData => {
             if(oData.success) {
                 newUsername(username);
-                SocketStore.setConnection('ws://localhost:3434');
+               
                 hashHistory.push("/app");
             }
 
