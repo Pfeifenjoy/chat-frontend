@@ -7,3 +7,10 @@ export function newUsername(text) {
         text
     })
 }
+
+export function refreshIcons() {
+    dispatcher.dispatch({
+        type: constants.REFRESH_ICONS
+    })
+}
+

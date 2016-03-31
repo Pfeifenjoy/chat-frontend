@@ -3,6 +3,9 @@ import ContactStore from "../stores/ContactStore";
 import {selectUser, refreshContacts, deleteUser, updateLoadingAdnimation} from "../actions/ContactActions";
 import AddContactForm from "./AddContactForm";
 import UserStore from "../stores/UserInformationStore";
+import {refreshIcons} from "../actions/UserActions";
+import SmallIcon from "./SmallIcon";
+import BigIcon from "./BigIcon";
 
 
 class Contact extends Component {
@@ -13,6 +16,8 @@ class Contact extends Component {
             contactStore: ContactStore.getAll()
         };
         this._isMounted = false;
+        refreshIcons();
+        
 
     }
 
@@ -47,10 +52,13 @@ class Contact extends Component {
                       onClick={this.deleteUser.bind(this)}></span>
             </li>;
         });
+
+
+
         return <div id="contactWrapper">
             <div id="iconWrapper">
-                <img id="bigIcon" src="src/img/big_icon.jpg"/><i id="username">{UserStore.getUsername()}</i>
-                <img id="smallIcon" className="circular" src="src/img/default_icon.png"/>
+                <BigIcon /><i id="username">{UserStore.getUsername()}</i>
+                <SmallIcon />
             </div>
 
             <ul id="contacts">

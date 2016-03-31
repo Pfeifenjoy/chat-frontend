@@ -1,13 +1,17 @@
 import {EventEmitter} from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
+import url from "url";
+import ConfigStore from "./ConfigStore";
 
 class UserStore extends EventEmitter {
     constructor() {
         super();
 
         this.config = JSON.parse(window.localStorage.getItem("UserStore")) || {
-                username: ""
+                username: "",
+                small_icon: null,
+                big_icon: null
             }
 
         //this.save();
@@ -30,12 +34,34 @@ class UserStore extends EventEmitter {
         this.save();
         this.emit("change");
     }
+    
+    getIcons() {
+        $.ajax({
+            url: url.resolve(ConfigStore.getAll().serverRoot + ConfigStore.getAll().apiLocation, "userInformation"),
+            method: "GET",
+            crossDomain: true
+        }).done(oData => {
+            console.log("getIcons");
+            this.config.small_icon = oData.small_icon;
+            this.config.big_icon = oData.big_icon;
+            this.emit("iconUpdate");
+        }).fail(() => {
+            console.log("fail");
+        })
+    }
 
     handleActions(action) {
         switch (action.type) {
             case constants.NEW_USER_NAME:
             {
                 this.updateUsername(action.text);
+                break;
+            }
+
+            case constants.REFRESH_ICONS:
+            {
+                this.getIcons();
+
                 break;
             }
         }

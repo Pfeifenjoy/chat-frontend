@@ -58,6 +58,8 @@
     "webpack-dev-server": "1.14.1"
   },
   "dependencies": {
-    "font-awesome-webpack": "0.0.4"
+    "font-awesome-webpack": "0.0.4",
+    "fs": "0.0.2",
+    "react-dropzone": "^3.3.2"
   }
 }

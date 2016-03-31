@@ -2,8 +2,6 @@ import {EventEmitter} from "events";
 import constants from "../constants";
 import dispatcher from "../dispatcher";
 
-
-
 class MaxMinStore extends EventEmitter {
     constructor(props) {
         super(props);
