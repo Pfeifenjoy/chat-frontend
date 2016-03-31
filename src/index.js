@@ -1,4 +1,5 @@
 require("./less/index.less");
+require("./less/TxtChat.less");
 require("bootstrap-webpack");
 require("font-awesome-webpack");
 

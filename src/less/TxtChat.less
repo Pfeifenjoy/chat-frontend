@@ -1,0 +1,70 @@
+/* Chat wrapper */
+#chatWrapper {
+  width:78%;
+  position:fixed;
+  height:75%;
+  overflow-y:scroll;
+  padding-top:3%;
+  -webkit-transition:all 0.3s ease-in-out;
+  -moz-transition:all 0.3s ease-in-out;
+  -o-transition:all 0.3s ease-in-out;
+  transition:all 0.3s ease-in-out;
+
+}
+
+#chatWrapper .answerMsg, #chatWrapper .ownMessage {
+  width: 100%;
+  margin-bottom:4%;
+}
+
+
+#chatWrapper .answerMsg img {
+  width:3%;
+}
+
+#chatWrapper .answerMsg p, #chatWrapper .ownMessage p {
+  background:#E1FAFC;
+  padding:2%;
+  display:inline;
+  border-radius:10px;
+  margin-left:2%;
+}
+
+#chatWrapper .ownMessage {
+  text-align:right;
+}
+
+#chatWrapper .ownMessage p{
+  background:#E7E7E7;
+  margin-right:2%;
+}
+
+#messageField {
+  position:fixed;
+  width:78%;
+  bottom:1%;
+  -webkit-transition:all 0.3s ease-in-out;
+  -moz-transition:all 0.3s ease-in-out;
+  -o-transition:all 0.3s ease-in-out;
+  transition:all 0.3s ease-in-out;
+}
+
+#messageField textarea {
+  padding:1%;
+  resize:none;
+  width:98%;
+  border:1px solid #E7E7E7;
+  border-radius:5px;
+  color:#60646D;
+}
+
+#messageField input {
+  position:fixed;
+  bottom:2%;
+  right:1%;
+  padding:2%;
+}
+
+.maximized {
+  width:90% !important;
+}
