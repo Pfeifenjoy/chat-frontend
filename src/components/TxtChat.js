@@ -9,7 +9,7 @@ export default class TxtChat extends Component {
 
     render() {
         console.log(MaxMinStore.getState().minified);
-        return <div>
+        return <div className="marginLeft">
             <div id="topBar">
                     <span className="btn btn-primary" title="Start video">
                         <i className="fa fa-video-camera"></i>
