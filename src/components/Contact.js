@@ -50,7 +50,7 @@ class Contact extends Component {
         return <div id="contactWrapper">
             <div id="iconWrapper">
                 <img id="bigIcon" src="src/img/big_icon.jpg"/><i id="username">{UserStore.getUsername()}</i>
-                <img id="smallIcon" className="circular" src="src/img/small_icon.jpg"/>
+                <img id="smallIcon" className="circular" src="src/img/default_icon.png"/>
             </div>
 
             <ul id="contacts">

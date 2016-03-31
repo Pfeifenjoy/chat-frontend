@@ -16,7 +16,7 @@ export default class Chat extends Component {
             <Sidebar />
 
             <section id="mainContent" className={(MaxMinStore.getState().minified) ? "maximized" : ""}>
-                <TxtChat />
+
 
             </section>
 

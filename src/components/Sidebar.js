@@ -7,6 +7,7 @@ import url from "url";
 import {closeSocket} from "../actions/SocketActions";
 import MaxMinStore from "../stores/MaxMinStore";
 import {update} from "../actions/MaxMinActions";
+import Menu from "./Menu";
 
 
 export default class Sidebar extends Component {
@@ -28,7 +29,8 @@ export default class Sidebar extends Component {
             </Link>
 
             <Contact />
-            <Room />
+
+            <Menu />
         </section>
     }
 

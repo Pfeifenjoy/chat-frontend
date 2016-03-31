@@ -4,6 +4,7 @@ import Video from "../components/VideoChat";
 import TxtChat from "../components/TxtChat";
 import SocketStore from "../stores/SocketStore";
 import MaxMinStore from "../stores/MaxMinStore";
+import UserStore from "../stores/UserInformationStore";
 
 export default class Chat extends Component {
     componentWillMount() {
@@ -16,7 +17,13 @@ export default class Chat extends Component {
             <Sidebar />
 
             <section id="mainContent" className={(MaxMinStore.getState().minified) ? "maximized" : ""}>
-                <TxtChat />
+                <div id="profileBig" style={{background: 'url("src/img/big_icon.jpg") no-repeat; background-size: cover'}}>
+                    <img src="src/img/small_icon.jpg" className="profileSmall circular" alt="" />
+                    <p>{UserStore.getUsername()}</p>
+                </div>
+
+                <p>Username: {UserStore.getUsername()}</p>
+
 
             </section>
 

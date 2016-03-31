@@ -13,7 +13,7 @@ class ContactStore extends EventEmitter {
         this.store = {
             contacts: [],
             status: false,
-            selected: 0
+            selected: -1
         };
 
 
