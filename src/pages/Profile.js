@@ -9,6 +9,7 @@ import SmallIcon from "../components/SmallIcon";
 import url from "url";
 import configStore from "../stores/ConfigStore";
 import {refreshIcons} from "../actions/UserActions";
+import $ from "jquery";
 
 export default class Profile extends Component {
     componentWillMount() {
@@ -28,8 +29,6 @@ export default class Profile extends Component {
 
         reader.onload = function(upload) {
 
-
-
             $.ajax({
                 url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation, "uploadIcon"),
                 method: "POST",
@@ -46,6 +45,10 @@ export default class Profile extends Component {
         reader.readAsDataURL(file);
 
     }
+    
+    triggerFileUpload() {
+        $('#iconUpload').trigger('click');
+    }
 
     render() {
         let bigImg = (UserStore.getAll().big_icon != null ? UserStore.getAll().big_icon : 'default_big_icon.png');
@@ -56,14 +59,16 @@ export default class Profile extends Component {
 
             <section id="mainContent" className={(MaxMinStore.getState().minified) ? "maximized" : ""}>
                 <div id="profileBig" style={{background: 'url("src/img/'+bigImg+'") no-repeat; background-size: cover'}}>
-                    <SmallIcon />
+                    <div onClick={this.triggerFileUpload.bind(this)}>
+                        <SmallIcon />
+                    </div>
                     <p>{UserStore.getUsername()}</p>
                 </div>
 
                 <p>Username: {UserStore.getUsername()}</p>
 
-                <form onSubmit={this.handleSubmit} encType="multipart/form-data">
-                    <input type="file" onChange={this.handleFile} />
+                <form style={{display:'none'}} onSubmit={this.handleSubmit} encType="multipart/form-data">
+                    <input id="iconUpload" type="file" onChange={this.handleFile} />
                 </form>
 
 
