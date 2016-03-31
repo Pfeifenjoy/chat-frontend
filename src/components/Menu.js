@@ -29,8 +29,8 @@ export default class Menu extends Component {
 
         return <nav>
             <ul>
-                <li className={this.isActive("profile") ? 'active' : ''}><a href="./#profile"><i className="fa fa-user"></i> {MaxMinStore.getState().minified ? '' : 'Profil'}</a></li>
-                <li className={this.isActive("settings") ? 'active' : ''}><a href="./#settings"><i className="fa fa-cog"></i> {MaxMinStore.getState().minified ? '' : 'Settings'}</a></li>
+                <li className={this.isActive("profile") ? 'active' : ''}><a href="#/profile"><i className="fa fa-user"></i> {MaxMinStore.getState().minified ? '' : 'Profil'}</a></li>
+                <li className={this.isActive("settings") ? 'active' : ''}><a href="#/settings"><i className="fa fa-cog"></i> {MaxMinStore.getState().minified ? '' : 'Settings'}</a></li>
             </ul>
         </nav>
     }

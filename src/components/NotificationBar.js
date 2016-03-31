@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import NotifyStore from "../stores/NotifyStore";
 import {deleteNotify} from "../actions/NotifyActions";
+import MaxMinStore from "../stores/MaxMinStore";
 
 
 /**
@@ -19,16 +20,21 @@ export default class NotificationBar extends Component {
         NotifyStore.on("notificationChange", () => {
             this.setState({notifications: NotifyStore.notifications});
         });
+
+        MaxMinStore.on('update', this.forceUpdate.bind(this));
     }
 
     render() {
         const notifications = this.state.notifications.map(notification => {
             return <li className="Notification" key={notification.id} data-id={notification.id}>
                     <h3>{notification.title}</h3>
-                    <button className="btn btn-error" onClick={this.deleteNotification.bind(this)}>Delete</button>
+                    <button className="btn btn-danger" onClick={this.deleteNotification.bind(this)}>Delete</button>
+                    <div className="clear"></div>
                 </li>;
         });
-        return <ul className="NotificationBar">
+
+        let className = "NotificationBar " + (MaxMinStore.getState().minified ? 'maximized' : 'minimized');
+        return <ul className={className}>
                 {notifications}
             </ul>;
     }

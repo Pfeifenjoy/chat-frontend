@@ -6,13 +6,39 @@
     left: 0;
     right: 0;
     z-index: 3;
-    width: 40%;
     min-width: 30em;
-    background-color: @alice-blue;
-    border-radius: 0 0 1em 1em;
-    opacity: 0.8;
+    background-color: #1d1d1d;
+    color:#FFF;
     transition: all 0.7s ease-out;
+    list-style-type:none;
+    font-size:0.8em;
 }
+
+.NotificationBar.minimized {
+    width:50%;
+    left:20%;
+}
+
+.NotificationBar.maximized {
+    width:65% !important;
+    left:5%;
+}
+
+.NotificationBar li {
+    padding-top:2%;
+    padding-bottom:2%;
+}
+
+.NotificationBar button {
+    float:right;
+    margin-right:2%;
+}
+
+.NotificationBar h3 {
+    float:left;
+    margin:0;
+}
+
 
 .Notification {
 

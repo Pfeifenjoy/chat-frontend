@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import UserStore from "../stores/UserInformationStore";
 import ConfigStore from "../stores/ConfigStore";
+import zlib from "zlib";
 
 export default class SmallIcon extends Component {
     constructor(props) {
