@@ -8,6 +8,7 @@
     "dev": "node server.js",
     "build": "webpack --progress --colors -p src/index.js",
     "client": "npm run build && electron main.js",
+    "build-client": "npm run build-production && electron main.js",
     "build-production": "NODE_ENV=production webpack --progress --colors -p src/index.js"
   },
   "repository": {
