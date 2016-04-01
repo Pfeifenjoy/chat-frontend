@@ -17,7 +17,7 @@ class Contact extends Component {
         };
         this._isMounted = false;
         refreshIcons();
-        
+
 
     }
 
@@ -43,16 +43,22 @@ class Contact extends Component {
     render() {
         const contacts = this.state.contactStore.contacts.map((contact, i) => {
 
-            let className = "fa" + (contact.online ? " fa-circle" : " fa-circle-thin");
+            let img = (contact.small_icon != null ? contact.small_icon : "src/img/default_icon.png");
+
+            let className = "circular" + (contact.online ? " online" : " offline");
 
             return <li key={i} onClick={this.handleContactSelect.bind(this)}
                        className={i == this.state.contactStore.selected ? "active" : ""}>
-                <a className={className} data-id={i} href="#">{contact.contactName}</a>
+                <div className="onlineWrapper">
+                    <img src={img} className={className}/>
+                </div>
+
+                    <a data-id={i} href="#">{contact.contactName}</a>
                 <span data-contactname={contact.contactName} className="delete fa fa-trash"
                       onClick={this.deleteUser.bind(this)}></span>
+
             </li>;
         });
-
 
 
         return <div id="contactWrapper">

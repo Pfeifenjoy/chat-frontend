@@ -71,6 +71,8 @@ export default class Profile extends Component {
                     </div>
                     <p>{UserStore.getUsername()}</p>
                 </div>
+                
+                
 
 
 
