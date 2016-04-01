@@ -53,6 +53,7 @@ class ContactStore extends EventEmitter {
             data: {username: user},
             crossDomain: true
         }).done(oData => {
+            console.log(oData);
             if (oData.success) {
                 this.updateContacts();
             }
