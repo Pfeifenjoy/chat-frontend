@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import UserStore from "../stores/UserInformationStore";
+import smallIcon from "../img/default_big_icon.png";
 
 export default class BigIcon extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export default class BigIcon extends Component {
     }
 
     render() {
-        let smallIcon = "src/img/" + (UserStore.getAll().big_icon != null ? UserStore.getAll().small_icon  : 'default_big_icon.png');
+        let smallIcon = (UserStore.getAll().big_icon != null ? UserStore.getAll().small_icon : smallIcon;
 
         return <img src={smallIcon} className="profileBig" alt="" />
     }
