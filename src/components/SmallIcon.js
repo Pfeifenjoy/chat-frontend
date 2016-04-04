@@ -14,7 +14,7 @@ export default class SmallIcon extends Component {
     }
 
     render() {
-        let realSrc = (UserStore.getAll().small_icon != null ? UserStore.getAll().small_icon : realSrc;
+        let realSrc = UserStore.getAll().small_icon != null ? UserStore.getAll().small_icon : realSrc;
         return <img className="profileSmall circular" alt="" src={realSrc}/>
     }
 

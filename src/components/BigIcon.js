@@ -12,7 +12,7 @@ export default class BigIcon extends Component {
     }
 
     render() {
-        let smallIcon = (UserStore.getAll().big_icon != null ? UserStore.getAll().small_icon : smallIcon;
+        let smallIcon = UserStore.getAll().big_icon != null ? UserStore.getAll().small_icon : smallIcon;
 
         return <img src={smallIcon} className="profileBig" alt="" />
     }
