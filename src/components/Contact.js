@@ -6,6 +6,7 @@ import UserStore from "../stores/UserInformationStore";
 import {refreshIcons} from "../actions/UserActions";
 import SmallIcon from "./SmallIcon";
 import BigIcon from "./BigIcon";
+import {hashHistory, Link} from "react-router";
 
 
 class Contact extends Component {
@@ -49,13 +50,16 @@ class Contact extends Component {
 
             return <li key={i} onClick={this.handleContactSelect.bind(this)}
                        className={i == this.state.contactStore.selected ? "active" : ""}>
-                <div className="onlineWrapper">
-                    <img src={img} className={className}/>
-                </div>
 
-                    <a data-id={i} href="#">{contact.contactName}</a>
+                <a data-id={i} href="#">
+                    <div className="onlineWrapper">
+                        <img src={img} className={className}/>
+                    </div>
+                    {contact.contactName}
+                </a>
                 <span data-contactname={contact.contactName} className="delete fa fa-trash"
                       onClick={this.deleteUser.bind(this)}></span>
+                <div className="clear"></div>
 
             </li>;
         });
@@ -64,7 +68,9 @@ class Contact extends Component {
         return <div id="contactWrapper">
             <div id="iconWrapper">
                 <BigIcon /><i id="username">{UserStore.getUsername()}</i>
-                <SmallIcon />
+                <a href=".#/profile">
+                    <SmallIcon />
+                </a>
             </div>
 
             <ul id="contacts">

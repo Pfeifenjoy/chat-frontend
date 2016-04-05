@@ -11,20 +11,22 @@
 }
 
 ul#contacts li {
-  padding-bottom:10%;
+  padding-bottom:5%;
+  display:flex;
+  align-items:center;
 }
 
-
 ul#contacts li a {
-  margin-top:5%;
+  float:left;
 }
 
 .onlineWrapper {
   position:relative;
-  width:20%;
+  width:25%;
   float:left;
-  margin-right:2%;
+  margin-right:5%;
 }
+
 
 .onlineWrapper i {
   position:absolute;
@@ -34,6 +36,29 @@ ul#contacts li a {
   top:73%;
 }
 
-#contacts span {
+section#left_sidebar.minified #iconWrapper, section#left_sidebar.minified ul#contacts li span {
+  display:none;
+}
 
+section#left_sidebar.minified ul#contacts li .onlineWrapper {
+  width:100%;
+  float:none;
+  text-align:center;
+}
+
+section#left_sidebar.minified ul#contacts {
+  margin-top:80%;
+}
+
+section#left_sidebar.minified ul#contacts li a img {
+  width:80%;
+}
+
+section#left_sidebar.minified ul#contacts li a {
+  width:100%;
+  text-indent:0%;
+}
+
+section#left_sidebar.minified .addWrapper {
+  display:none;
 }
