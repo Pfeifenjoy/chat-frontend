@@ -19,7 +19,7 @@ export default class Video extends Component {
             remoteVideo: null,
             localStream: null,
             peerConnection: null,
-            peerConnectionConfig: {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}]}
+            peerConnectionConfig: {"iceServers": [{"urls": "stun:stun.services.mozilla.com"}, {"urls": "stun:stun.l.google.com:19302"}]}
         };
 
         this.notify = NotifyStore.getNotify();
@@ -71,7 +71,7 @@ export default class Video extends Component {
             <br />
 
             <div className="clear"></div>
-            <div id="notifyBox" className={(this.notify.active) ? 'notifyActive' : 'inactive'}>
+            <div id="notifyBox" className={(this.notify.active) ? "notifyActive" : "inactive"}>
                 {this.notify.message}
             </div>
         </div>
@@ -81,7 +81,7 @@ export default class Video extends Component {
 
     startIt(oEvent) {
         if (this.state.buttonActive) {
-            SocketStore.send(JSON.stringify({'conState': 'close'}));
+            SocketStore.send(JSON.stringify({"conState": "close"}));
             //stopVideo();
         }
         else {
@@ -94,8 +94,8 @@ export default class Video extends Component {
 
     pageReady() {
         console.log("page ready called");
-        this.state.localVideo = document.getElementById('localVideo');
-        this.state.remoteVideo = document.getElementById('remoteVideo');
+        this.state.localVideo = document.getElementById("localVideo");
+        this.state.remoteVideo = document.getElementById("remoteVideo");
 
 
         this.state.localStream = null;
@@ -110,7 +110,7 @@ export default class Video extends Component {
         if (navigator.getUserMedia) {
             navigator.getUserMedia(constraints, this.getUserMediaSuccess.bind(this), this.getUserMediaError);
         } else {
-            alert('Your browser does not support getUserMedia API');
+            alert("Your browser does not support getUserMedia API");
         }
     }
 
@@ -154,19 +154,19 @@ export default class Video extends Component {
     }
 
     gotDescription(description) {
-        console.log('got description');
+        console.log("got description");
         console.log(description);
         this.state.peerConnection.setLocalDescription(description, () => {
-            SocketStore.send(JSON.stringify({'sdp': description}));
+            SocketStore.send(JSON.stringify({"sdp": description}));
         }, function () {
-            console.log('set description')
+            console.log("set description")
         });
     }
 
     gotIceCandidate(event) {
         console.log("got ice candidate");
         if (event.candidate != null) {
-            SocketStore.send(JSON.stringify({'ice': event.candidate}));
+            SocketStore.send(JSON.stringify({"ice": event.candidate}));
         }
     }
 
@@ -176,7 +176,7 @@ export default class Video extends Component {
 
         //console.log("got remote stream");
         this.state.remoteVideo.src = window.URL.createObjectURL(event.stream);
-        document.getElementById("remoteVideo").style.display = 'block';
+        document.getElementById("remoteVideo").style.display = "block";
         this.setState({buttonActive: true});
 
 
@@ -188,7 +188,7 @@ export default class Video extends Component {
 
     createAnswerError() {
         //console.log("create answer error");
-        //remoteVideo.style.display = 'none';
+        //remoteVideo.style.display = "none";
     }
 
     bindError() {
@@ -243,7 +243,7 @@ export default class Video extends Component {
 
         this.state.peerConnection.close();
         console.log("peerConnection close");
-        document.getElementById("remoteVideo").style.display = 'none';
+        document.getElementById("remoteVideo").style.display = "none";
         console.log("page Ready");
         this.pageReady();
         this.setState({buttonActive: false});

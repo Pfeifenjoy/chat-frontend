@@ -37,7 +37,7 @@ export default class Sidebar extends Component {
     logout() {
         closeSocket();
         $.ajax({
-            url: url.resolve(ConfigStore.config.serverRoot + ConfigStore.config.apiLocation, "logout"),
+            url: ConfigStore.apiLocation + "logout",
             method: "GET",
             crossDomain: true
         }).done(oData => {

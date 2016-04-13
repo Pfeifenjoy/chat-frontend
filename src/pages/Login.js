@@ -27,7 +27,7 @@ const Login = React.createClass({
             this.setState({
                 user: UserStore.getAll(),
                 loading: false,
-                submitFailed: !UserStore.getAll().authenticated
+                submitFailed: UserStore.getAll().authenticationFailed
             });
             if(UserStore.getAll().authenticated) {
                 const { location } = this.props;

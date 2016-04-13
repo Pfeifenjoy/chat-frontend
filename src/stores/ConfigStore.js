@@ -7,11 +7,15 @@ class ConfigStore extends EventEmitter {
         super();
 
         this.config = JSON.parse(window.localStorage.getItem("ConfigStore")) || {
-            serverRoot: location.origin,
+            serverRoot: location.origin || "",
             wssPort: location.port,
             apiLocation: "/api/v1/"
         }
         this.save();
+    }
+
+    get apiLocation() {
+        return this.config.serverRoot + this.config.apiLocation;
     }
 
     save() {

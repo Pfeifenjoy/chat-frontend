@@ -67,7 +67,7 @@ class Contact extends Component {
 
         return <div id="contactWrapper">
             <div id="iconWrapper">
-                <BigIcon /><i id="username">{UserStore.getUsername()}</i>
+                <BigIcon /><i id="username">{UserStore.username}</i>
                 <a href=".#/profile">
                     <SmallIcon />
                 </a>
