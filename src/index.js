@@ -25,10 +25,9 @@ const app = document.getElementById("content");
 ReactDom.render(
 <Router history={browserHistory}>
     <Route path="/" component={Layout}>
-        <IndexRoute component={Chat} onEnter={requireAuth}>
-            <Route path="profile" component={Profile} />
-            <Route path="settings" component={Settings} />
-        </IndexRoute>
+        <IndexRoute component={Chat} onEnter={requireAuth} />
+        <Route path="profile" component={Profile} onEnter={requireAuth}/>
+        <Route path="settings" component={Settings} onEnter={requireAuth}/>
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
     </Route>

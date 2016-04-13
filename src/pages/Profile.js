@@ -69,7 +69,7 @@ export default class Profile extends Component {
                     <div onClick={this.triggerFileUpload.bind(this)}>
                         <SmallIcon />
                     </div>
-                    <p>{UserStore.getUsername()}</p>
+                    <p>{UserStore.username}</p>
                 </div>
                 
                 

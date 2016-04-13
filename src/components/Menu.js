@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import MaxMinStore from "../stores/MaxMinStore";
+import { Link } from "react-router";
 
 
 
@@ -29,7 +30,12 @@ export default class Menu extends Component {
 
         return <nav>
             <ul>
-                <li className={this.isActive("settings") ? 'active' : ''}><a href="#/settings"><i className="fa fa-cog"></i> {MaxMinStore.getState().minified ? '' : 'Settings'}</a></li>
+                <li className={this.isActive("settings") ? 'active' : ''}>
+                    <Link to="/settings">
+                        <i className="fa fa-cog"></i>
+                        {MaxMinStore.getState().minified ? '' : 'Settings'}
+                    </Link>
+                </li>
             </ul>
         </nav>
     }
