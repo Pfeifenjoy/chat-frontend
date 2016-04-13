@@ -29,13 +29,15 @@ const Login = React.createClass({
                 loading: false,
                 submitFailed: !UserStore.getAll().authenticated
             });
-            const { location } = this.props;
+            if(UserStore.getAll().authenticated) {
+                const { location } = this.props;
 
-            if(location.state && location.state.nextPathname) {
-                this.context.router.replace(location.state.nextPathname);
-            }
-            else {
-                this.context.router.replace("/");
+                if(location.state && location.state.nextPathname) {
+                    this.context.router.replace(location.state.nextPathname);
+                }
+                else {
+                    this.context.router.replace("/");
+                }
             }
         });
     },
@@ -111,9 +113,6 @@ const Login = React.createClass({
         
         this.setState({loading: true});
         login(username, password);
-        setTimeout(() => {
-            console.log(this.context.router);
-        }, 3000);
     }
 });
 

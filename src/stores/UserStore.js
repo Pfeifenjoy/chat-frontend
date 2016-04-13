@@ -14,7 +14,16 @@ class UserStore extends EventEmitter {
             big_icon: null,
             authenticated: false
         }
-
+        
+        $.ajax({
+            url: ConfigStore.getAll().apiLocation + "authenticated",
+            method: "GET"
+        }).done(result => {
+            this.config.authenticated = true;
+            this.config.username = result.username;
+        }).always(() => {
+            this.emit("change");
+        });
     }
     get authenticated() {
         return this.config.authenticated;
@@ -30,7 +39,7 @@ class UserStore extends EventEmitter {
 
     getIcons() {
         $.ajax({
-            url: url.resolve(ConfigStore.getAll().serverRoot + ConfigStore.getAll().apiLocation, "userInformation"),
+            url: ConfigStore.getAll().apiLocation + "userInformation",
             method: "GET",
             crossDomain: true
         }).done(oData => {
@@ -45,7 +54,7 @@ class UserStore extends EventEmitter {
 
     login(username, password) {
         $.ajax({
-            url: ConfigStore.getAll().apiLocation + "authenticate",
+            url: ConfigStore.getAll().apiLocation + "login",
             method: "POST",
             data: { username, password },
             crossDomain: true
