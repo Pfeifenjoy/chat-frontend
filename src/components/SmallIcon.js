@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import UserStore from "../stores/UserInformationStore";
+import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import zlib from "zlib";
 import realSrc from "../img/default_icon.png";

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import ContactStore from "../stores/ContactStore";
 import {selectUser, refreshContacts, deleteUser, updateLoadingAdnimation} from "../actions/ContactActions";
 import AddContactForm from "./AddContactForm";
-import UserStore from "../stores/UserInformationStore";
+import UserStore from "../stores/UserStore";
 import {refreshIcons} from "../actions/UserActions";
 import SmallIcon from "./SmallIcon";
 import BigIcon from "./BigIcon";

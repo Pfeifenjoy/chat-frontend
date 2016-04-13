@@ -8,17 +8,16 @@ class UserStore extends EventEmitter {
     constructor() {
         super();
 
-        this.config = JSON.parse(window.localStorage.getItem("UserStore")) || {
-                username: "",
-                small_icon: null,
-                big_icon: null
-            }
+        this.config = {
+            username: "",
+            small_icon: null,
+            big_icon: null,
+            authenticated: false
+        }
 
-        //this.save();
     }
-
-    save() {
-        window.localStorage.setItem("UserStore", JSON.stringify(this.config));
+    get authenticated() {
+        return this.config.authenticated;
     }
 
     getAll() {
@@ -29,12 +28,6 @@ class UserStore extends EventEmitter {
         return this.config.username;
     }
 
-    updateUsername(username) {
-        this.config.username = username;
-        this.save();
-        this.emit("change");
-    }
-    
     getIcons() {
         $.ajax({
             url: url.resolve(ConfigStore.getAll().serverRoot + ConfigStore.getAll().apiLocation, "userInformation"),
@@ -50,18 +43,34 @@ class UserStore extends EventEmitter {
         })
     }
 
+    login(username, password) {
+        $.ajax({
+            url: ConfigStore.getAll().apiLocation + "authenticate",
+            method: "POST",
+            data: { username, password },
+            crossDomain: true
+        }).done(oData => {
+            this.config.authenticated = true;
+            this.config.username = username;
+        }).fail(() => {
+            this.config.authenticated = false;
+        }).always(() => {
+            this.emit("change");
+        });
+    }
+
     handleActions(action) {
         switch (action.type) {
-            case constants.NEW_USER_NAME:
-            {
-                this.updateUsername(action.text);
-                break;
-            }
-
             case constants.REFRESH_ICONS:
             {
                 this.getIcons();
 
+                break;
+            }
+
+            case constants.LOGIN:
+            {
+                this.login(action.username, action.password);
                 break;
             }
         }

@@ -14,6 +14,7 @@ const constants = {
     CREATE_NOTIFY: "CREATE_NOTIFY",
     TOGGLE_STATE: "TOGGLE_STATE",
     REFRESH_SELECT: "REFRESH_SELECT",
-    REFRESH_ICONS: "REFRESH_ICONS"
+    REFRESH_ICONS: "REFRESH_ICONS",
+    LOGIN: "LOGIN"
 };
 export default constants;

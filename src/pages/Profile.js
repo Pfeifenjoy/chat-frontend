@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import NotificationBar from "../components/NotificationBar";
 import SocketStore from "../stores/SocketStore";
 import MaxMinStore from "../stores/MaxMinStore";
-import UserStore from "../stores/UserInformationStore";
+import UserStore from "../stores/UserStore";
 import SmallIcon from "../components/SmallIcon";
 import url from "url";
 import configStore from "../stores/ConfigStore";
@@ -13,7 +13,7 @@ import {createNotification} from "../actions/NotifyActions";
 
 export default class Profile extends Component {
     componentWillMount() {
-        SocketStore.setConnection('ws://localhost:3434');
+        SocketStore.setConnection("ws://localhost:3434");
         MaxMinStore.on("update", this.forceUpdate.bind(this));
 
     }

@@ -1,11 +1,11 @@
 import React, {Component} from "react";
+import NotificationBar from "../components/NotificationBar";
 
 export default class Layout extends Component {
     render() {
         return <div className="wrapper">
-
-                        {this.props.children}
-
-                </div>;
+            <NotificationBar />
+            {this.props.children}
+       </div>;
     }
 }

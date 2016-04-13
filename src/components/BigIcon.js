@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import UserStore from "../stores/UserInformationStore";
+import UserStore from "../stores/UserStore";
 import bigIcon from "../img/default_big_icon.png";
 
 export default class BigIcon extends Component {

@@ -2,7 +2,7 @@ import {EventEmitter} from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
 import configStore from "./ConfigStore";
-import UserStore from "./UserInformationStore";
+import UserStore from "./UserStore";
 import url from "url";
 
 
