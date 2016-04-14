@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
             method: "GET",
             crossDomain: true
         }).done(oData => {
-            browserHistory.push("/");
+            browserHistory.push("/login");
         });
     }
 }

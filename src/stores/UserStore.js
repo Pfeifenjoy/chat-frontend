@@ -9,28 +9,12 @@ class UserStore extends EventEmitter {
         super();
 
         this.config = {
-            username: "",
+            username: sessionStorage.getItem("username") || "",
             small_icon: null,
             big_icon: null,
-            authenticated: true,
+            authenticated: sessionStorage.getItem("username") ? true : false,
             authenticationFailed: false
         }
-
-        $(document).ajaxError((e, xhr, settings) => {
-            if(xhr.status === 403) {
-                this.config.authenticated = false;
-                this.emit("change");
-            }
-        })
-        
-        $.ajax({
-            url: ConfigStore.apiLocation + "authenticated",
-            method: "GET"
-        }).done(result => {
-            this.config.username = result.username;
-        }).always(() => {
-            this.emit("change");
-        });
     }
     get authenticated() {
         return this.config.authenticated;
@@ -68,6 +52,7 @@ class UserStore extends EventEmitter {
         }).done(oData => {
             this.config.authenticated = true;
             this.config.username = username;
+            sessionStorage.setItem("username", username);
             this.config.authenticationFailed = false;
         }).fail(() => {
             this.config.authenticated = false;
