@@ -23,7 +23,7 @@ class ContactStore extends EventEmitter {
 
     updateContacts() {
         $.ajax({
-            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username.trim() + "/", "contacts"),
+            url: configStore.config.apiLocation + UserStore.config.username.trim() + "/contacts",
             method: "GET",
             crossDomain: true
         }).done(oData => {
@@ -48,7 +48,7 @@ class ContactStore extends EventEmitter {
 
     addUser(user) {
         $.ajax({
-            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username + "/", "addContact"),
+            url: configStore.config.apiLocation + UserStore.config.username + "/addContact",
             method: "POST",
             data: {username: user},
             crossDomain: true
@@ -67,7 +67,7 @@ class ContactStore extends EventEmitter {
     deleteUser(user) {
         console.log("Delete user: " + user);
         $.ajax({
-            url: url.resolve(configStore.config.serverRoot + configStore.config.apiLocation + UserStore.config.username + "/", "deleteContact"),
+            url: configStore.config.apiLocation + UserStore.config.username + "/deleteContact",
             method: "POST",
             data: {username: user},
             crossDomain: true

@@ -8,6 +8,7 @@ import {closeSocket} from "../actions/SocketActions";
 import MaxMinStore from "../stores/MaxMinStore";
 import {update} from "../actions/MaxMinActions";
 import Menu from "./Menu";
+import {browserHistory} from "react-router";
 
 
 export default class Sidebar extends Component {
@@ -41,7 +42,7 @@ export default class Sidebar extends Component {
             method: "GET",
             crossDomain: true
         }).done(oData => {
-
+            browserHistory.push("/");
         });
     }
 }

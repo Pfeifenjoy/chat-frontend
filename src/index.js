@@ -8,8 +8,8 @@ require("font-awesome-webpack");
 
 import React from "react";
 import ReactDom from "react-dom";
+
 import {Router, Route, IndexRoute, browserHistory} from "react-router";
-import {requireAuth} from "./util/auth";
 
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
@@ -19,8 +19,16 @@ import NotificationBar from "./components/NotificationBar";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
+import UserStore from "./stores/UserStore";
+import {requireAuth} from "./util/auth";
+
 
 const app = document.getElementById("content");
+
+UserStore.on("change", () => {
+    if(!UserStore.authenticated)
+        browserHistory.push("/login");
+});
 
 ReactDom.render(
 <Router history={browserHistory}>
