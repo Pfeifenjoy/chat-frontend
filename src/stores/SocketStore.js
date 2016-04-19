@@ -3,6 +3,7 @@ import dispatcher from "../dispatcher";
 import constants from "../constants";
 import {refreshContacts} from "../actions/ContactActions";
 import {videoMessage} from "../actions/SocketActions";
+import ConfigStore from "./ConfigStore";
 
 class SocketStore extends EventEmitter {
     constructor(props) {
@@ -14,7 +15,8 @@ class SocketStore extends EventEmitter {
         };
     }
 
-    setConnection(url) {
+    setConnection() {
+        let url = "ws://localhost:3001" //TODO
         this.state.connection = new WebSocket(url);
         this.state.connection.onmessage = this.gotMessageFromServer.bind(this);
     }
@@ -53,9 +55,15 @@ class SocketStore extends EventEmitter {
             case constants.CLOSE_SOCKET: {
                 this.closeConnection();
                 this.emit("update");
+                break;
             }
             case constants.VIDEO_MESSAGE: {
                 this.state.videoMsg = action.text;
+                break;
+            }
+            case constants.AUTHENTICATED: {
+                setConnection();
+                break;
             }
         }
     }

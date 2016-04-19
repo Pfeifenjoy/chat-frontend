@@ -7,7 +7,6 @@ import MaxMinStore from "../stores/MaxMinStore";
 
 export default class Chat extends Component {
     componentWillMount() {
-        SocketStore.setConnection('ws://localhost:3434');
         MaxMinStore.on("update", this.forceUpdate.bind(this));
     }
 
