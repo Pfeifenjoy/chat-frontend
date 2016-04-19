@@ -13,15 +13,23 @@ import {browserHistory} from "react-router";
 export default class Sidebar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            minified: MaxMinStore.minified
+        }
     }
 
     componentWillMount() {
-        MaxMinStore.on("update", this.forceUpdate.bind(this));
+        MaxMinStore.on("update", () => {
+            this.setState({
+                minified: MaxMinStore.minified
+            })
+        });
     }
 
     render() {
-        let toggleClass = "fa " + (MaxMinStore.getState().minified ? "fa-arrow-right" : "fa-arrow-left");
-        return <section id="left_sidebar" className={(MaxMinStore.getState().minified) ? "minified" : ""}>
+        const { minified } = this.state;
+        let toggleClass = "fa " + (minified ? "fa-arrow-right" : "fa-arrow-left");
+        return <section id="left_sidebar" className={minified ? "minified" : ""}>
             <i className={toggleClass} id="toggleSidebar" onClick={update.bind(this)}></i>
             <Link id="logout" className="btn btn-warning" onClick={this.logout} to="/">
                 <span className="fa fa-sign-out"></span>

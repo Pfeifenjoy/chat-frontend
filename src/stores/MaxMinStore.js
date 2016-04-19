@@ -15,6 +15,10 @@ class MaxMinStore extends EventEmitter {
         return this.state;
     }
 
+    get minified() {
+        return this.state.minified
+    }
+
     toggleState() {
         console.log("toggle");
         this.state.minified = !this.state.minified;
