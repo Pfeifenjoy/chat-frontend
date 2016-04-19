@@ -62,7 +62,7 @@ class ContactStore extends EventEmitter {
 
     addUser(user) {
         $.ajax({
-            url: configStore.config.apiLocation + UserStore.config.username + "/addContact",
+            url: configStore.config.apiLocation + "users/" + UserStore.config.username + "/contacts",
             method: "POST",
             data: {username: user},
             crossDomain: true

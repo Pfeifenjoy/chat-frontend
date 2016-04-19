@@ -77,7 +77,7 @@ class RoomStore extends EventEmitter {
         this.emit("roomsChanged")
     }
 
-    refreshRooms(rooms) {
+    setRooms(rooms) {
         this.state.rooms = {};
 
         rooms.forEach(room => {
@@ -109,11 +109,12 @@ class RoomStore extends EventEmitter {
                 break;
             }
             case constants.FRESH_ROOMS: {
-                this.refreshRooms(action.rooms);
+                this.setRooms(action.rooms);
                 break;
             }
             case constants.USER_SELECTED: {
-                console.log(action);
+                refreshRooms();
+                break;
             }
         }
     }

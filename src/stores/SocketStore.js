@@ -23,7 +23,6 @@ class SocketStore extends EventEmitter {
     
     gotMessageFromServer(message) {
         var signal = JSON.parse(message.data);
-        console.log(signal);
 
         if (signal.update != undefined) {
             refreshContacts();
@@ -62,7 +61,7 @@ class SocketStore extends EventEmitter {
                 break;
             }
             case constants.AUTHENTICATED: {
-                setConnection();
+                this.setConnection();
                 break;
             }
         }

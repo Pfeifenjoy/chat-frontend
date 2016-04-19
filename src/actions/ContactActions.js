@@ -10,13 +10,6 @@ export function selectUser(username) {
     })
 }
 
-export function addUser(text) {
-    dispatcher.dispatch({
-        type: constants.ADD_USER,
-        text
-    })
-}
-
 export function deleteContact(contactId) {
     return $.ajax({
         url: ConfigStore.apiLocation + "users/" + UserStore.username + "/contacts/" + contactId,
@@ -27,6 +20,21 @@ export function deleteContact(contactId) {
             contactId
         })
     })
+}
+
+export function addContact(contactId) {
+    return $.ajax({
+        url: ConfigStore.apiLocation + "users/" + UserStore.username + "/contacts",
+        method: "POST",
+        data: {
+            contactId
+        }
+    }).done(oData => {
+        dispatcher.dispatch({
+            type: constants.NEW_CONTACT,
+            contactId
+        })
+    });
 }
 
 export function refreshContacts() {
