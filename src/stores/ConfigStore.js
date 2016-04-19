@@ -8,7 +8,7 @@ class ConfigStore extends EventEmitter {
 
         this.config = JSON.parse(window.localStorage.getItem("ConfigStore")) || {
             serverRoot: location.origin || "",
-            wssPort: location.port,
+            wssLocation: (location.protocol === "http:" ? "ws://" : "wss://") + "localhost:3001", //TODO change
             apiLocation: "/api/v1/"
         }
         this.save();
@@ -16,6 +16,9 @@ class ConfigStore extends EventEmitter {
 
     get apiLocation() {
         return (this.config.serverRoot || "") + this.config.apiLocation;
+    }
+    get wssLocation() {
+        return this.config.wssLocation;
     }
 
     save() {

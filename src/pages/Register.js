@@ -21,7 +21,7 @@ export default class Register extends Component {
             <section id="login" className="container">
                 <div className="row">
                     <div className="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                        <RegisterForm target={this.state.config.serverRoot + this.state.config.apiLocation} wss={this.state.config.wssRoot}>
+                        <RegisterForm target={this.state.config.apiLocation} wss={this.state.config.wssRoot}>
                             <BaseUrlInput />
                         </RegisterForm>
                     </div>

@@ -35,7 +35,7 @@ class SocketStore extends EventEmitter {
     }
 
     closeConnection() {
-        this.state.connection.close();
+        //this.state.connection.close();
     }
 
     getConnection() {

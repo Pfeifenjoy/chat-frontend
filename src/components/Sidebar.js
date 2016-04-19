@@ -4,7 +4,6 @@ import Room from "./Room";
 import {Link} from "react-router";
 import ConfigStore from "../stores/ConfigStore";
 import url from "url";
-import {closeSocket} from "../actions/SocketActions";
 import MaxMinStore from "../stores/MaxMinStore";
 import {update} from "../actions/MaxMinActions";
 import Menu from "./Menu";
@@ -36,7 +35,6 @@ export default class Sidebar extends Component {
     }
 
     logout() {
-        closeSocket();
         $.ajax({
             url: ConfigStore.apiLocation + "logout",
             method: "GET",

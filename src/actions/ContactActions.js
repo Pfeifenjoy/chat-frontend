@@ -1,10 +1,12 @@
 import dispatcher from "../dispatcher";
 import constants from "../constants";
+import ConfigStore from "../stores/ConfigStore";
+import UserStore from "../stores/UserStore";
 
-export function selectUser(id) {
+export function selectUser(username) {
     dispatcher.dispatch({
         type: constants.USER_SELECTED,
-        id
+        username
     })
 }
 
@@ -15,10 +17,15 @@ export function addUser(text) {
     })
 }
 
-export function deleteUser(text) {
-    dispatcher.dispatch({
-        type: constants.DELETE_USER,
-        text
+export function deleteContact(contactId) {
+    return $.ajax({
+        url: ConfigStore.apiLocation + "users/" + UserStore.username + "/contacts/" + contactId,
+        method: "DELETE"
+    }).done(oData => {
+        dispatcher.dispatch({
+            type: constants.DELETED_CONTACT,
+            contactId
+        })
     })
 }
 

@@ -1,14 +1,28 @@
 import React, {Component} from "react";
 import MaxMinStore from "../stores/MaxMinStore";
+import RoomStore from "../stores/RoomStore";
 
 export default class TxtChat extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            room: RoomStore.activeRoom,
+        }
+    }
+
     componentWillMount() {
         MaxMinStore.on("update", this.forceUpdate.bind(this));
+        RoomStore.on("newActiveRoom", () => {
+            if(RoomStore.activeRoom) {
+                this.setState({
+                    room: RoomStore.activeRoom
+                })
+            }
+        });
     }
 
     render() {
-        console.log(MaxMinStore.getState().minified);
         return <div className="marginLeft">
             <div id="topBar">
                     <span className="btn btn-primary" title="Start video">

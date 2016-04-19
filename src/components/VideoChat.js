@@ -54,7 +54,6 @@ export default class Video extends Component {
     updateSocket() {
         if (this._isMounted) {
             console.log("update socket");
-
         }
     }
 

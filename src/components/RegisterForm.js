@@ -54,7 +54,7 @@ export default class Register extends Component {
                         <input className="btn btn-lg btn-success btn-block" type="submit" value="Register"/>
                     </fieldset>
                 </form>
-                <span>Or <IndexLink to="/">login</IndexLink></span>
+                <span>Or <IndexLink to="/login">login</IndexLink></span>
             </div>
         </div>;
     }

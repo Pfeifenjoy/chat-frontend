@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Sidebar from "../components/Sidebar";
 import NotificationBar from "../components/NotificationBar";
-import SocketStore from "../stores/SocketStore";
 import MaxMinStore from "../stores/MaxMinStore";
 import UserStore from "../stores/UserStore";
 import SmallIcon from "../components/SmallIcon";
@@ -13,9 +12,7 @@ import {createNotification} from "../actions/NotifyActions";
 
 export default class Profile extends Component {
     componentWillMount() {
-        SocketStore.setConnection("ws://localhost:3434");
         MaxMinStore.on("update", this.forceUpdate.bind(this));
-
     }
 
     handleSubmit(event) {

@@ -13,28 +13,42 @@ class ContactStore extends EventEmitter {
         this.store = {
             contacts: [],
             status: false,
-            selected: -1
+            selected: -1,
+            refreshing: false
         };
-
-
-
-
     }
 
     updateContacts() {
         $.ajax({
-            url: configStore.config.apiLocation + UserStore.config.username.trim() + "/contacts",
+            url: configStore.config.apiLocation + "users/" + UserStore.config.username.trim() + "/contacts",
             method: "GET",
             crossDomain: true
         }).done(oData => {
-            console.log(oData.result);
-            this.store.contacts = oData.result;
+            this.store.contacts = oData.contacts;
             this.emit("change");
         });
     }
 
     getAll() {
         return this.store;
+    }
+
+    get contacts() {
+        return this.store.contacts;
+    }
+    get selectedContact() {
+        return this.store.selected;
+    }
+    get refreshing() {
+        return this.store.refreshing;
+    }
+
+    deleteContact(contactId) {
+        let i = this.store.contacts.findIndex(contact => {
+            return contact.username === contactId;
+        })
+        this.store.contacts.splice(i, 1);
+        this.emit("change");
     }
 
     getStat() {
@@ -64,29 +78,11 @@ class ContactStore extends EventEmitter {
         });
     }
 
-    deleteUser(user) {
-        console.log("Delete user: " + user);
-        $.ajax({
-            url: configStore.config.apiLocation + UserStore.config.username + "/deleteContact",
-            method: "POST",
-            data: {username: user},
-            crossDomain: true
-        }).done(oData => {
-            console.log(oData);
-            if (oData.success) {
-                this.updateContacts();
-                this.setStat(false);
-                this.emit("update");
-            }
-        });
-
-    }
-
     handleActions(action) {
         switch (action.type) {
             case constants.USER_SELECTED :
             {
-                this.store.selected = action.id;
+                this.store.selected = action.username;
                 this.emit("change");
                 break;
             }
@@ -100,9 +96,9 @@ class ContactStore extends EventEmitter {
                 this.addUser(action.text);
                 break;
             }
-            case constants.DELETE_USER :
+            case constants.DELETED_CONTACT :
             {
-                this.deleteUser(action.text);
+                this.deleteContact(action.contactId);
                 break;
             }
             case constants.UPDATE_LOADING_ANIMATION : {

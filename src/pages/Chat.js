@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Sidebar from "../components/Sidebar";
 import Video from "../components/VideoChat";
 import TxtChat from "../components/TxtChat";
-import SocketStore from "../stores/SocketStore";
 import MaxMinStore from "../stores/MaxMinStore";
 
 export default class Chat extends Component {
