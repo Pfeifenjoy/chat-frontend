@@ -1,54 +1,36 @@
-import React, {Component} from "react";
-import Contact from "./Contact";
-import Room from "./Room";
-import {Link} from "react-router";
+import React from "react";
+import Component from "./Component";
+import { Link } from "react-router";
 import ConfigStore from "../stores/ConfigStore";
-import url from "url";
-import MaxMinStore from "../stores/MaxMinStore";
-import {update} from "../actions/MaxMinActions";
-import Menu from "./Menu";
-import {browserHistory} from "react-router";
+import DeviceStore from "../stores/DeviceStore";
 
+//Subcomponents
+import UserInformation from "./UserInformation";
+import RoomList from "./RoomList";
+import Menu from "./Menu";
+import Logout from "./Logout";
 
 export default class Sidebar extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            minified: MaxMinStore.minified
+            minified: DeviceStore.small
         }
     }
-
-    componentWillMount() {
-        MaxMinStore.on("update", () => {
-            this.setState({
-                minified: MaxMinStore.minified
-            })
-        });
-    }
-
     render() {
         const { minified } = this.state;
         let toggleClass = "fa " + (minified ? "fa-arrow-right" : "fa-arrow-left");
         return <section id="left_sidebar" className={minified ? "minified" : ""}>
-            <i className={toggleClass} id="toggleSidebar" onClick={update.bind(this)}></i>
-            <Link id="logout" className="btn btn-warning" onClick={this.logout} to="/">
-                <span className="fa fa-sign-out"></span>
-                <span id="log_out">Logout</span>
-            </Link>
+            <i className={toggleClass} id="toggleSidebar" onClick={this.update.bind(this)}></i>
 
-            <Contact />
+            <RoomList />
 
             <Menu />
+            <Logout />
         </section>
     }
 
-    logout() {
-        $.ajax({
-            url: ConfigStore.apiLocation + "logout",
-            method: "GET",
-            crossDomain: true
-        }).done(oData => {
-            browserHistory.push("/login");
-        });
+    update() {
+        this.setState({ minified: !this.state.minified })
     }
 }

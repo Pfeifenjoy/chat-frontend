@@ -1,119 +1,102 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import ConfigStore from "../stores/ConfigStore";
 import BaseUrlInput from "../components/BaseUrlInput";
-import {Link} from "react-router";
-import {login} from "../actions/UserActions";
+import { Link } from "react-router";
+import { login } from "../actions/UserActions";
 import UserStore from "../stores/UserStore";
+import PasswordInput from "../components/PasswordInput";
+import UsernameInput from "../components/UsernameInput";
+import I18NComponent from "../components/I18NComponent";
 
-const Login = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    getInitialState() {
-        return {
-            config: ConfigStore.getAll(),
-            user: UserStore.getAll(),
+
+export default class Login extends I18NComponent {
+    constructor() {
+        super();
+        this.state = {
             username: "",
             password: "",
             submitFailed: false,
             loading: false
         }
-    },
-    componentWillMount() {
-        ConfigStore.on("change", () => {
-            this.setState({ config: ConfigStore.getAll() });
-        });
-        UserStore.on("change", () => {
-            this.setState({
-                user: UserStore.getAll(),
-                loading: false,
-                submitFailed: UserStore.getAll().authenticationFailed
-            });
-            if(UserStore.getAll().authenticated) {
-                const { location } = this.props;
+    }
 
-                if(location.state && location.state.nextPathname) {
-                    this.context.router.replace(location.state.nextPathname);
-                }
-                else {
-                    this.context.router.replace("/");
-                }
-            }
-        });
-    },
     render() {
-        const usernameState = "form-group" + (this.state.submitFailed && this.state.username.trim() === "" ? " has-error" : "");
-        const username = <div className={usernameState}>
-            <input className="form-control" placeholder="Username"
-               value={this.state.username}
-               onChange={this.handleUsernameChange} name="username"
-               disabled={this.state.loading}
-               type="text"/>
-           </div>;
-        const passwordState = "form-group" + (this.state.submitFailed && this.state.password.length < 10 ? " has-error" : "");
-        const password = <div className={passwordState}>
-            <input className="form-control" placeholder="Password"
-               value={this.state.password}
-               onChange={this.handlePasswordChange} name="password"
-               type="password"
-               disabled={this.state.loading}
-               />
-           </div>;
-       const loginFailed = <div className="alert alert-dange">Login failed.</div>;
-       const loginForm = <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Please sign in</h3>
-                    </div>
-                    <div className="panel-body">
-                        {(() => {if(this.state.submitFailed) return loginFailed})()}
-                        <form acceptCharset="UTF-8" role="form" action="index.html#/app" method="post"
-                              onSubmit={this.handleSubmit}>
-                            <fieldset>
-                                {username}
-                                {password}
-                                <BaseUrlInput />
+        //generate the input fields
+        const username = <UsernameInput 
+            onChange={this.handleUsernameChange.bind(this)}
+            busy={this.state.loading}
+        />;
+        const password = <PasswordInput 
+            onChange={this.handlePasswordChange.bind(this)}
+            wrongPassword={this.state.authenticationFailed}
+            busy={this.state.loading}
+        />;
+        const baseUrlInput = <BaseUrlInput />;
 
-                                <input className="btn btn-lg btn-success btn-block" type="submit" value={this.state.loading ? "Loading..." : "Login"} disabled={this.state.loading} />
-                            </fieldset>
-                        </form>
-                        <span>Or <Link to="register">register</Link></span>
-                    </div>
+        //create the form
+        const form = <form
+                acceptCharset="UTF-8"
+                role="form"
+                method="post"
+                onSubmit={this.handleSubmit.bind(this)}
+            >
+            <fieldset>
+                {username}
+                {password}
+                {baseUrlInput}
+                <input 
+                    className="btn btn-lg btn-success btn-block"
+                    type="submit"
+                    value={this.state.loading ? this.getWord("Loading...") : this.getWord("Login")}
+                    disabled={this.state.loading}
+                />
+            </fieldset>
+        </form>;
 
-                </div>;
-        return <div id="login_wrapper">
-            <section id="login" className="container">
-                <div className="row">
-                    <div className="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                        {loginForm}
-                    </div>
-                </div>
-            </section>
-        </div>
-    },
-    handleUsernameChange(oEvent) {
-        this.setState({
-            username: oEvent.target.value
-        });
-    },
+        //create the panel
+        const head = <div className="panel-heading">
+            <h3 className="panel-title">{this.getWord("Please sign in")}</h3>
+        </div>;
+        const body = <div className="panel-body">
+            {form}
+            <span>
+                {this.getWord("Or") + " "}
+                <Link to="register">{this.getWord("Register")}</Link>
+            </span>
+        </div>;
 
-    handlePasswordChange(oEvent) {
-        this.setState({
-            password: oEvent.target.value
-        });
-    },
+        return <div className="panel panel-default">
+            {head}
+            {body}
+        </div>;
 
+    }
     handleSubmit(oEvent) {
         oEvent.preventDefault();
-        let username = this.state.username.trim();
-        let password = this.state.password;
-        if (!username || !password) {
-            this.setState({submitFailed: true});
-            return;
-        }
-        
-        this.setState({loading: true});
-        login(username, password);
-    }
-});
+        this.setState({
+            loading: true
+        });
 
-export default Login;
+        let { username, password } = this.state;
+        login(username, password)
+        .fail(error => {
+            this.setState({
+                authenticationFailed: true,
+                loading: false
+            });
+        });
+    }
+
+    handleUsernameChange(username) {
+        this.setState({
+            username
+        })
+    }
+
+    handlePasswordChange(password) {
+        this.setState({
+            password
+        });
+    }
+}
+

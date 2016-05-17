@@ -1,15 +1,15 @@
 import {EventEmitter} from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
-import ContactStore from "./ContactStore";
 import ConfigStore from "./ConfigStore";
 import {refreshRooms} from "../actions/RoomActions";
+import { objectToArray, arrayToObject } from "../util/data-types.js";
 
 /**
  * This store manages the connections / rooms of the user.
  *
  * Every room has an id.
- * Therefore here is a map this.state.rooms where you can reference a store.
+ * Therefore here is a map this.data.rooms where you can reference a store.
  * A store is an object which has an array of users and an array of messages.
  * A user is always represented by his username.
  * A message is an object with a
@@ -25,95 +25,59 @@ class RoomStore extends EventEmitter {
     constructor(id) {
         super();
         this._id = id;
-        this.state = {
-            rooms: {},
-            activeRoom: null
+        this.data = {
+            rooms: {}
         };
         refreshRooms();
     }
 
     get rooms() {
-        let rooms = [];
-        for(let id in this.state.rooms) {
-            rooms.push(this.state.rooms[id]);
-        }
-        return rooms;
+        return objectToArray(this.data.rooms);
     }
 
-    get activeRoom() {
-        return this.state.activeRoom;
-    }
-    
     getRoom(id) {
-        return this.state.rooms[id];
+        return this.data.rooms[id];
     }
 
-    addMessage(roomId, message) {
-        let room = this.state.rooms[roomId];
-        room.messages.push(message)
-        this.emit("message", message);
-        if(room !== this.state.activeRoom)
-            this.emit("messageInactiveRoom", message)
-        else 
-            this.emit("messageActiveRoom", message)
+    addMessage(payload) {
+        //Get the room
+        room = this.data.rooms[payload.roomId];
+        room.messages.push(payload.message)
+        this.emit("newMessage", message, room);
     }
 
     addRoom(room) {
-        this.state.rooms.push(room)
+        this.data.rooms[room.id] = room;
         this.emit("roomsChanged");
     }
 
-    selectRoom(id) {
-        this.state.activeRoom = this.state.rooms[id];
-        this.emit("newActiveRoom");
-    }
 
     removeRoom(id) {
-        if(this.state.rooms[id] === this.state.activeRoom) {
-            this.state.activeRoom = null;
-            this.emit("newActiveRoom");
-        }
-        delete this.state.rooms[id];
+        delete this.data.rooms[id];
         this.emit("roomsChanged")
     }
 
     setRooms(rooms) {
-        this.state.rooms = {};
-
-        rooms.forEach(room => {
-            this.state.rooms[room.id] = room;
-        })
+        this.data.rooms = arrayToObject(rooms);
         this.emit("roomsChanged")
     }
 
     handleActions(action) {
-        switch(action.type) {
-            case constants.TEXT_MESSAGE: {
-                this.addMessage(action.roomId, action.message)
+        const { type, payload } = action;
+        switch(type) {
+            case constants.ROOMS_NEW_MESSAGE: {
+                this.addMessage(payload)
                 break;
             }
-            case constants.NEW_ROOM: {
-                this.addRoom(action.room);
+            case constants.ROOMS_NEW_ROOM: {
+                this.addRoom(payload);
                 break;
             }
-            case constants.EXIT_ROOM: {
-                this.removeRoom(action.roomId);
+            case constants.ROOMS_DELETE_ROOM: {
+                this.removeRoom(payload);
             }
-            case constants.SELECT_ROOM: {
-                this.selectRoom(action.id);
-                break;
-            }
-            case constants.UNSELECT_ROOM: {
-                this.state.activeRoom = null;
-                this.emit("newActiveRoom");
-                break;
-            }
-            case constants.FRESH_ROOMS: {
-                this.setRooms(action.rooms);
-                break;
-            }
-            case constants.USER_SELECTED: {
-                refreshRooms();
+            case constants.ROOMS_NEW_ROOMS: {
+                this.setRooms(payload);
                 break;
             }
         }

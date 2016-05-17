@@ -4,12 +4,25 @@ import dispatcher from "../dispatcher";
 class DeviceStore extends EventEmitter {
     constructor() {
         super();
-        this.device = {
+        this.data = {
             electron: window && window.process && window.process.type
         }
+        window.onresize = this.updateScreenSize.bind(this);
     }
-    getAll() {
-        return this.device;
+    get electron() {
+        return this.data.electron;
+    }
+
+    get small() {
+        return this.data.small <= 450;
+    }
+
+    get large() {
+        return !this.small;
+    }
+
+    updateScreenSize() {
+        this.emit("change");
     }
 
     handleActions(action) {

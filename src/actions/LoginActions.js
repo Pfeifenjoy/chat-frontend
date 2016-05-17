@@ -1,10 +1,10 @@
 import dispatcher from "../dispatcher";
-import {NEW_SERVER_ROOT} from "../constants";
+import { CONFIG_NEW_SERVER_ROOT } from "../constants";
 
-export function changeServerRoot(text) {
+export function changeServerRoot(payload) {
     dispatcher.dispatch({
-        type: NEW_SERVER_ROOT,
-        text,
+        type: CONFIG_NEW_SERVER_ROOT,
+        payload,
     });
 }
 

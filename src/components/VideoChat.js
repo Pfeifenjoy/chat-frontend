@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import NotifyStore from "../stores/NotifyStore";
 import {newNotify} from "../actions/NotifyActions";
 import {refreshContacts} from "../actions/ContactActions";
 import SocketStore from "../stores/SocketStore";
@@ -22,12 +21,10 @@ export default class Video extends Component {
             peerConnectionConfig: {"iceServers": [{"urls": "stun:stun.services.mozilla.com"}, {"urls": "stun:stun.l.google.com:19302"}]}
         };
 
-        this.notify = NotifyStore.getNotify();
         this._isMounted = false;
     }
 
     componentWillMount() {
-        NotifyStore.on("notify", this.updateNotify.bind(this));
         SocketStore.on("update", this.updateSocket.bind(this));
         SocketStore.on("videoMsg", this.gotMessageFromServer.bind(this));
     }
@@ -45,7 +42,6 @@ export default class Video extends Component {
     updateNotify() {
         if (this._isMounted) {
             console.log("update notify");
-            this.notify = NotifyStore.getNotify();
 
             this.forceUpdate();
         }

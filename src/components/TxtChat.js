@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import MaxMinStore from "../stores/MaxMinStore";
 import RoomStore from "../stores/RoomStore";
 
 export default class TxtChat extends Component {
@@ -12,7 +11,6 @@ export default class TxtChat extends Component {
     }
 
     componentWillMount() {
-        MaxMinStore.on("update", this.forceUpdate.bind(this));
         RoomStore.on("newActiveRoom", () => {
             if(RoomStore.activeRoom) {
                 this.setState({
@@ -33,7 +31,7 @@ export default class TxtChat extends Component {
                         <i className="fa fa-trash"></i>
                     </span>
             </div>
-            <div id="chatWrapper" className={MaxMinStore.getState().minified ? "maximized" : ""}>
+            <div id="chatWrapper">
                 <div className="answerMsg">
                     <img src="src/img/small_icon.jpg" className="circular"/>
                     <p>Hi was geht ab?</p>
@@ -108,7 +106,7 @@ export default class TxtChat extends Component {
 
             </div>
 
-            <div id="messageField" className={MaxMinStore.getState().minified ? "maximized" : ""}>
+            <div id="messageField" >
                 <textarea name="message" placeholder="New message"></textarea>
             </div>
         </div>

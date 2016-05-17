@@ -2,50 +2,48 @@ import dispatcher from "../dispatcher";
 import constants from "../constants";
 import ConfigStore from "../stores/ConfigStore";
 import UserStore from "../stores/UserStore";
+import $ from "jquery";
 
-export function selectUser(username) {
-    dispatcher.dispatch({
-        type: constants.USER_SELECTED,
-        username
-    })
+
+function getUserApi() {
+    return encodeURIComponent(ConfigStore.apiLocation + "users/" + UserStore.username);
 }
 
-export function deleteContact(contactId) {
+export function deleteContact(contact) {
     return $.ajax({
-        url: ConfigStore.apiLocation + "users/" + UserStore.username + "/contacts/" + contactId,
+        url: getUserApi() + "/contacts/" + contactId,
         method: "DELETE"
     }).done(oData => {
         dispatcher.dispatch({
-            type: constants.DELETED_CONTACT,
-            contactId
+            type: constants.CONTACTS_DELETE_CONTACT,
+            contact
         })
     })
 }
 
 export function addContact(contactId) {
     return $.ajax({
-        url: ConfigStore.apiLocation + "users/" + UserStore.username + "/contacts",
+        url: getUserApi() + "/contacts",
         method: "POST",
         data: {
             contactId
         }
-    }).done(oData => {
+    }).done(contact => {
         dispatcher.dispatch({
-            type: constants.NEW_CONTACT,
-            contactId
+            type: constants.CONTACT_NEW_CONTACT,
+            contact
         })
     });
 }
 
-export function refreshContacts() {
-    dispatcher.dispatch({
-        type: constants.REFRESH_CONTACTS
-    })
-}
-
-export function updateLoadingAdnimation() {
-    dispatcher.dispatch({
-        type: constants.UPDATE_LOADING_ANIMATION
-    })
-
+export function updateContacts() {
+    return $.ajax({
+        url: getUserApi() + "/contacts",
+        method: "GET"
+    }).done(data => {
+        dispatcher.dispatch({
+            type: constants.CONTACTS_REFRESH,
+            payload: data.contacts
+        })
+    });
 }

@@ -1,19 +1,13 @@
 import React, {Component} from "react";
 import Sidebar from "../components/Sidebar";
-import NotificationBar from "../components/NotificationBar";
-import MaxMinStore from "../stores/MaxMinStore";
 import UserStore from "../stores/UserStore";
 import SmallIcon from "../components/SmallIcon";
 import url from "url";
 import configStore from "../stores/ConfigStore";
 import {refreshIcons} from "../actions/UserActions";
 import $ from "jquery";
-import {createNotification} from "../actions/NotifyActions";
 
 export default class Profile extends Component {
-    componentWillMount() {
-        MaxMinStore.on("update", this.forceUpdate.bind(this));
-    }
 
     handleSubmit(event) {
         e.preventDefault();
@@ -59,28 +53,20 @@ export default class Profile extends Component {
 
 
         return <div id="fluidContainer">
-            <Sidebar />
-
-            <section id="mainContent" className={(MaxMinStore.getState().minified) ? "maximized" : ""}>
-                <div id="profileBig" style={{background: 'url("src/img/'+bigImg+'") no-repeat; background-size: cover'}}>
-                    <div onClick={this.triggerFileUpload.bind(this)}>
-                        <SmallIcon />
-                    </div>
-                    <p>{UserStore.username}</p>
+            <div id="profileBig" style={{background: 'url("src/img/'+bigImg+'") no-repeat; background-size: cover'}}>
+                <div onClick={this.triggerFileUpload.bind(this)}>
+                    <SmallIcon />
                 </div>
-                
-                
+                <p>{UserStore.username}</p>
+            </div>
+            
+            
 
 
 
-                <form style={{display:'none'}} onSubmit={this.handleSubmit} encType="multipart/form-data">
-                    <input id="iconUpload" type="file" onChange={this.handleFile} />
-                </form>
-
-
-            </section>
-
-
+            <form style={{display:'none'}} onSubmit={this.handleSubmit} encType="multipart/form-data">
+                <input id="iconUpload" type="file" onChange={this.handleFile} />
+            </form>
         </div>
     }
 }

@@ -8,72 +8,58 @@ class UserStore extends EventEmitter {
     constructor() {
         super();
 
-        this.config = {
+        this.data = {
             username: sessionStorage.getItem("username") || "",
-            small_icon: null,
-            big_icon: null,
             authenticated: sessionStorage.getItem("username") ? true : false,
-            authenticationFailed: false
+            smallIcon: null,
+            bigIcon: null
         }
     }
     get authenticated() {
-        return this.config.authenticated;
+        return this.data.authenticated;
     }
     get username() {
-        return this.config.username;
+        return this.data.username;
+    }
+    get smallIcon() {
+        return this.data.smallIcon;
+    }
+    get bigIcon() {
+        return this.data.bigIcon;
     }
 
-    getAll() {
-        return this.config;
+    updateIcons(icons) {
+        Object.assign(this.data, icons);
+        this.emit("change");
     }
 
-
-    getIcons() {
-        $.ajax({
-            url: ConfigStore.apiLocation + "userInformation",
-            method: "GET",
-            crossDomain: true
-        }).done(oData => {
-            console.log("getIcons");
-            this.config.small_icon = oData.small_icon;
-            this.config.big_icon = oData.big_icon;
-            this.emit("iconUpdate");
-        }).fail(() => {
-            console.log("fail");
-        })
+    login(user) {
+        this.data.username = user.username;
+        sessionStorage.setItem("username", user.username);
+        this.data.authenticated = true;
+        this.emit("change");
     }
 
-    login(username, password) {
-        $.ajax({
-            url: ConfigStore.apiLocation + "login",
-            method: "POST",
-            data: { username, password },
-            crossDomain: true
-        }).done(oData => {
-            this.config.authenticated = true;
-            this.config.username = username;
-            sessionStorage.setItem("username", username);
-            this.config.authenticationFailed = false;
-        }).fail(() => {
-            this.config.authenticated = false;
-            this.config.authenticationFailed = true;
-        }).always(() => {
-            this.emit("change");
-        });
+    logout() {
+        delete this.data.username;
+        sessionStorage.removeItem("username");
+        this.data.authenticated = false;
+        this.emit("change");
     }
 
     handleActions(action) {
-        switch (action.type) {
-            case constants.REFRESH_ICONS:
-            {
-                this.getIcons();
-
+        const { type, payload } = action;
+        switch (type) {
+            case constants.USER_NEW_ICONS: {
+                this.updateIcons(payload);
                 break;
             }
-
-            case constants.LOGIN:
-            {
-                this.login(action.username, action.password);
+            case constants.USER_LOGIN: {
+                this.login(payload);
+                break;
+            }
+            case constants.USER_LOGOUT: {
+                this.logout();
                 break;
             }
         }

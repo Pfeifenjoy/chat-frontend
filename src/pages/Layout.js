@@ -1,11 +1,15 @@
-import React, {Component} from "react";
-import NotificationBar from "../components/NotificationBar";
+import React from "react";
+import Component from "../components/Component";
+import Sidebar from "../components/Sidebar";
+import DeviceStore from "../stores/DeviceStore";
 
 export default class Layout extends Component {
     render() {
-        return <div className="wrapper">
-            <NotificationBar />
-            {this.props.children}
+        return <div className="container-fluid">
+            <Sidebar />
+            <section id="mainContent" className={DeviceStore.small ? "maximized" : ""}>
+                {this.props.children}
+            </section>
        </div>;
     }
 }
