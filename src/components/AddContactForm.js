@@ -1,37 +1,69 @@
-import React, {Component} from "react";
-import {addContact} from "../actions/ContactActions";
-import ContactStore from "../stores/ContactStore";
+import React from "react";
+import Component from "./Component";
+import { searchUser } from "../actions/UserActions";
+import { createRoom } from "../actions/RoomActions";
 
 
 export default class AddContactForm extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            loading: false
+            showIndicator: false,
+            searchResults: [],
+            searchFailed: false
         }
     }
 
     render() {
-        let className = "fa fa-circle-o-notch fa-spin " + (this.state.loading ? " " : "hidden");
+        if(!!this.props.visible) return <div />;
 
+        const searchResults = this.state.searchResults.splice(0, this.props.maxSearchResults || 5)
+        .map(user => {
+            return <ul>
+                <li
+                    data-id={user.id}
+                    onClick={this.handleNewRoom.bind(this)}
+                >user.username</li>
+            </ul>;
+        });
+
+        let indicatorClass = this.state.searchFailed ?
+            "fa fa-exclamation" : "fa fa-circle-o-notch fa-spin";
+
+        indicatorClass += " indicator " + (this.state.showIndicator ? " " : "hidden");
         return <div className="addWrapper">
-        <input type="text" name="addContact" className="newElement" placeholder="New Contact"
-               onKeyDown={this.handleEnter.bind(this)}/>
-        <i  className={"addLoader " + className}></i>
+            <input
+                type="text"
+                name="userSearch"
+                className="userSearch"
+                placeholder={ this.getWord("Search User") }
+                onKeyDown={ this.handleEnter.bind(this) }
+            />
+        <i className={indicatorClass}></i>
         </div>
     }
 
     handleEnter(event) {
-        if(event.keyCode === 13) {
+        this.setState({
+            showIndicator: true
+        })
+        searchUser(event.target.value.trim())
+        .done(users => {
             this.setState({
-                loading: true
+                searchResults: users,
+                searchFailed: false,
+                showIndicator: false
             })
-            addContact(event.target.value)
-            .always(() => {
-                this.setState({
-                    loading: false
-                })
-            })
-        }
+        })
+        .fail(() => {
+            this.setState({
+                searchFailed: true
+            });
+        })
+    }
+
+    handleNewRoom(oEvent) {
+        let contactId = oEvent.target.attributes.getNamedItem("data-id");
+        createRoom([ UserStore.userId, contactId ])
     }
 }

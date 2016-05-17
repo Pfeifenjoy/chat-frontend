@@ -18,10 +18,11 @@ export function login(username, password) {
     });
 }
 
-export function updateUser() {
+export function updateUser(user) {
     return $.ajax({
-        url: ConfigStore.apiLocation + "users/" + UserStore.username,
-        method: "GET"
+        url: ConfigStore.apiLocation + "users",
+        method: "GET",
+        data: user
     })
     .done(user => {
         dispatcher.dispatch({
@@ -51,4 +52,14 @@ export function logout() {
             type: constants.USER_LOGOUT
         });
     })
+}
+
+export function searchUser(query) {
+    return $.ajax({
+        url: ConfigStore.apiLocation + "users/search",
+        method: "GET",
+        data: {
+            query
+        }
+    });
 }

@@ -22,7 +22,7 @@ export default class Menu extends Component {
                 <li className={this.isActive("settings") ? "active" : ""}>
                     <Link to="/settings">
                         <i className="fa fa-cog"></i>
-                        {this.state.small ? "" : "Settings"}
+                        {this.props.small ? "" : "Settings"}
                     </Link>
                 </li>
             </ul>

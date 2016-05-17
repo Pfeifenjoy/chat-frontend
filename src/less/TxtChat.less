@@ -1,74 +1,82 @@
-.marginLeft {
-  margin-left:2%;
+
+@messageFieldHeight: 8em;
+@topBarHeight: 3em;
+
+
+.txtChat {
+    height: 100%;
+    width: 100%;
 }
 
+.topBar {
+    height: @topBarHeight;
+    padding: 2em;
+}
 /* Chat wrapper */
-#chatWrapper {
-  width:78%;
-  position:fixed;
-  height:75%;
-  overflow-y:scroll;
-  padding-top:3%;
-  -webkit-transition:all 0.3s ease-in-out;
-  -moz-transition:all 0.3s ease-in-out;
-  -o-transition:all 0.3s ease-in-out;
-  transition:all 0.3s ease-in-out;
-
+.chatWrapper {
+    width: 100%;
+    overflow-y: scroll;
+    position: absolute;
+    padding: 2em;
+    height: ~"calc(100% - " @messageFieldHeight ~" - " @topBarHeight ~")";
+    padding-top: 3%;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-#chatWrapper .answerMsg, #chatWrapper .ownMessage {
+.main-page {
+    max-height: 100%;
+}
+
+.chatWrapper .answerMsg, .chatWrapper .ownMessage {
   width: 100%;
   margin-bottom:4%;
 }
 
 
-#chatWrapper .answerMsg img {
-  width:3%;
+.chatWrapper .answerMsg img {
+  width: 3%;
 }
 
-#chatWrapper .answerMsg p, #chatWrapper .ownMessage p {
-  background:#E1FAFC;
-  padding:2%;
-  display:inline;
-  border-radius:10px;
-  margin-left:2%;
+.chatWrapper .answerMsg p, .chatWrapper .ownMessage p {
+  background: #E1FAFC;
+  padding: 1%;
+  display: inline;
+  border-radius: 1em;;
+  margin-left: 2%;
 }
 
-#chatWrapper .ownMessage {
-  text-align:right;
+.chatWrapper .ownMessage {
+  text-align: right;
 }
 
-#chatWrapper .ownMessage p{
-  background:#E7E7E7;
-  margin-right:2%;
+.chatWrapper .ownMessage p{
+  background: #E7E7E7;
+  margin-right: 2%;
 }
 
-#messageField {
-  position:fixed;
-  width:78%;
-  bottom:1%;
+.messageField {
+  position: absolute;
+  width: 78%;
+  bottom: 2%;
+  padding: 0.3em;
+  right: 11%;
   -webkit-transition:all 0.3s ease-in-out;
   -moz-transition:all 0.3s ease-in-out;
   -o-transition:all 0.3s ease-in-out;
   transition:all 0.3s ease-in-out;
+  height: ~"calc(" @messageFieldHeight ~" - 2%)";
 }
 
-#messageField textarea {
-  padding:1%;
-  resize:none;
-  width:98%;
-  border:1px solid #E7E7E7;
-  border-radius:5px;
-  color:#60646D;
+.messageField textarea {
+  padding: 1%;
+  resize: none;
+  width: 98%;
+  border: 1px solid #E7E7E7;
+  border-radius: 5px;
+  color: #60646D;
+  height: 100%;
 }
 
-#messageField input {
-  position:fixed;
-  bottom:2%;
-  right:1%;
-  padding:2%;
-}
-
-.maximized {
-  width:95% !important;
-}

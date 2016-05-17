@@ -2,7 +2,7 @@ import React from "react";
 import Component from "./Component";
 import RoomStore from "../stores/RoomStore";
 
-export default class TxtChat extends Component {
+export default class Chat extends Component {
 
     constructor() {
         super();
@@ -22,8 +22,8 @@ export default class TxtChat extends Component {
     }
 
     render() {
-        return <div className="txtChat">
-            <div className="topBar">
+        return <div className="marginLeft">
+            <div id="topBar">
                     <span className="btn btn-primary" title="Start video">
                         <i className="fa fa-video-camera"></i>
                     </span>
@@ -32,7 +32,7 @@ export default class TxtChat extends Component {
                         <i className="fa fa-trash"></i>
                     </span>
             </div>
-            <div className="chatWrapper">
+            <div id="chatWrapper">
                 <div className="answerMsg">
                     <img src="src/img/small_icon.jpg" className="circular"/>
                     <p>Hi was geht ab?</p>
@@ -107,7 +107,7 @@ export default class TxtChat extends Component {
 
             </div>
 
-            <div className="messageField" >
+            <div id="messageField" >
                 <textarea name="message" placeholder="New message"></textarea>
             </div>
         </div>

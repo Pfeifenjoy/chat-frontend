@@ -5,12 +5,10 @@ import TxtChat from "../components/TxtChat";
 import DeviceStore from "../stores/DeviceStore";
 
 export default class Chat extends Component {
-
-
-
     render() {
         return <div id="container-fluid">
-                <TxtChat />
+
+            <TxtChat />
         </div>
     }
 }
