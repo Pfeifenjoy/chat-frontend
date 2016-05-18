@@ -33,15 +33,32 @@ class UserStore extends EventEmitter {
     get bigIcon() {
         return this.data.user.bigIcon;
     }
+    get id() {
+        return this.data.user.id
+    }
+    get email() {
+        return this.data.user.email;
+    }
 
     updateIcons(icons) {
         Object.assign(this.data.user, icons);
         this.emit("change");
     }
 
-    login(user) {
-        this.data.user = user
-        localStorage.setItem("user", JSON.stringify(user));
+    updateUser(user) {
+        Object.assign(this.data.user, user);
+        this.save();
+        this.emit("change");
+    }
+
+    save() {
+        localStorage.setItem("user", JSON.stringify(this.data.user));
+    }
+
+    login(payload) {
+        this.data.user = payload.user
+        this.data.user.token = payload.token
+        this.save();
         this.emit("change");
     }
 
@@ -56,6 +73,10 @@ class UserStore extends EventEmitter {
         switch (type) {
             case constants.USER_NEW_ICONS: {
                 this.updateIcons(payload);
+                break;
+            }
+            case constants.USER_UPDATE: {
+                this.updateUser(payload);
                 break;
             }
             case constants.USER_LOGIN: {

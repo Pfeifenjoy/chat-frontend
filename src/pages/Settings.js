@@ -121,23 +121,19 @@ export default class Chat extends Component {
         </div>
     }
 
-    handleUsernameChange(event) {
-        let username = event.target.value;
+    handleUsernameChange(username) {
         this.setState({ username });
     }
 
-    handleOldpasswordChange(event) {
-        let oldpassword = event.target.value;
+    handleOldpasswordChange(oldpassword) {
         this.setState({ oldpassword });
     }
 
-    handleNewpasswordChange(event) {
-        let newpassword = event.target.value;
+    handleNewpasswordChange(newpassword) {
         this.setState({ newpassword });
     }
 
-    handleEmailChange(event) {
-        let email = event.target.value;
+    handleEmailChange(email) {
         this.setState({ email });
     }
 
@@ -149,9 +145,9 @@ export default class Chat extends Component {
             email: this.state.email
         })
         .fail(response => {
-            let passwordErrors = arrayToObject(JSON.parse(response.responseText), "field");
+            let userErrors = arrayToObject(JSON.parse(response.responseText).errors, "field");
             this.setState({
-                passwordErrors
+                userErrors
             })
         })
         .always(() => {
@@ -169,7 +165,7 @@ export default class Chat extends Component {
             oldpassword: this.state.oldpassword
         })
         .fail(response => {
-            let passwordErrors = arrayToObject(JSON.parse(response.responseText), "field");
+            let passwordErrors = arrayToObject(JSON.parse(response.responseText).errors, "field");
             this.setState({
                 passwordErrors
             })

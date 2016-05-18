@@ -1,6 +1,7 @@
 import dispatcher from "../dispatcher";
 import constants from "../constants";
 import ConfigStore from "../stores/ConfigStore";
+import UserStore from "../stores/UserStore";
 import { ajax } from "../util/ajax";
 
 
@@ -13,15 +14,16 @@ export function login(username, password) {
     .done(user => {
         dispatcher.dispatch({
             type: constants.USER_LOGIN,
-            payload: { username, token: user.token }
+            payload: user
         });
     });
 }
 
 export function updateUser(user) {
+    user.id = UserStore.id;
     return ajax({
         url: ConfigStore.apiLocation + "users",
-        method: "GET",
+        method: "PUT",
         data: user
     })
     .done(user => {
