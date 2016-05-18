@@ -51,6 +51,7 @@ export default class Login extends I18NComponent {
             title={this.getWord("Login")}
             errors={errorMessages}
             footer={formFooter}
+            loading={this.state.loading}
         >
             {username}
             {password}

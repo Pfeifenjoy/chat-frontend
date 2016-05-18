@@ -24,6 +24,7 @@ export default class Chat extends Component {
 
         this.state = {
             userErrors: {},
+            passwordErrors: {},
             username: UserStore.username,
             oldpassword: "",
             newpassword: "",
@@ -69,6 +70,7 @@ export default class Chat extends Component {
             submitButtonText={this.getWord("Change User")}
             title={this.getWord("User Settings")}
             errors={userErrorMessages}
+            loading={this.state.loading}
         >
             {username}
             {email}
@@ -94,6 +96,7 @@ export default class Chat extends Component {
             submitButtonText={this.getWord("Change Password")}
             title={this.getWord("Password Settings")}
             errors={passwordErrorMessages}
+            loading={this.state.loading}
         >
             {newpassword}
             {oldpassword}
@@ -123,7 +126,7 @@ export default class Chat extends Component {
         this.setState({ username });
     }
 
-    handleOldPasswordChange(event) {
+    handleOldpasswordChange(event) {
         let oldpassword = event.target.value;
         this.setState({ oldpassword });
     }
@@ -140,17 +143,41 @@ export default class Chat extends Component {
 
     handleUserSubmit(event) {
         event.preventDefault();
+        this.setState({ loading: true });
         updateUser({
             username: this.state.username,
             email: this.state.email
-        });
+        })
+        .fail(response => {
+            let passwordErrors = arrayToObject(JSON.parse(response.responseText), "field");
+            this.setState({
+                passwordErrors
+            })
+        })
+        .always(() => {
+            this.setState({
+                loading: false
+            })
+        })
     }
 
     handlePasswordSubmit(event) {
         event.preventDefault();
+        this.setState({ loading: true });
         updateUser({
             newpassword: this.state.newpassword,
             oldpassword: this.state.oldpassword
+        })
+        .fail(response => {
+            let passwordErrors = arrayToObject(JSON.parse(response.responseText), "field");
+            this.setState({
+                passwordErrors
+            })
+        })
+        .always(() => {
+            this.setState({
+                loading: false
+            })
         })
     }
 }

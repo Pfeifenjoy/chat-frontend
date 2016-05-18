@@ -54,6 +54,7 @@ export default class Register extends I18NComponent {
             title={this.getWord("Register")}
             errors={errorMessages}
             footer={formFooter}
+            loading={this.state.loading}
         >
             {username}
             {password}
