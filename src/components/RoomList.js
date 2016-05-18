@@ -53,9 +53,9 @@ export default class UserInformation extends Component {
             let members = room.members
             .filter(member => member.id !== UserStore.user.id);
 
-            let name = members
+            let name = !SidebarStore.small ? members
             .map(member => member.username)
-            .join(", ");
+            .join(", ") : "";
 
             let img = members[0].icon || standardImage;
             return <li

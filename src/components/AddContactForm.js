@@ -37,7 +37,7 @@ export default class AddContactForm extends Component {
                 name="userSearch"
                 className="userSearch"
                 placeholder={ this.getWord("Search User") }
-                onKeyDown={ this.handleEnter.bind(this) }
+                onChange={ this.handleEnter.bind(this) }
             />
         <i className={indicatorClass}></i>
         {searchResults}
@@ -46,21 +46,27 @@ export default class AddContactForm extends Component {
 
     handleEnter(event) {
         this.setState({
-            showIndicator: true
+            searchResults: [],
+            searchFailed: false
         })
-        searchUser(event.target.value.trim())
-        .done(users => {
-            this.setState({
-                searchResults: users,
-                searchFailed: false,
-                showIndicator: false
+        let query = event.target.value.trim();
+        if(query !== "") {
+            this.setState({ showIndicator: true });
+            searchUser(query)
+            .done(users => {
+                this.setState({
+                    searchResults: users,
+                    searchFailed: false,
+                    showIndicator: false
+                })
             })
-        })
-        .fail(() => {
-            this.setState({
-                searchFailed: true
-            });
-        })
+            .fail(() => {
+                this.setState({
+                    searchFailed: true,
+                    showIndicator: false
+                });
+            })
+        }
     }
 
     getAddContactHandler(contact) {
