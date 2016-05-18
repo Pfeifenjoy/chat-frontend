@@ -50,8 +50,14 @@ export default class UserInformation extends Component {
 
     render() {
         const rooms = this.state.rooms.map(room => {
-            let img = room.smallIcon ? room.smallIcon : standardImage;
-            let name = room.members.map(member => member.username).join(", ");
+            let members = room.members
+            .filter(member => member.id !== UserStore.user.id);
+
+            let name = members
+            .map(member => member.username)
+            .join(", ");
+
+            let img = members[0].icon || standardImage;
             return <li
                 key={room.id}
                 onClick={this.getSelectRoomHandler(room)}

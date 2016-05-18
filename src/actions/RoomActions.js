@@ -3,6 +3,7 @@ import constants from "../constants";
 import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import { ajax } from "../util/ajax";
+import socket from "../socket";
 
 export function createRoom(members) {
     return ajax({
@@ -39,13 +40,13 @@ export function exitRoom(room) {
 export function refreshRooms() {
     let username = UserStore.username;
     return ajax({
-        url: ConfigStore.apiLocation + "users/" + username + "/rooms",
+        url: ConfigStore.apiLocation + "/rooms",
         method: "GET"
     })
     .done(response => {
         dispatcher.dispatch({
             type: constants.ROOMS_NEW_ROOMS,
-            payload: response.rooms
+            payload: response
         })
     })
 }
@@ -79,7 +80,7 @@ export function sendTextMessage(text, room) {
         payload
     }
 
-    dispatcher.dispatch(message);
+    return socket.send(message);
 }
 
 /**
@@ -95,7 +96,7 @@ export function startVideo(candidate, room) {
         payload
     }
 
-    dispatcher.dispatch(message);
+    return socket.send(message);
 }
 
 /**
@@ -111,5 +112,5 @@ export function stopVideo(room) {
         payload
     }
 
-    dispatcher.dispatch(message);
+    return socket.send(message);
 }

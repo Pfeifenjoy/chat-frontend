@@ -15,6 +15,6 @@ export default class Logout extends I18NComponent {
     }
 
     handleLogout() {
-        logout(); //TODO handle fail
+        logout()
     }
 }

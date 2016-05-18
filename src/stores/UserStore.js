@@ -64,7 +64,9 @@ class UserStore extends EventEmitter {
 
     logout() {
         delete this.data.user;
+        delete this.data.token;
         localStorage.removeItem("user");
+        localStorage.removeItem("token");
         this.emit("change");
     }
 

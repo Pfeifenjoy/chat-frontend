@@ -20,12 +20,6 @@ import Settings from "./pages/Settings";
 //Get helper functions
 import UserStore from "./stores/UserStore";
 import { requireAuth } from "./util/auth";
-import socket from "./socket";
-import dispatcher from "./dispatcher";
-
-
-//Delegate all messages to dispatcher and all messages to the server
-socket.link(dispatcher);
 
 const app = document.getElementById("content");
 
