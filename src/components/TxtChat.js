@@ -1,7 +1,11 @@
 import React from "react";
 import Component from "./Component";
-import RoomStore from "../stores/RoomStore";
 import { sendTextMessage } from "../actions/RoomActions";
+import constants from "../constants";
+
+//stores
+import RoomStore from "../stores/RoomStore";
+import UserStore from "../stores/UserStore";
 
 export default class TxtChat extends Component {
 
@@ -15,42 +19,40 @@ export default class TxtChat extends Component {
     componentWillMount() {
         //update if the active room changes
         this.handleEvents(RoomStore, room => {
-            if(room) {
-                this.setState({
-                    room
-                })
-            }
-        }, "newActiveRoom");
+            this.setState({
+                room: RoomStore.activeRoom
+            })
+        }, "activeRoomChange");
 
         //Get all messages for this room.
         this.handleEvents(RoomStore, message => {
-            if(room === this.state.room) {
-                this.setState({ room });
+            if(message.roomId === this.state.room.id) {
+                this.setState({ room: RoomStore.activeRoom });
             }
         }, "newMessage");
     }
 
     render() {
-        //        if(!this.state.room) return <div />;
-        //
-        //        const { members, messages } = this.state.room;
-        //
-        //        const messageItems = messages
-        //        .filter(message => message.type === constants.MESSAGE_TEXT_MESSAGE)
-        //        .map(message => {
-        //            if(UserStore.userId === message.payload.user.id) {
-        //                return <div className="ownMessage">
-        //                    <p>{ message.payload.text }</p>
-        //                    <img src={message.payload.user.smallIcon} className="circular"/>
-        //                </div>
-        //            }
-        //            else {
-        //                return <div className="answerMsg">
-        //                    <img src={message.payload.user.smallIcon} className="circular"/>
-        //                    <p>{ message.payload.text }</p>
-        //                </div>
-        //            }
-        //        });
+        if(!this.state.room) return <div />;
+
+        const { members, messages } = this.state.room;
+
+        const messageItems = messages ? messages
+        .filter(message => message.type === constants.MESSAGE_TEXT_MESSAGE)
+        .map((message, i) => {
+            if(UserStore.user.id === message.payload.user.id) {
+                return <div key={i} className="ownMessage">
+                    <p>{ message.payload.text }</p>
+                    <img src={message.payload.user.smallIcon} className="circular"/>
+                </div>
+            }
+            else {
+                return <div key={i} className="answerMsg">
+                    <img src={message.payload.user.smallIcon} className="circular"/>
+                    <p>{ message.payload.text }</p>
+                </div>
+            }
+        }) : [];
 
         return <div className="txtChat">
             <div className="topBar">
@@ -63,6 +65,7 @@ export default class TxtChat extends Component {
                     </span>
             </div>
             <div className="chatWrapper">
+                {messageItems}
             </div>
 
             <div className="messageField" >
@@ -82,7 +85,6 @@ export default class TxtChat extends Component {
 
     handleSendMessage() {
         let message = this.refs.messageTextArea.value;
-        //sendTextMessage(message, this.state.room); //TODO
-        sendTextMessage(message, { id: "lskdjf" });
+        sendTextMessage(message, this.state.room);
     }
 }

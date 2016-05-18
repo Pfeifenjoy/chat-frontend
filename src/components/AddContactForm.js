@@ -22,7 +22,7 @@ export default class AddContactForm extends Component {
         .map(user => {
             return <li
                 className="searchResult"
-                onClick={this.getAddContactHandler(user.id)}
+                onClick={this.getAddContactHandler(user)}
                 key={ user.id }
             >{user.username}</li>
         });
@@ -46,29 +46,26 @@ export default class AddContactForm extends Component {
 
     handleEnter(event) {
         this.setState({
-            searchResults: [{ username: "test", id: "sdklfj"}]
-        });
-        //        this.setState({
-        //            showIndicator: true
-        //        })
-        //        searchUser(event.target.value.trim())
-        //        .done(users => {
-        //            this.setState({
-        //                searchResults: users,
-        //                searchFailed: false,
-        //                showIndicator: false
-        //            })
-        //        })
-        //        .fail(() => {
-        //            this.setState({
-        //                searchFailed: true
-        //            });
-        //        })
+            showIndicator: true
+        })
+        searchUser(event.target.value.trim())
+        .done(users => {
+            this.setState({
+                searchResults: users,
+                searchFailed: false,
+                showIndicator: false
+            })
+        })
+        .fail(() => {
+            this.setState({
+                searchFailed: true
+            });
+        })
     }
 
-    getAddContactHandler(contactId) {
+    getAddContactHandler(contact) {
         return () => {
-            createRoom([ UserStore.userId, contactId ])
+            createRoom([ UserStore.user, contact ])
         }
     }
 }

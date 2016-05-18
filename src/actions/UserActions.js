@@ -41,7 +41,6 @@ export function register(username, password) {
         method: "POST",
         data: { username, password }
     })
-    .done(user => { console.log(user); })
     .done(login.bind(null, username, password))
 }
 

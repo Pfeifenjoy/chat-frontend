@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import dispatcher from "../dispatcher";
-import { CONFIG_NEW_SERVER_ROOT } from "../constants";
+import constants from "../constants";
 
 class ConfigStore extends EventEmitter {
     constructor() {
@@ -8,7 +8,7 @@ class ConfigStore extends EventEmitter {
 
         this.data = Object.assign({
             serverRoot: location.origin || "",
-            wssLocation: (location.protocol === "http:" ? "ws://" : "wss://") + "localhost:3001", //TODO change
+            wssLocation: (location.protocol === "http:" ? "ws://" : "wss://") + "localhost:4001", //TODO change
             apiLocation: "/api/v1/"
         }, JSON.parse(window.localStorage.getItem("ConfigStore")))
         this.save();
@@ -40,7 +40,7 @@ class ConfigStore extends EventEmitter {
     handleActions(action) {
         const { type, payload } = action;
         switch(type) {
-            case CONFIG_NEW_SERVER_ROOT: {
+            case constants.CONFIG_NEW_SERVER_ROOT: {
                 this.updateServerRoot(payload);
                 break;
             }

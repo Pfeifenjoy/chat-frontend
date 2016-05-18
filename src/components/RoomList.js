@@ -9,6 +9,7 @@ import BigIcon from "./BigIcon";
 //stores
 import RoomStore from "../stores/RoomStore";
 import UserStore from "../stores/UserStore";
+import SidebarStore from "../stores/SidebarStore";
 
 //Actions
 import { 
@@ -33,39 +34,44 @@ export default class UserInformation extends Component {
         this.handleRoomStore = () => {
             this.setState({ 
                 rooms: RoomStore.rooms,
-                selectedRoom: RoomStore.selectedRoom
+                selectedRoom: RoomStore.activeRoom
             });
         }
         this.handleEvents(RoomStore, this.handleRoomStore);
+
+        this.handleRoomStoreActiveRoom = () => {
+            this.setState({
+                selectedRoom: RoomStore.activeRoom
+            })
+        }
+        this.handleEvents(RoomStore, this.handleRoomStoreActiveRoom, "activeRoomChange");
         refreshRooms();
     }
 
     render() {
         const rooms = this.state.rooms.map(room => {
             let img = room.smallIcon ? room.smallIcon : standardImage;
-            let className = "circular" + (room.online ? " online" : " offline");
-            let name = room.members.join(", ");
+            let name = room.members.map(member => member.username).join(", ");
             return <li
                 key={room.id}
                 onClick={this.getSelectRoomHandler(room)}
                 className={room === this.state.selectedRoom ? "active" : ""}
             >
-                <a>
-                    <div className="onlineWrapper">
-                        <img src={img} className={className}/>
-                    </div>
+                <a className="item">
+                    <img src={img} />
                     {name}
+                    <span
+                        className="delete fa fa-trash"
+                        onClick={this.getDeleteRoomHandler(room)}
+                    ></span>
                 </a>
-                <span
-                    className="delete fa fa-trash"
-                    onClick={this.getDeleteRoomHandler(room)}
-                ></span>
                 <div className="clear"></div>
             </li>;
         });
 
-
-        return <div>
+        let className = "roomList";
+        if(SidebarStore.small) className += " small";
+        return <div className={className}>
             <ul>
                 {rooms}
             </ul>

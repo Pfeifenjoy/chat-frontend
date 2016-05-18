@@ -45,16 +45,16 @@ class RoomStore extends EventEmitter {
     }
 
     addMessage(message) {
-        return; //TODO
         //Get the room
         let room = this.data.rooms[message.roomId];
+        room.messages = room.messages || [];
         room.messages.push(message)
         this.emit("newMessage", message, room);
     }
 
     addRoom(room) {
         this.data.rooms[room.id] = room;
-        this.emit("roomsChanged");
+        this.emit("change");
     }
 
     changeActiveRoom(room) {
@@ -65,12 +65,12 @@ class RoomStore extends EventEmitter {
 
     removeRoom(id) {
         delete this.data.rooms[id];
-        this.emit("roomsChanged")
+        this.emit("change")
     }
 
     setRooms(rooms) {
         this.data.rooms = arrayToObject(rooms);
-        this.emit("roomsChanged")
+        this.emit("change")
     }
 
     handleActions(action) {
@@ -80,6 +80,7 @@ class RoomStore extends EventEmitter {
             case constants.MESSAGE_VIDEO_CALL_START: {}
             case constants.MESSAGE_VIDEO_CALL_END: {
                 this.addMessage(action)
+                break;
             }
             case constants.ROOMS_NEW_ROOM: {
                 this.addRoom(payload);

@@ -1,0 +1,36 @@
+
+.transition {
+	-webkit-transition:all 0.3s ease-in-out;
+	-moz-transition:all 0.3s ease-in-out;
+	-o-transition:all 0.3s ease-in-out;
+	transition:all 0.3s ease-in-out;
+}
+.roomList {
+    width: 100%;
+    cursor: pointer;
+    .transition;
+}
+
+.roomList img {
+    width: 20%;
+    .transition
+}
+.roomList.small img {
+    width: 100%;
+}
+
+.roomList .item {
+    position: relative;
+}
+
+.roomList .delete {
+    position: absolute;
+    right: -0.2em;
+    top: 30%;
+}
+.roomList.small .delete {
+    display: none;
+}
+
+
+

@@ -4,17 +4,16 @@ import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import { ajax } from "../util/ajax";
 
-export function createRoom(contactNames) {
-    let usernames = [UserStore.username, ...contactNames];
+export function createRoom(members) {
     return ajax({
         url: ConfigStore.apiLocation + "rooms",
         method: "POST",
-        data: {usernames}
+        data: { members }
     })
     .done(response => {
         dispatcher.dispatch({
-            type: constants.NEW_ROOM,
-            room: response
+            type: constants.ROOMS_NEW_ROOM,
+            payload: response
         })
     })
 }
@@ -45,7 +44,7 @@ export function refreshRooms() {
     })
     .done(response => {
         dispatcher.dispatch({
-            type: constants.FRESH_ROOMS,
+            type: constants.ROOMS_NEW_ROOMS,
             payload: response.rooms
         })
     })
@@ -70,7 +69,8 @@ export function changeActiveRoom(room) {
  */
 export function sendTextMessage(text, room) {
     let payload = {
-        text
+        text,
+        user: UserStore.user
     };
 
     let message = {
@@ -79,7 +79,6 @@ export function sendTextMessage(text, room) {
         payload
     }
 
-    console.log(message);
     dispatcher.dispatch(message);
 }
 

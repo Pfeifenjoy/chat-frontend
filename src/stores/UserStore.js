@@ -11,20 +11,20 @@ class UserStore extends EventEmitter {
         this.data = {
             user: JSON.parse(localStorage.getItem("user")) || {
                 username: "",
-                token: null,
                 id: "",
                 icon: ""
-            }
+            },
+            token: localStorage.getItem("token") || null
         }
     }
     get authenticated() {
-        return !!this.data.user.token;
+        return !!this.data.token;
     }
     get username() {
         return this.data.user.username;
     }
     get token() {
-        return this.data.user.token;
+        return this.data.token;
     }
     get icon() {
         return this.data.user.icon;
@@ -34,6 +34,9 @@ class UserStore extends EventEmitter {
     }
     get email() {
         return this.data.user.email;
+    }
+    get user() {
+        return this.data.user;
     }
 
     updateIcons(icons) {
@@ -49,11 +52,12 @@ class UserStore extends EventEmitter {
 
     save() {
         localStorage.setItem("user", JSON.stringify(this.data.user));
+        localStorage.setItem("token", this.data.token);
     }
 
     login(payload) {
         this.data.user = payload.user
-        this.data.user.token = payload.token
+        this.data.token = payload.token
         this.save();
         this.emit("change");
     }
