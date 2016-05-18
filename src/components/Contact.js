@@ -1,11 +1,16 @@
-import React, {Component} from "react";
-import ContactStore from "../stores/ContactStore";
-import {selectUser, refreshContacts, deleteContact, updateLoadingAdnimation} from "../actions/ContactActions";
+import React from "react";
+import Component from "./Component";
 import AddContactForm from "./AddContactForm";
-import UserStore from "../stores/UserStore";
 import SmallIcon from "./SmallIcon";
 import BigIcon from "./BigIcon";
-import {Link} from "react-router";
+import { Link } from "react-router";
+
+//stores
+import RoomStore from "../stores/RoomStore";
+import UserStore from "../stores/UserStore";
+
+//Actions
+import { changeActiveRoom, exitRoom } from "../actions/RoomActions";
 
 
 class Contact extends Component {
@@ -13,26 +18,25 @@ class Contact extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: ContactStore.contacts,
-            selectedContact: ContactStore.selectedContact,
+            rooms: RoomStore.rooms,
+            selectedRoom: RoomStore.selectedRoom
         };
         refreshContacts();
     }
 
     componentWillMount() {
-        ContactStore.on("change", this.updateContacts.bind(this));
+        this.handleEvents(RoomStore, this.updateContacts.bind(this));
     }
 
-
-    updateContacts() {
+    updateRooms() {
         this.setState({
-            contacts: ContactStore.contacts,
-            selectedContact: ContactStore.selectedContact
+            rooms: RoomStore.rooms,
+            selectedRoom: RoomStore.selectedRoom
         });
     }
 
     render() {
-        const contacts = this.state.contacts.map((contact, i) => {
+        const rooms = this.state.rooms.map(room => {
 
             let img = (contact.smallIcon != null ? contact.smallIcon : "src/img/default_icon.png");
 
@@ -57,7 +61,7 @@ class Contact extends Component {
 
         return <div id="contactWrapper">
             <div id="iconWrapper">
-                <BigIcon /><i id="username">{UserStore.username}</i>
+                <BigIcon /><i>{UserStore.username}</i>
                 <Link to="/profile">
                     <SmallIcon />
                 </Link>

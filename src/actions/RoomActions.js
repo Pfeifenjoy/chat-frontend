@@ -19,17 +19,17 @@ export function createRoom(contactNames) {
     })
 }
 
-export function exitRoom(roomId) {
+export function exitRoom(room) {
     let usernames = [UserStore.username];
     return $.ajax({
-        url: ConfigStore.apiLocation + "rooms/" + roomId + "/users",
+        url: ConfigStore.apiLocation + "rooms/" + room.id + "/users",
         method: "DELETE",
         data: { usernames }
     })
     .done(response => {
         dispatcher.dispatch({
             type: constants.EXIT_ROOM.
-            roomId
+            room
         });
     });
 }

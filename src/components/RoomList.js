@@ -1,34 +1,53 @@
 import React from "react";
 import Component from "./Component";
-import RoomStore from "../stores/RoomStore";
+
+//Components
 import AddContactForm from "./AddContactForm";
+import SmallIcon from "./SmallIcon";
+import BigIcon from "./BigIcon";
+
+//stores
+import RoomStore from "../stores/RoomStore";
+import UserStore from "../stores/UserStore";
+
+//Actions
+import { 
+    changeActiveRoom,
+    exitRoom,
+    refreshRooms
+} from "../actions/RoomActions";
+
+//Static resources
+const standardImage = require("../img/default_icon.png");
 
 export default class UserInformation extends Component {
     constructor() {
         super();
-
         this.state = {
             rooms: RoomStore.rooms,
-            selectedRoom: null
+            selectedRoom: RoomStore.selectedRoom
         }
     }
 
     componentWillMount() {
         this.handleRoomStore = () => {
-            this.setState({ rooms: RoomStore.rooms });
+            this.setState({ 
+                rooms: RoomStore.rooms,
+                selectedRoom: RoomStore.selectedRoom
+            });
         }
         this.handleEvents(RoomStore, this.handleRoomStore);
+        refreshRooms();
     }
 
     render() {
         const rooms = this.state.rooms.map(room => {
-            let img = (contact.smallIcon != null ? contact.smallIcon : "src/img/default_icon.png");
-            let className = "circular" + (contact.online ? " online" : " offline");
+            let img = room.smallIcon ? room.smallIcon : standardImage;
+            let className = "circular" + (room.online ? " online" : " offline");
             let name = room.members.join(", ");
             return <li
                 key={room.id}
-                onClick={this.handleRoomSelect.bind(this)}
-                data-id={name}
+                onClick={this.getSelectRoomHandler(room)}
                 className={room === this.state.selectedRoom ? "active" : ""}
             >
                 <a>
@@ -38,9 +57,8 @@ export default class UserInformation extends Component {
                     {name}
                 </a>
                 <span
-                    data-room={room}
                     className="delete fa fa-trash"
-                    onClick={this.deleteRoom.bind(this)}
+                    onClick={this.getDeleteRoomHandler(room)}
                 ></span>
                 <div className="clear"></div>
             </li>;
@@ -53,5 +71,17 @@ export default class UserInformation extends Component {
             </ul>
             <AddContactForm visible={this.props.small} />
         </div>
+    }
+
+    getDeleteRoomHandler(room) {
+        return () => {
+            exitRoom(room);
+        }
+    }
+
+    getSelectRoomHandler(room) {
+        return () => {
+            changeActiveRoom(room);
+        }
     }
 }

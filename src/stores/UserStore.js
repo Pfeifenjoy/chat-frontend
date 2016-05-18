@@ -9,7 +9,7 @@ class UserStore extends EventEmitter {
         super();
 
         this.data = {
-            user: sessionStorage.getItem("user") || {
+            user: JSON.parse(localStorage.getItem("user")) || {
                 username: "",
                 token: null,
                 id: "",
@@ -41,13 +41,13 @@ class UserStore extends EventEmitter {
 
     login(user) {
         this.data.user = user
-        sessionStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(user));
         this.emit("change");
     }
 
     logout() {
         delete this.data.user;
-        sessionStorage.removeItem("user");
+        localStorage.removeItem("user");
         this.emit("change");
     }
 

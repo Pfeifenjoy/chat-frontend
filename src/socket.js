@@ -1,5 +1,8 @@
-import ConfigStore from "./stores/ConfigStore";
 import constants from "./constants";
+
+//stores
+import ConfigStore from "./stores/ConfigStore";
+import UserStore from "./stores/UserStore";
 
 class Socket {
     constructor() {
@@ -29,6 +32,8 @@ class Socket {
 
     handleMessages(action) {
         let { type } = action;
+
+        action.token = UserStore.token;
 
         if( type === constants.MESSAGE_VIDEO_CALL_START
             || type === constants.MESSAGE_VIDEO_CALL_END
