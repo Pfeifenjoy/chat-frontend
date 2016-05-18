@@ -1,5 +1,6 @@
 import React from "react";
 import Component from "./Component";
+import { browserHistory } from "react-router";
 
 //Components
 import AddContactForm from "./AddContactForm";
@@ -93,6 +94,7 @@ export default class UserInformation extends Component {
 
     getSelectRoomHandler(room) {
         return () => {
+            browserHistory.push("/");
             changeActiveRoom(room);
         }
     }
