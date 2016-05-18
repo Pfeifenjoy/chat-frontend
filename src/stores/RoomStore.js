@@ -63,8 +63,8 @@ class RoomStore extends EventEmitter {
     }
 
 
-    removeRoom(id) {
-        delete this.data.rooms[id];
+    removeRoom(room) {
+        delete this.data.rooms[room.id];
         this.emit("change")
     }
 
@@ -86,8 +86,9 @@ class RoomStore extends EventEmitter {
                 this.addRoom(payload);
                 break;
             }
-            case constants.ROOMS_DELETE_ROOM: {
+            case constants.ROOMS_EXIT_ROOM: {
                 this.removeRoom(payload);
+                break;
             }
             case constants.ROOMS_NEW_ROOMS: {
                 this.setRooms(payload);

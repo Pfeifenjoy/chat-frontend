@@ -22,14 +22,14 @@ export function createRoom(members) {
 export function exitRoom(room) {
     let usernames = [UserStore.username];
     return ajax({
-        url: ConfigStore.apiLocation + "rooms/" + room.id + "/users",
-        method: "DELETE",
-        data: { usernames }
+        url: ConfigStore.apiLocation + "rooms/exit",
+        method: "PUT",
+        data: { roomId: room.id }
     })
     .done(response => {
         dispatcher.dispatch({
-            type: constants.EXIT_ROOM.
-            room
+            type: constants.ROOMS_EXIT_ROOM,
+            payload: room
         });
     });
 }
