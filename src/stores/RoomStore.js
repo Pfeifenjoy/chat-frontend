@@ -1,8 +1,8 @@
-import {EventEmitter} from "events";
+import { EventEmitter } from "events";
 import dispatcher from "../dispatcher";
 import constants from "../constants";
 import ConfigStore from "./ConfigStore";
-import {refreshRooms} from "../actions/RoomActions";
+import { refreshRooms } from "../actions/RoomActions";
 import { objectToArray, arrayToObject } from "../util/data-types.js";
 
 /**
@@ -26,13 +26,18 @@ class RoomStore extends EventEmitter {
         super();
         this._id = id;
         this.data = {
-            rooms: {}
+            rooms: {},
+            activeRoom: undefined
         };
         refreshRooms();
     }
 
     get rooms() {
         return objectToArray(this.data.rooms);
+    }
+
+    get activeRoom() {
+        return this.data.activeRoom;
     }
 
     getRoom(id) {
@@ -49,6 +54,11 @@ class RoomStore extends EventEmitter {
     addRoom(room) {
         this.data.rooms[room.id] = room;
         this.emit("roomsChanged");
+    }
+
+    changeActiveRoom(room) {
+        this.data.activeRoom = this.data.rooms[room.id];
+        this.emit("activeRoomChange");
     }
 
 
@@ -78,6 +88,10 @@ class RoomStore extends EventEmitter {
             }
             case constants.ROOMS_NEW_ROOMS: {
                 this.setRooms(payload);
+                break;
+            }
+            case constants.ROOMS_NEW_ACTIVE_ROOM: {
+                this.changeActiveRoom(payload);
                 break;
             }
         }

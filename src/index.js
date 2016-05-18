@@ -6,7 +6,7 @@ require("font-awesome-webpack");
 //Get all react components
 import React from "react";
 import ReactDom from "react-dom";
-import {Router, Route, IndexRoute, browserHistory} from "react-router";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
 //get all pages
 import Login from "./pages/Login";

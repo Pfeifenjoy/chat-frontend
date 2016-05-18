@@ -47,8 +47,19 @@ export function refreshRooms() {
     .done(response => {
         dispatcher.dispatch({
             type: constants.FRESH_ROOMS,
-            rooms: response.rooms
+            payload: response.rooms
         })
+    })
+}
+
+/**
+ * Change the room which is active.
+ * This is relevant for the chat and the sidebar.
+ */
+export function changeActiveRoom(room) {
+    dispatcher.dispatch({
+        type: constants.ROOMS_NEW_ACTIVE_ROOM,
+        payload: room
     })
 }
 

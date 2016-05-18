@@ -1,5 +1,4 @@
-import React from "react";
-import Component from "./Component";
+import React, { Component } from "react";
 
 export default class UserInformation extends Component {
     render() {

@@ -2,6 +2,7 @@ import React from "react";
 import Component from "./Component";
 import { searchUser } from "../actions/UserActions";
 import { createRoom } from "../actions/RoomActions";
+import UserStore from "../stores/UserStore";
 
 
 export default class AddContactForm extends Component {
@@ -19,12 +20,11 @@ export default class AddContactForm extends Component {
 
         const searchResults = this.state.searchResults.splice(0, this.props.maxSearchResults || 5)
         .map(user => {
-            return <ul>
-                <li
-                    data-id={user.id}
-                    onClick={this.handleNewRoom.bind(this)}
-                >user.username</li>
-            </ul>;
+            return <li
+                className="searchResult"
+                onClick={this.getAddContactHandler(user.id)}
+                key={ user.id }
+            >{user.username}</li>
         });
 
         let indicatorClass = this.state.searchFailed ?
@@ -40,30 +40,35 @@ export default class AddContactForm extends Component {
                 onKeyDown={ this.handleEnter.bind(this) }
             />
         <i className={indicatorClass}></i>
+        {searchResults}
         </div>
     }
 
     handleEnter(event) {
         this.setState({
-            showIndicator: true
-        })
-        searchUser(event.target.value.trim())
-        .done(users => {
-            this.setState({
-                searchResults: users,
-                searchFailed: false,
-                showIndicator: false
-            })
-        })
-        .fail(() => {
-            this.setState({
-                searchFailed: true
-            });
-        })
+            searchResults: [{ username: "test", id: "sdklfj"}]
+        });
+        //        this.setState({
+        //            showIndicator: true
+        //        })
+        //        searchUser(event.target.value.trim())
+        //        .done(users => {
+        //            this.setState({
+        //                searchResults: users,
+        //                searchFailed: false,
+        //                showIndicator: false
+        //            })
+        //        })
+        //        .fail(() => {
+        //            this.setState({
+        //                searchFailed: true
+        //            });
+        //        })
     }
 
-    handleNewRoom(oEvent) {
-        let contactId = oEvent.target.attributes.getNamedItem("data-id");
-        createRoom([ UserStore.userId, contactId ])
+    getAddContactHandler(contactId) {
+        return () => {
+            createRoom([ UserStore.userId, contactId ])
+        }
     }
 }

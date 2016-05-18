@@ -10,10 +10,10 @@ export function login(username, password) {
         method: "POST",
         data: { username, password }
     })
-    .done(() => {
+    .done(user => {
         dispatcher.dispatch({
             type: constants.USER_LOGIN,
-            payload: { username }
+            payload: { username, token: user.token }
         });
     });
 }
@@ -44,15 +44,9 @@ export function register(username, password) {
 }
 
 export function logout() {
-    return $.ajax({
-        url: ConfigStore.apiLocation + "users/logout",
-        method: "GET",
-    })
-    .done(() => {
-        dispatcher.dispatch({
-            type: constants.USER_LOGOUT
-        });
-    })
+    dispatcher.dispatch({
+        type: constants.USER_LOGOUT
+    });
 }
 
 export function searchUser(query) {

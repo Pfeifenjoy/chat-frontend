@@ -1,6 +1,7 @@
 
 @messageFieldHeight: 8em;
 @topBarHeight: 3em;
+@messageFieldSendButtonWidth: 3em;
 
 
 .txtChat {
@@ -75,10 +76,21 @@
 .messageField textarea {
   padding: 1%;
   resize: none;
-  width: 98%;
+  width: ~"calc( 100% - " @messageFieldSendButtonWidth ~" - 1em)";
   border: 1px solid #E7E7E7;
   border-radius: 5px;
   color: #60646D;
   height: 100%;
+}
+
+.messageField button.sendButton {
+    width: @messageFieldSendButtonWidth;
+    height: @messageFieldSendButtonWidth;
+    position: absolute;
+    right: 0;
+    top: ~"calc( 50% - " @messageFieldSendButtonWidth / 2 ~")";
+    border: none;
+    border-radius: 100%;
+    background-color: orange;
 }
 

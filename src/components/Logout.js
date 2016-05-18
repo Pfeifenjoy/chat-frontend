@@ -5,9 +5,12 @@ import { Link } from "react-router";
 
 export default class Logout extends I18NComponent {
     render() {
-        return <Link className="btn btn-warning logout-button" onClick={this.logout} to="/">
+        return <Link
+            className="btn btn-warning logout-button"
+            onClick={this.handleLogout}
+            to="/">
             <span className="fa fa-sign-out"></span>
-            <span id="log_out">Logout</span>
+            <span>Logout</span>
         </Link>;
     }
 

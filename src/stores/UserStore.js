@@ -9,41 +9,45 @@ class UserStore extends EventEmitter {
         super();
 
         this.data = {
-            username: sessionStorage.getItem("username") || "",
-            authenticated: sessionStorage.getItem("username") ? true : false,
-            smallIcon: null,
-            bigIcon: null
+            user: sessionStorage.getItem("user") || {
+                username: "",
+                token: null,
+                id: "",
+                smallIcon: null,
+                bigIcon: null
+            }
         }
     }
     get authenticated() {
-        return this.data.authenticated;
+        return !!this.data.user.token;
     }
     get username() {
-        return this.data.username;
+        return this.data.user.username;
+    }
+    get token() {
+        return this.data.user.token;
     }
     get smallIcon() {
-        return this.data.smallIcon;
+        return this.data.user.smallIcon;
     }
     get bigIcon() {
-        return this.data.bigIcon;
+        return this.data.user.bigIcon;
     }
 
     updateIcons(icons) {
-        Object.assign(this.data, icons);
+        Object.assign(this.data.user, icons);
         this.emit("change");
     }
 
     login(user) {
-        this.data.username = user.username;
-        sessionStorage.setItem("username", user.username);
-        this.data.authenticated = true;
+        this.data.user = user
+        sessionStorage.setItem("user", user);
         this.emit("change");
     }
 
     logout() {
-        delete this.data.username;
-        sessionStorage.removeItem("username");
-        this.data.authenticated = false;
+        delete this.data.user;
+        sessionStorage.removeItem("user");
         this.emit("change");
     }
 

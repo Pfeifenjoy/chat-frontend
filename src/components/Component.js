@@ -20,8 +20,12 @@ export default class Component extends I18NComponent {
 
     componentWillUnmount() {
         //Clean up listeners
-        DeviceStore.removeListener("change", this.handleDeviceStore);
-        SidebarStore.removeListener("change", this.handleSidebarStore);
+        try {
+            DeviceStore.removeListener("change", this.handleDeviceStore);
+            SidebarStore.removeListener("change", this.handleSidebarStore);
+        } catch (e) {
+            //This does not always work
+        }
 
         this.handlers.forEach(handler => {
             handler.store.removeListener(handler.eventId, handler.callback);
