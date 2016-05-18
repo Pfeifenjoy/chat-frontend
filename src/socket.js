@@ -33,12 +33,14 @@ class Socket {
     handleMessages(action) {
         let { type } = action;
 
-        action.token = UserStore.token;
-
+        //only forward messages
         if( type === constants.MESSAGE_VIDEO_CALL_START
             || type === constants.MESSAGE_VIDEO_CALL_END
             || type === constants.MESSAGE_TEXT_MESSAGE
             || type === constants.MESSAGE_USER_CONNECTED ) {
+
+            //authenticate
+            action.token = UserStore.token;
             this.connection.send(action);
         }
     }

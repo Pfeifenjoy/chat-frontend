@@ -1,7 +1,4 @@
 import React, {Component} from "react";
-import {newNotify} from "../actions/NotifyActions";
-import {refreshContacts} from "../actions/ContactActions";
-import SocketStore from "../stores/SocketStore";
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;

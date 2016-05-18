@@ -1,11 +1,11 @@
 import dispatcher from "../dispatcher";
 import constants from "../constants";
 import ConfigStore from "../stores/ConfigStore";
-import $ from "jquery";
+import { ajax } from "../util/ajax";
 
 
 export function login(username, password) {
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "users/login",
         method: "POST",
         data: { username, password }
@@ -19,7 +19,7 @@ export function login(username, password) {
 }
 
 export function updateUser(user) {
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "users",
         method: "GET",
         data: user
@@ -34,7 +34,7 @@ export function updateUser(user) {
 }
 
 export function register(username, password) {
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "users",
         method: "POST",
         data: { username, password }
@@ -50,7 +50,7 @@ export function logout() {
 }
 
 export function searchUser(query) {
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "users/search",
         method: "GET",
         data: {

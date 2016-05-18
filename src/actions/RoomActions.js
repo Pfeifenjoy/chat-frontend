@@ -2,11 +2,11 @@ import dispatcher from "../dispatcher";
 import constants from "../constants";
 import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
-import $ from "jquery";
+import { ajax } from "../util/ajax";
 
 export function createRoom(contactNames) {
     let usernames = [UserStore.username, ...contactNames];
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "rooms",
         method: "POST",
         data: {usernames}
@@ -21,7 +21,7 @@ export function createRoom(contactNames) {
 
 export function exitRoom(room) {
     let usernames = [UserStore.username];
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "rooms/" + room.id + "/users",
         method: "DELETE",
         data: { usernames }
@@ -39,7 +39,7 @@ export function exitRoom(room) {
  */
 export function refreshRooms() {
     let username = UserStore.username;
-    return $.ajax({
+    return ajax({
         url: ConfigStore.apiLocation + "users/" + username + "/rooms",
         method: "GET"
     })
