@@ -13,8 +13,7 @@ class UserStore extends EventEmitter {
                 username: "",
                 token: null,
                 id: "",
-                smallIcon: null,
-                bigIcon: null
+                icon: ""
             }
         }
     }
@@ -27,11 +26,8 @@ class UserStore extends EventEmitter {
     get token() {
         return this.data.user.token;
     }
-    get smallIcon() {
-        return this.data.user.smallIcon;
-    }
-    get bigIcon() {
-        return this.data.user.bigIcon;
+    get icon() {
+        return this.data.user.icon;
     }
     get id() {
         return this.data.user.id

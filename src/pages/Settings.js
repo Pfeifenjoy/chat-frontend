@@ -34,13 +34,13 @@ export default class Chat extends Component {
     }
 
     render() {
-        const iconSrc = UserStore.bigIcon || standardIconSrc;
+        const iconSrc = UserStore.icon || standardIconSrc;
         const settingsHeader = <div className="settingsHeader container-fluid">
             <div className="row">
                 <div className="headerSpacer" />
             </div>
             <div className="row row-centered">
-                <img className="logo col-lg-1 col-centered" src={iconSrc} />
+                <img className="logo col-lg-2 col-centered" src={iconSrc} />
             </div>
             <div className="row row-centered">
                 <p className="col-centered">{ UserStore.username }</p>
