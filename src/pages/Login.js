@@ -7,6 +7,7 @@ import UserStore from "../stores/UserStore";
 import PasswordInput from "../components/PasswordInput";
 import UsernameInput from "../components/UsernameInput";
 import I18NComponent from "../components/I18NComponent";
+import { arrayToObject, objectToArray } from "../util/data-types";
 
 
 export default class Login extends I18NComponent {
@@ -15,7 +16,7 @@ export default class Login extends I18NComponent {
         this.state = {
             username: "",
             password: "",
-            submitFailed: false,
+            errors: {},
             loading: false
         }
     }
@@ -24,14 +25,28 @@ export default class Login extends I18NComponent {
         //generate the input fields
         const username = <UsernameInput 
             onChange={this.handleUsernameChange.bind(this)}
+            error={this.state.errors.username}
             busy={this.state.loading}
         />;
+
         const password = <PasswordInput 
             onChange={this.handlePasswordChange.bind(this)}
-            wrongPassword={this.state.authenticationFailed}
+            error={this.state.errors.password}
             busy={this.state.loading}
         />;
         const baseUrlInput = <BaseUrlInput />;
+
+        let errorMessages = objectToArray(this.state.errors)
+        .map((error, i) => {
+            return <div 
+                className="alert alert-danger"
+                key={i}
+            >
+                <strong>{error.errorMessage}</strong>
+            </div>;
+        })
+
+        
 
         //create the form
         const form = <form
@@ -40,6 +55,7 @@ export default class Login extends I18NComponent {
                 method="post"
                 onSubmit={this.handleSubmit.bind(this)}
             >
+                {errorMessages}
             <fieldset>
                 {username}
                 {password}
@@ -79,10 +95,11 @@ export default class Login extends I18NComponent {
 
         let { username, password } = this.state;
         login(username, password)
-        .fail(error => {
+        .fail(response => {
+            let errors = arrayToObject(JSON.parse(response.responseText).errors, "field");
             this.setState({
-                authenticationFailed: true,
-                loading: false
+                loading: false,
+                errors
             });
         });
     }

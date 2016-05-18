@@ -5,6 +5,7 @@ import UsernameInput from "../components/UsernameInput";
 import PasswordInput from "../components/PasswordInput";
 import { register } from "../actions/UserActions";
 import { Link } from "react-router";
+import { arrayToObject, objectToArray } from "../util/data-types";
 
 export default class Register extends I18NComponent {
 
@@ -15,27 +16,38 @@ export default class Register extends I18NComponent {
             password: "",
             repassword: "",
             loading: false,
-            submitFailed: false
+            errors: {}
         }
     }
     render() {
         //generate the input fields
         const username = <UsernameInput 
             onChange={this.handleUsernameChange.bind(this)}
+            error={this.state.errors.username}
             busy={this.state.loading}
         />;
         const password = <PasswordInput 
             onChange={this.handlePasswordChange.bind(this)}
-            wrongPassword={this.state.authenticationFailed}
+            error={this.state.errors.password}
             busy={this.state.loading}
         />;
         const repassword = <PasswordInput 
             onChange={this.handleRepasswordChange.bind(this)}
-            wrongPassword={this.state.authenticationFailed}
+            error={this.state.errors.repassword}
             busy={this.state.loading}
             placeholder={this.getWord("Retype Password")}
         />;
         const baseUrlInput = <BaseUrlInput />;
+
+        let errorMessages = objectToArray(this.state.errors)
+        .map((error, i) => {
+            return <div 
+                className="alert alert-danger"
+                key={i}
+            >
+                <strong>{error.errorMessage}</strong>
+            </div>;
+        })
 
         //create the form
         const form = <form
@@ -44,6 +56,7 @@ export default class Register extends I18NComponent {
                 method="post"
                 onSubmit={this.handleSubmit.bind(this)}
             >
+            {errorMessages}
             <fieldset>
                 {username}
                 {password}
@@ -79,21 +92,13 @@ export default class Register extends I18NComponent {
     handleSubmit(oEvent) {
         this.setState({ loading: true });
         oEvent.preventDefault();
-        if(this.state.password === this.state.repassword) {
-            register(this.state.username, this.state.password)
-            .fail(() => {
-                this.setState({
-                    loading: false,
-                    submitFailed: true
-                });
-            })
-        }
-        else {
+        register(this.state.username, this.state.password)
+        .fail(errors => {
             this.setState({
-                submitFailed: true,
-                loading: false
+                loading: false,
+                errors: arrayToObject(JSON.parse(errors.responseText).errors, "field")
             });
-        }
+        })
     }
 
     handleUsernameChange(username) {

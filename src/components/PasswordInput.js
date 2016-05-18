@@ -13,29 +13,23 @@ export default class PasswordInput extends I18NComponent {
         //state
         const { password } = this.state;
 
-        //Conditions for password
-        const minLength = this.props.minLength || 8;
-        const maxLength = this.props.maxLength || 40;
-        const validator = this.props.validator || /.*/;
-        const wrongPassword = this.props.wrongPassword || false;
+        let error = this.props.error;
 
         //generate class
         let passwordClass = "form-group has-feedback";
-        let error = false;
+        let errorMessage = "";
 
-        if( (password.length < minLength 
-                || password.length > maxLength
-                || !validator.test(password))
-                && wrongPassword
-          ) {
+        if(error) {
             passwordClass += " has-error";
-            error = true;
+            errorMessage = error.errorMessage;
         }
 
         const errorIndicator = <span
                 className="form-control-feedback"
             >
-            <span className="fa fa-exclamation" />
+                <span 
+                    className="fa fa-exclamation"
+                />
         </span>
         
         //Render the input field
@@ -48,6 +42,7 @@ export default class PasswordInput extends I18NComponent {
                 name="password"
                 disabled={!!this.props.busy}
                 type="password"
+                title={errorMessage}
             />
             {(() => {if(error) return errorIndicator})()}
         </div>;

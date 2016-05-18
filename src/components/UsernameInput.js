@@ -10,6 +10,26 @@ export default class UsernameInput extends I18NComponent {
     }
 
     render() {
+        //Handle all errors
+        let error = this.props.error;
+
+        //generate class
+        let passwordClass = "form-group has-feedback";
+        let errorMessage = "";
+
+        if(error) {
+            passwordClass += " has-error";
+            errorMessage = error.errorMessage;
+        }
+
+        const errorIndicator = <span
+                className="form-control-feedback"
+            >
+                <span 
+                    className="fa fa-exclamation"
+                />
+        </span>
+
         //Render the input field
         const username = <div className="form-group has-feedback">
             <input 
@@ -20,8 +40,11 @@ export default class UsernameInput extends I18NComponent {
                 name="username"
                 disabled={!!this.props.busy}
                 type="text"
+                title={errorMessage}
             />
+            {(() => {if(error) return errorIndicator})()}
         </div>;
+
 
         //render the container
         return <div className="username-input">

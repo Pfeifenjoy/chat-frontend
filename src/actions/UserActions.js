@@ -6,7 +6,7 @@ import $ from "jquery";
 
 export function login(username, password) {
     return $.ajax({
-        url: ConfigStore.apiLocation + "login",
+        url: ConfigStore.apiLocation + "users/login",
         method: "POST",
         data: { username, password }
     })
@@ -39,7 +39,8 @@ export function register(username, password) {
         method: "POST",
         data: { username, password }
     })
-    .done(login.bind(null, username, password));
+    .done(user => { console.log(user); })
+    .done(login.bind(null, username, password))
 }
 
 export function logout() {
