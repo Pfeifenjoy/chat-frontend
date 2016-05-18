@@ -12,7 +12,8 @@ export default class TxtChat extends Component {
     constructor() {
         super();
         this.state = {
-            room: RoomStore.activeRoom
+            room: RoomStore.activeRoom,
+            textarea: ""
         }
     }
 
@@ -73,6 +74,8 @@ export default class TxtChat extends Component {
                     name="message"
                     placeholder={ this.getWord("New message") }
                     ref="messageTextArea"
+                    value={ this.state.textarea }
+                    onChange={ this.handleTextareaChange.bind(this) }
                 ></textarea>
                 <button 
                     name="send"
@@ -83,8 +86,14 @@ export default class TxtChat extends Component {
         </div>
     }
 
+    handleTextareaChange(event) {
+        let textarea = event.target.value;
+        this.setState({ textarea });
+    }
+
     handleSendMessage() {
         let message = this.refs.messageTextArea.value;
+        this.setState({ textarea: "" });
         sendTextMessage(message, this.state.room);
     }
 }
