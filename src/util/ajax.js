@@ -7,5 +7,5 @@ import UserStore from "../stores/UserStore";
 export function ajax(request) {
     request.data = request.data || {};
     request.data.token = UserStore.token;
-    $.ajax(request);
+    return $.ajax(request);
 }
