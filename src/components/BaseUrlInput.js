@@ -1,19 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
+import Component from "./Component";
 import ConfigStore from "../stores/ConfigStore";
 import DeviceStore from "../stores/DeviceStore";
 import { changeServerRoot } from "../actions/LoginActions";
 
 export default class BaseUrlInput extends Component {
-    componentWillMount() {
-        this.handleConfigChange = () => {
-            this.forceReload();
-        }
-        ConfigStore.on("change", this.handleConfigChange);
-    }
-    componentWillUnmount() {
-        //clean up listeners
-        ConfigStore.removeListener("change", this.handleConfigChange);
-    }
     render() {
         //Only display in electron app
         if(DeviceStore.electron) {

@@ -93,10 +93,16 @@ export default class Register extends I18NComponent {
         this.setState({ loading: true });
         oEvent.preventDefault();
         register(this.state.username, this.state.password)
-        .fail(errors => {
+        .fail(response => {
+            let errors = [{
+                errorMessage: this.getWord("Could not reach the server.")
+            }];
+            try {
+                errors = arrayToObject(JSON.parse(response.responseText).errors, "field");
+            } catch(e) { }
             this.setState({
                 loading: false,
-                errors: arrayToObject(JSON.parse(errors.responseText).errors, "field")
+                errors
             });
         })
     }

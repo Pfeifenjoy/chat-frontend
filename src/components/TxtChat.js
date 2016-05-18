@@ -1,6 +1,7 @@
 import React from "react";
 import Component from "./Component";
 import RoomStore from "../stores/RoomStore";
+import { sendTextMessage } from "../actions/RoomActions";
 
 export default class TxtChat extends Component {
 
@@ -65,9 +66,23 @@ export default class TxtChat extends Component {
             </div>
 
             <div className="messageField" >
-                <textarea name="message" placeholder="New message"></textarea>
-                <button name="send" className="fa fa-arrow-right sendButton" />
+                <textarea
+                    name="message"
+                    placeholder={ this.getWord("New message") }
+                    ref="messageTextArea"
+                ></textarea>
+                <button 
+                    name="send"
+                    className="fa fa-arrow-right sendButton"
+                    onClick={this.handleSendMessage.bind(this)}
+                />
             </div>
         </div>
+    }
+
+    handleSendMessage() {
+        let message = this.refs.messageTextArea.value;
+        //sendTextMessage(message, this.state.room); //TODO
+        sendTextMessage(message, { id: "lskdjf" });
     }
 }

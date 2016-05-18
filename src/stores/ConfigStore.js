@@ -31,8 +31,8 @@ class ConfigStore extends EventEmitter {
         return this.data;
     }
 
-    updateServerRoot(sNewRoot) {
-        this.data.serverRoot = sNewRoot;
+    updateServerRoot(payload) {
+        this.data.serverRoot = payload.serverRoot || location.origin;
         this.save();
         this.emit("change");
     }

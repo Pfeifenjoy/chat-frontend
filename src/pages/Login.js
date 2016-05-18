@@ -96,7 +96,12 @@ export default class Login extends I18NComponent {
         let { username, password } = this.state;
         login(username, password)
         .fail(response => {
-            let errors = arrayToObject(JSON.parse(response.responseText).errors, "field");
+            let errors = [{
+                errorMessage: this.getWord("Could not reach the server.")
+            }];
+            try {
+                errors = arrayToObject(JSON.parse(response.responseText).errors, "field");
+            } catch(e) { }
             this.setState({
                 loading: false,
                 errors

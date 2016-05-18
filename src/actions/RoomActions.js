@@ -1,6 +1,5 @@
 import dispatcher from "../dispatcher";
 import constants from "../constants";
-import connection from "../socket";
 import UserStore from "../stores/UserStore";
 import ConfigStore from "../stores/ConfigStore";
 import $ from "jquery";
@@ -64,66 +63,54 @@ export function changeActiveRoom(room) {
 }
 
 
-/**
- * A generic method to send messages.
- */
-export function sendMessage(message) {
-    try {
-        connection.send(JSON.stringify(message));
-        dispatcher.dispatch({
-            type: constants.MESSAGE_SEND,
-            message
-        });
-    } catch(e) {
-        dispatcher.dispatch({
-            type: constants.MESSAGE_FAILED,
-            message
-        })
-    }
-}
 
 /**
  * Send a text message to a room.
  * Every member of the room will than get a notification.
  */
-export function sendTextMessage(text, roomId) {
-    let payload = {text, roomId};
-    payload.createdAt = Date.now();
+export function sendTextMessage(text, room) {
+    let payload = {
+        text
+    };
 
     let message = {
         type: constants.TEXT_MESSAGE,
+        roomId: room.id,
         payload
     }
 
-    sendMessage(message);
+    console.log(message);
+    dispatcher.dispatch(message);
 }
 
 /**
  * Exposes the video connection to a specific room.
  * Than other clients can accept this connection.
  */
-export function startVideo(candidate, roomId) {
-    let payload = {candidate, roomId};
+export function startVideo(candidate, room) {
+    let payload = {candidate};
 
     let message = {
         type: constants.VIDEO_CALL_START,
+        roomId: room.id,
         payload
     }
 
-    sendMessage(message);
+    dispatcher.dispatch(message);
 }
 
 /**
  * Indicate that the video connection for a specific room 
  * is no longer exposed.
  */
-export function stopVideo(roomId) {
-    let payload = {roomId};
+export function stopVideo(room) {
+    let payload = {};
 
     let message = {
         type: constants.VIDEO_CALL_END,
+        roomId: room.id,
         payload
     }
 
-    sendMessage(message);
+    dispatcher.dispatch(message);
 }
