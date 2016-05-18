@@ -1,11 +1,11 @@
 import React from "react";
 import I18NComponent from "../components/I18NComponent";
 
-export default class UsernameInput extends I18NComponent {
-    constructor() {
-        super();
+export default class Input extends I18NComponent {
+    constructor(props) {
+        super(props);
         this.state = {
-            username: ""
+            value: props.startValue || ""
         }
     }
 
@@ -14,11 +14,11 @@ export default class UsernameInput extends I18NComponent {
         let error = this.props.error;
 
         //generate class
-        let passwordClass = "form-group has-feedback";
+        let className = "form-group has-feedback";
         let errorMessage = "";
 
         if(error) {
-            passwordClass += " has-error";
+            className += " has-error";
             errorMessage = error.errorMessage;
         }
 
@@ -31,13 +31,12 @@ export default class UsernameInput extends I18NComponent {
         </span>
 
         //Render the input field
-        const username = <div className="form-group has-feedback">
+        const input = <div className={className}>
             <input 
                 className="form-control"
-                placeholder={ this.getWord("Username") }
-                value={this.state.username}
-                onChange={this.handleUsernameChange.bind(this)}
-                name="username"
+                placeholder={ this.props.placeholder || "" }
+                value={this.state.value}
+                onChange={this.handleChange.bind(this)}
                 disabled={!!this.props.busy}
                 type="text"
                 title={errorMessage}
@@ -47,20 +46,20 @@ export default class UsernameInput extends I18NComponent {
 
 
         //render the container
-        return <div className="username-input">
-            {username}
+        return <div className="input">
+            {input}
         </div>;
     }
 
-    handleUsernameChange(oEvent) {
-        let username = oEvent.target.value;
+    handleChange(oEvent) {
+        let value = oEvent.target.value;
         //update the component
         this.setState({
-            username
+            value
         });
 
         //call change listener
         if(this.props.onChange)
-            this.props.onChange(username);
+            this.props.onChange(value);
     }
 }

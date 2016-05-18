@@ -5,9 +5,10 @@ import { Link } from "react-router";
 import { login } from "../actions/UserActions";
 import UserStore from "../stores/UserStore";
 import PasswordInput from "../components/PasswordInput";
-import UsernameInput from "../components/UsernameInput";
+import Input from "../components/Input";
 import I18NComponent from "../components/I18NComponent";
 import { arrayToObject, objectToArray } from "../util/data-types";
+import Form from "../components/Form";
 
 
 export default class Login extends I18NComponent {
@@ -23,9 +24,10 @@ export default class Login extends I18NComponent {
 
     render() {
         //generate the input fields
-        const username = <UsernameInput 
+        const username = <Input 
             onChange={this.handleUsernameChange.bind(this)}
             error={this.state.errors.username}
+            placeholder={ this.getWord("Username") }
             busy={this.state.loading}
         />;
 
@@ -37,54 +39,28 @@ export default class Login extends I18NComponent {
         const baseUrlInput = <BaseUrlInput />;
 
         let errorMessages = objectToArray(this.state.errors)
-        .map((error, i) => {
-            return <div 
-                className="alert alert-danger"
-                key={i}
-            >
-                <strong>{error.errorMessage}</strong>
-            </div>;
-        })
 
-        
-
+        let formFooter = <span>
+            {this.getWord("Or") + " "}
+            <Link to="register">{this.getWord("Register")}</Link>
+        </span>
         //create the form
-        const form = <form
-                acceptCharset="UTF-8"
-                role="form"
-                method="post"
-                onSubmit={this.handleSubmit.bind(this)}
-            >
-                {errorMessages}
-            <fieldset>
-                {username}
-                {password}
-                {baseUrlInput}
-                <input 
-                    className="btn btn-lg btn-success btn-block"
-                    type="submit"
-                    value={this.state.loading ? this.getWord("Loading...") : this.getWord("Login")}
-                    disabled={this.state.loading}
-                />
-            </fieldset>
-        </form>;
+        const form = <Form
+            onSubmit={this.handleSubmit.bind(this)}
+            submitButtonText={this.getWord("Please sign in")}
+            title={this.getWord("Login")}
+            errors={errorMessages}
+            footer={formFooter}
+        >
+            {username}
+            {password}
+            {baseUrlInput}
+        </Form>
 
-        //create the panel
-        const head = <div className="panel-heading">
-            <h3 className="panel-title">{this.getWord("Please sign in")}</h3>
-        </div>;
-        const body = <div className="panel-body">
+
+        return <div className="main">
             {form}
-            <span>
-                {this.getWord("Or") + " "}
-                <Link to="register">{this.getWord("Register")}</Link>
-            </span>
-        </div>;
-
-        return <div className="panel panel-default">
-            {head}
-            {body}
-        </div>;
+        </div>
 
     }
     handleSubmit(oEvent) {
