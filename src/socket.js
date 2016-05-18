@@ -20,6 +20,7 @@ class SocketWrapper {
                 this.initialize();
             }
         })
+        this.initialize();
     }
 
     initialize() {
@@ -53,6 +54,10 @@ class SocketWrapper {
 
         //get acknowledge messages
         if(message.type === constants.MESSAGE_ACKNOWLEDGE) {
+            if(!message.transactionid) {
+                console.warn("server did not return transactionid.");
+                return;
+            }
             this.messages[message.transactionid].resolve();
             delete this.messages[message.transactionid];
             return;
@@ -65,6 +70,10 @@ class SocketWrapper {
 
         //handle errors
         if(message.type === constants.MESSAGE_ERROR) {
+            if(!message.transactionid) {
+                console.warn("server did not return transactionid.");
+                return;
+            }
             this.messages[message.transactionid].reject();
             delete this.messages[message.transactionid];
             return;

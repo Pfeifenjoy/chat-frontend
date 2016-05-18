@@ -71,12 +71,12 @@ export function changeActiveRoom(room) {
 export function sendTextMessage(text, room) {
     let payload = {
         text,
-        user: UserStore.user
+        user: UserStore.user,
+        roomId: room.id
     };
 
     let message = {
-        type: constants.TEXT_MESSAGE,
-        roomId: room.id,
+        type: constants.MESSAGE_TEXT_MESSAGE,
         payload
     }
 
@@ -88,11 +88,13 @@ export function sendTextMessage(text, room) {
  * Than other clients can accept this connection.
  */
 export function startVideo(candidate, room) {
-    let payload = {candidate};
+    let payload = {
+        candidate,
+        roomId: room.id
+    };
 
     let message = {
         type: constants.VIDEO_CALL_START,
-        roomId: room.id,
         payload
     }
 
@@ -104,11 +106,12 @@ export function startVideo(candidate, room) {
  * is no longer exposed.
  */
 export function stopVideo(room) {
-    let payload = {};
+    let payload = {
+        roomId: room.id
+    };
 
     let message = {
         type: constants.VIDEO_CALL_END,
-        roomId: room.id,
         payload
     }
 

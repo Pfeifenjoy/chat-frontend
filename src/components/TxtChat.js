@@ -13,7 +13,8 @@ export default class TxtChat extends Component {
         super();
         this.state = {
             room: RoomStore.activeRoom,
-            textarea: ""
+            textarea: "",
+            messageFailed: false
         }
     }
 
@@ -27,14 +28,13 @@ export default class TxtChat extends Component {
 
         //Get all messages for this room.
         this.handleEvents(RoomStore, message => {
-            if(message.roomId === this.state.room.id) {
+            if(message.payload.roomId === this.state.room.id) {
                 this.setState({ room: RoomStore.activeRoom });
             }
         }, "newMessage");
     }
 
     render() {
-        if(!this.state.room) return <div />;
 
         const { members, messages } = this.state.room;
 
@@ -55,25 +55,22 @@ export default class TxtChat extends Component {
             }
         }) : [];
 
-        return <div className="txtChat">
-            <div className="topBar">
-                    <span className="btn btn-primary" title="Start video">
-                        <i className="fa fa-video-camera"></i>
-                    </span>
+        const errorIndicator = this.state.messageFailed ? <span 
+            className="fa fa-3x fa-exclamation error-indicator"
+        ></span> : [];
 
-                    <span className="btn btn-danger marginLeft" title="Delete chat">
-                        <i className="fa fa-trash"></i>
-                    </span>
-            </div>
+        return <div className="txtChat">
             <div className="chatWrapper">
                 {messageItems}
             </div>
 
             <div className="messageField" >
+                {errorIndicator}
                 <textarea
                     name="message"
                     placeholder={ this.getWord("New message") }
                     ref="messageTextArea"
+                    className="has-error"
                     value={ this.state.textarea }
                     onChange={ this.handleTextareaChange.bind(this) }
                 ></textarea>
@@ -92,8 +89,21 @@ export default class TxtChat extends Component {
     }
 
     handleSendMessage() {
+        this.setState({ messageFailed: false });
         let message = this.refs.messageTextArea.value;
-        this.setState({ textarea: "" });
-        sendTextMessage(message, this.state.room);
+        let timeout = setTimeout(() => {
+            this.setState({ messageFailed: true });
+        }, 3000);
+        sendTextMessage(message, this.state.room)
+        .then(() => {
+            clearTimeout(timeout);
+            this.setState({ textarea: "" });
+        })
+        .catch((e) => {
+            clearTimeout(timeout);
+            this.setState({
+                messageFailed: true
+            });
+        })
     }
 }

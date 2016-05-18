@@ -39,11 +39,6 @@ class UserStore extends EventEmitter {
         return this.data.user;
     }
 
-    updateIcons(icons) {
-        Object.assign(this.data.user, icons);
-        this.emit("change");
-    }
-
     updateUser(user) {
         Object.assign(this.data.user, user);
         this.save();
