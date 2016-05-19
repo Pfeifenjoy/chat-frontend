@@ -3,12 +3,6 @@ require("./less/index.less");
 require("bootstrap-webpack");
 require("font-awesome-webpack");
 
-//Support older WebRTC versions
-navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-window.RTCIceCandidate = window.RTCIceCandidate || window.mozRTCIceCandidate || window.webkitRTCIceCandidate;
-window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription;
-
 //Get all react components
 import React from "react";
 import ReactDom from "react-dom";
@@ -20,7 +14,6 @@ import Chat from "./pages/Chat";
 import Layout from "./pages/Layout";
 import AuthenticationLayout from "./pages/AuthenticationLayout";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
 //Get helper functions
@@ -39,7 +32,6 @@ ReactDom.render(
 <Router history={browserHistory}>
     <Route path="/" component={Layout} onEnter={requireAuth}>
         <IndexRoute component={Chat} />
-        <Route path="profile" component={Profile} />
         <Route path="settings" component={Settings} />
     </Route>
     <Route path="/" component={AuthenticationLayout}>
