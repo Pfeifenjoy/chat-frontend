@@ -31,6 +31,7 @@ export default class TxtChat extends Component {
         this.handleEvents(RoomStore, message => {
             if(message.room === this.state.room.id) {
                 this.setState({ room: RoomStore.activeRoom });
+                this.scrollDown();
             }
         }, "newMessage");
     }
@@ -61,7 +62,7 @@ export default class TxtChat extends Component {
         ></span> : [];
 
         return <div className="txtChat">
-            <div className="chatWrapper">
+            <div className="chatWrapper" ref="chatWrapper">
                 {messageItems}
             </div>
 
@@ -82,6 +83,12 @@ export default class TxtChat extends Component {
                 />
             </div>
         </div>
+    }
+
+    scrollDown() {
+        console.log("here");
+        let chatWrapper = this.refs.chatWrapper;
+        chatWrapper.scrollTop = chatWrapper.scrollHeight;
     }
 
     handleTextareaChange(event) {
