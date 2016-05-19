@@ -72,6 +72,7 @@ export default class AddContactForm extends Component {
     getAddContactHandler(contact) {
         return () => {
             createRoom([ UserStore.user, contact ])
+            this.setState({ searchResults: [] });
         }
     }
 }
