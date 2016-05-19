@@ -21,6 +21,7 @@ export default class TxtChat extends Component {
     componentWillMount() {
         //update if the active room changes
         this.handleEvents(RoomStore, room => {
+            console.log(RoomStore.activeRoom);
             this.setState({
                 room: RoomStore.activeRoom
             })

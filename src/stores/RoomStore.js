@@ -73,7 +73,12 @@ class RoomStore extends EventEmitter {
 
 
     removeRoom(room) {
+        if(room.id === this.data.activeRoom.id){
+            delete this.data.activeRoom;
+            this.emit("activeRoomChange")
+        }
         delete this.data.rooms[room.id];
+
         this.emit("change")
     }
 
