@@ -28,7 +28,6 @@ class RoomStore extends EventEmitter {
         this.data = {
             rooms: {},
             activeRoom: undefined,
-            activeVideoMessage: null
         };
         refreshRooms();
     }
@@ -84,19 +83,18 @@ class RoomStore extends EventEmitter {
 
     setRooms(rooms) {
         this.data.rooms = arrayToObject(rooms);
+        if(this.data.rooms.findIndex(room => room.id === this.data.activeRoom) < 0){
+            delete this.data.activeRoom;
+            this.emit("activeRoomChange");
+        }
         this.emit("change")
     }
 
     handleActions(action) {
         const { type, payload } = action;
         switch(type) {
-            case constants.MESSAGE_VIDEO_CALL_START: {
-                this.data.activeVideoMessage = payload;
-                this.emit("videoStart", payload);
-                break;
-            }
-            case constants.MESSAGE_VIDEO_CALL_END: {
-
+            case constants.MESSAGE_REFRESH_ROOMS: {
+                refreshRooms();
                 break;
             }
             case constants.MESSAGE_TEXT_MESSAGE: {
