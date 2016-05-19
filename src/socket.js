@@ -51,6 +51,7 @@ class SocketWrapper {
     onMessage(message) {
         //get message
         message = JSON.parse(message.data);
+        console.log('←', message);
 
         //get acknowledge messages
         if(message.type === constants.MESSAGE_ACKNOWLEDGE) {
@@ -82,7 +83,7 @@ class SocketWrapper {
             logout();
             return;
         }
-        
+
 
         dispatcher.dispatch(message);
     }
@@ -106,6 +107,7 @@ class SocketWrapper {
             }
             //send the message
             this.ws.send(JSON.stringify(message));
+            console.log('→', message);
 
         });
     }
