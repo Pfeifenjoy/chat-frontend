@@ -14,7 +14,6 @@ import Chat from "./pages/Chat";
 import Layout from "./pages/Layout";
 import AuthenticationLayout from "./pages/AuthenticationLayout";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
 //Get helper functions
@@ -33,7 +32,6 @@ ReactDom.render(
 <Router history={browserHistory}>
     <Route path="/" component={Layout} onEnter={requireAuth}>
         <IndexRoute component={Chat} />
-        <Route path="profile" component={Profile} />
         <Route path="settings" component={Settings} />
     </Route>
     <Route path="/" component={AuthenticationLayout}>

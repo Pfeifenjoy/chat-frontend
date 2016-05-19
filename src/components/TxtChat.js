@@ -28,7 +28,7 @@ export default class TxtChat extends Component {
 
         //Get all messages for this room.
         this.handleEvents(RoomStore, message => {
-            if(message.payload.roomId === this.state.room.id) {
+            if(message.room === this.state.room.id) {
                 this.setState({ room: RoomStore.activeRoom });
             }
         }, "newMessage");
@@ -39,18 +39,18 @@ export default class TxtChat extends Component {
         const { members, messages } = this.state.room;
 
         const messageItems = messages ? messages
-        .filter(message => message.type === constants.MESSAGE_TEXT_MESSAGE)
         .map((message, i) => {
-            if(UserStore.user.id === message.payload.user.id) {
+            let user = members.find(member => member.id === message.author);
+            if(UserStore.user.id === message.author) {
                 return <div key={i} className="ownMessage">
-                    <p>{ message.payload.text }</p>
-                    <img src={message.payload.user.smallIcon} className="circular"/>
+                    <p>{ message.content }</p>
+                    <img src={user.icon} className="circular"/>
                 </div>
             }
             else {
                 return <div key={i} className="answerMsg">
-                    <img src={message.payload.user.smallIcon} className="circular"/>
-                    <p>{ message.payload.text }</p>
+                    <img src={user.icon} className="circular"/>
+                    <p>{ message.content }</p>
                 </div>
             }
         }) : [];

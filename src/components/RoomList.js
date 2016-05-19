@@ -4,8 +4,6 @@ import { browserHistory } from "react-router";
 
 //Components
 import AddContactForm from "./AddContactForm";
-import SmallIcon from "./SmallIcon";
-import BigIcon from "./BigIcon";
 
 //stores
 import RoomStore from "../stores/RoomStore";
@@ -22,7 +20,7 @@ import {
 //Static resources
 const standardImage = require("../img/default_icon.png");
 
-export default class UserInformation extends Component {
+export default class RoomList extends Component {
     constructor() {
         super();
         this.state = {

@@ -27,7 +27,8 @@ class RoomStore extends EventEmitter {
         this._id = id;
         this.data = {
             rooms: {},
-            activeRoom: undefined
+            activeRoom: undefined,
+            activeVideoMessage: null
         };
         refreshRooms();
     }
@@ -40,13 +41,21 @@ class RoomStore extends EventEmitter {
         return this.data.activeRoom;
     }
 
+    get activeVideoMessage() {
+        return this.data.activeVideoMessage;
+    }
+
     getRoom(id) {
         return this.data.rooms[id];
     }
 
     addMessage(message) {
         //Get the room
-        let room = this.data.rooms[message.roomId];
+        let room = this.data.rooms[message.room];
+        if(!room) {
+            console.warn("unknow room for message", message);
+            return;
+        }
         room.messages = room.messages || [];
         room.messages.push(message)
         this.emit("newMessage", message, room);
@@ -76,10 +85,17 @@ class RoomStore extends EventEmitter {
     handleActions(action) {
         const { type, payload } = action;
         switch(type) {
-            case constants.MESSAGE_TEXT_MESSAGE: {}
-            case constants.MESSAGE_VIDEO_CALL_START: {}
+            case constants.MESSAGE_VIDEO_CALL_START: {
+                this.data.activeVideoMessage = payload;
+                this.emit("videoStart", payload);
+                break;
+            }
             case constants.MESSAGE_VIDEO_CALL_END: {
-                this.addMessage(action)
+
+                break;
+            }
+            case constants.MESSAGE_TEXT_MESSAGE: {
+                this.addMessage(payload)
                 break;
             }
             case constants.ROOMS_NEW_ROOM: {

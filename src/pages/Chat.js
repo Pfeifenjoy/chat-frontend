@@ -1,17 +1,18 @@
 import React from "react";
 import Component from "../components/Component";
+
+//components
 import Sidebar from "../components/Sidebar";
-import Video from "../components/VideoChat";
 import TxtChat from "../components/TxtChat";
-import DeviceStore from "../stores/DeviceStore";
+
+//stores
 import RoomStore from "../stores/RoomStore";
 
 export default class Chat extends Component {
     constructor() {
         super();
         this.state = {
-            showOwnVideo: false,
-            room: RoomStore.activeRoom
+            room: RoomStore.activeRoom,
         }
     }
     componentWillMount() {
@@ -21,36 +22,12 @@ export default class Chat extends Component {
                 room: RoomStore.activeRoom
             })
         }, "activeRoomChange");
-
-        //Get all messages for this room.
-        this.handleEvents(RoomStore, message => {
-            if(message.roomId === this.state.room.id) {
-                this.setState({ room: RoomStore.activeRoom });
-            }
-        }, "newMessage");
     }
     render() {
         if(!this.state.room) return <div />;
-        let videoButtonClass = "fa";
-
-        videoButtonClass += this.state.showOwnVideo ? " fa-stop" : " fa-video-camera";
-        return <div id="container-fluid">
-            <div className="topBar">
-                <span
-                    className="btn btn-primary"
-                    title="Start video"
-                    onClick={this.showOwnVideo.bind(this)}
-                >
-                    <i className={videoButtonClass}></i>
-                </span>
-            </div>
+        return <div className="container-fluid chat">
             <TxtChat />
         </div>
     }
 
-    showOwnVideo() {
-        this.setState({
-            showOwnVideo: !this.state.showOwnVideo
-        });
-    }
 }

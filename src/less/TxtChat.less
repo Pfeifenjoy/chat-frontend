@@ -1,6 +1,5 @@
 
 @messageFieldHeight: 8em;
-@topBarHeight: 3em;
 @messageFieldSendButtonWidth: 3em;
 
 
@@ -9,19 +8,13 @@
     width: 100%;
 }
 
-.topBar {
-    height: @topBarHeight;
-    padding: 0.3em;
-    text-align: right;
-    z-index: 1;
-}
 /* Chat wrapper */
 .chatWrapper {
-    width: 100%;
+    width: 98%;
     overflow-y: scroll;
     position: absolute;
     padding: 2em;
-    height: ~"calc(100% - " @messageFieldHeight ~" - " @topBarHeight ~")";
+    height: ~"calc(100% - " @messageFieldHeight  ~")";
     padding-top: 3%;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;

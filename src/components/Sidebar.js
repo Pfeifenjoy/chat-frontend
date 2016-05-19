@@ -8,7 +8,6 @@ import ConfigStore from "../stores/ConfigStore";
 import DeviceStore from "../stores/DeviceStore";
 import SidebarStore from "../stores/SidebarStore";
 //Subcomponents
-import UserInformation from "./UserInformation";
 import RoomList from "./RoomList";
 import Menu from "./Menu";
 import Logout from "./Logout";

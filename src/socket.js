@@ -55,12 +55,12 @@ class SocketWrapper {
 
         //get acknowledge messages
         if(message.type === constants.MESSAGE_ACKNOWLEDGE) {
-            if(!message.transactionid) {
+            if(!message.payload.transactionid) {
                 console.warn("server did not return transactionid.");
                 return;
             }
-            this.messages[message.transactionid].resolve();
-            delete this.messages[message.transactionid];
+            this.messages[message.payload.transactionid].resolve();
+            delete this.messages[message.payload.transactionid];
             return;
         }
 
@@ -71,12 +71,12 @@ class SocketWrapper {
 
         //handle errors
         if(message.type === constants.MESSAGE_ERROR) {
-            if(!message.transactionid) {
+            if(!message.payload.transactionid) {
                 console.warn("server did not return transactionid.");
                 return;
             }
-            this.messages[message.transactionid].reject();
-            delete this.messages[message.transactionid];
+            this.messages[message.payload.transactionid].reject();
+            delete this.messages[message.payload.transactionid];
             return;
         }
         if(message.type === constants.MESSAGE_UNAUTHENTICATED) {
