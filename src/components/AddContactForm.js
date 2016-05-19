@@ -33,6 +33,7 @@ export default class AddContactForm extends Component {
         indicatorClass += " indicator " + (this.state.showIndicator ? " " : "hidden");
         return <div className="addWrapper">
             <input
+                ref="searchField"
                 type="text"
                 name="userSearch"
                 className="userSearch"
@@ -73,6 +74,7 @@ export default class AddContactForm extends Component {
         return () => {
             createRoom([ UserStore.user, contact ])
             this.setState({ searchResults: [] });
+            this.refs.searchField.value = "";
         }
     }
 }
