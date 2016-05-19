@@ -1,8 +1,6 @@
 import React from "react";
 import Component from "./Component";
 
-
-
 class Video extends Component {
     constructor(props) {
         super();

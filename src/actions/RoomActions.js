@@ -87,14 +87,14 @@ export function sendTextMessage(text, room) {
  * Exposes the video connection to a specific room.
  * Than other clients can accept this connection.
  */
-export function startVideo(candidate, room) {
+export function startVideo(sdp, room) {
     let payload = {
-        candidate,
+        candidate: sdp,
         roomId: room.id
     };
 
     let message = {
-        type: constants.VIDEO_CALL_START,
+        type: constants.MESSAGE_VIDEO_CALL_START,
         payload
     }
 

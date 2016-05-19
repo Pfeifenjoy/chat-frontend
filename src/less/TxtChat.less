@@ -2,6 +2,31 @@
 @messageFieldHeight: 8em;
 @topBarHeight: 3em;
 @messageFieldSendButtonWidth: 3em;
+@videoHeight: 30em;
+
+.chat .videos {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    height: 30em;
+}
+
+.chat .localVideo {
+    height: 7em;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.chat .remoteVideo {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+}
+
 
 
 .txtChat {
@@ -17,11 +42,11 @@
 }
 /* Chat wrapper */
 .chatWrapper {
-    width: 100%;
+    width: 98%;
     overflow-y: scroll;
     position: absolute;
     padding: 2em;
-    height: ~"calc(100% - " @messageFieldHeight ~" - " @topBarHeight ~")";
+    height: ~"calc(100% - " @messageFieldHeight ~" - " @topBarHeight ~" - " @videoHeight ~")";
     padding-top: 3%;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;

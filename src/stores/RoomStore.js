@@ -27,7 +27,8 @@ class RoomStore extends EventEmitter {
         this._id = id;
         this.data = {
             rooms: {},
-            activeRoom: undefined
+            activeRoom: undefined,
+            activeVideoMessage: null
         };
         refreshRooms();
     }
@@ -38,6 +39,10 @@ class RoomStore extends EventEmitter {
 
     get activeRoom() {
         return this.data.activeRoom;
+    }
+
+    get activeVideoMessage() {
+        return this.data.activeVideoMessage;
     }
 
     getRoom(id) {
@@ -80,9 +85,16 @@ class RoomStore extends EventEmitter {
     handleActions(action) {
         const { type, payload } = action;
         switch(type) {
-            case constants.MESSAGE_TEXT_MESSAGE: {}
-            case constants.MESSAGE_VIDEO_CALL_START: {}
+            case constants.MESSAGE_VIDEO_CALL_START: {
+                this.data.activeVideoMessage = payload;
+                this.emit("videoStart", payload);
+                break;
+            }
             case constants.MESSAGE_VIDEO_CALL_END: {
+
+                break;
+            }
+            case constants.MESSAGE_TEXT_MESSAGE: {
                 this.addMessage(payload)
                 break;
             }
