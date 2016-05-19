@@ -27,7 +27,8 @@ export default class UserInformation extends Component {
         super();
         this.state = {
             rooms: RoomStore.rooms,
-            selectedRoom: RoomStore.selectedRoom
+            selectedRoom: RoomStore.selectedRoom,
+            newMessagesRoomIds: []
         }
     }
 
@@ -35,7 +36,8 @@ export default class UserInformation extends Component {
         this.handleRoomStore = () => {
             this.setState({ 
                 rooms: RoomStore.rooms,
-                selectedRoom: RoomStore.activeRoom
+                selectedRoom: RoomStore.activeRoom,
+                newMessagesRoomIds: []
             });
         }
         this.handleEvents(RoomStore, this.handleRoomStore);
@@ -46,6 +48,19 @@ export default class UserInformation extends Component {
             })
         }
         this.handleEvents(RoomStore, this.handleRoomStoreActiveRoom, "activeRoomChange");
+
+        this.handleRoomStoreMessages = (message, room) => {
+            //prevent message indication of activeRoom
+            if(room.id === RoomStore.activeRoom.id) return;
+
+            //set notification
+            let newMessagesRoomIds = this.state.newMessagesRoomIds;
+            newMessagesRoomIds.push(room.id);
+            this.setState({
+                newMessagesRoomIds
+            })
+        }
+        this.handleEvents(RoomStore, this.handleRoomStoreMessages, "newMessage");
         refreshRooms();
     }
 
@@ -57,6 +72,10 @@ export default class UserInformation extends Component {
             let name = !SidebarStore.small ? members
             .map(member => member.username)
             .join(", ") : "";
+
+            let newMessageIndicator = this.state.newMessagesRoomIds
+            .findIndex(id => id === room.id) >= 0 ? 
+                <i className="fa-circle" /> : [];
 
             let img = members[0].icon || standardImage;
             return <li
@@ -71,6 +90,7 @@ export default class UserInformation extends Component {
                         className="delete fa fa-trash"
                         onClick={this.getDeleteRoomHandler(room)}
                     ></span>
+                    {newMessageIndicator}
                 </a>
                 <div className="clear"></div>
             </li>;
@@ -95,6 +115,11 @@ export default class UserInformation extends Component {
     getSelectRoomHandler(room) {
         return () => {
             browserHistory.push("/");
+
+            //delete new message indication
+            let newMessagesRoomIds = this.state.newMessagesRoomIds.filter(id => id !== room.id);
+            this.setState({ newMessagesRoomIds });
+            
             changeActiveRoom(room);
         }
     }

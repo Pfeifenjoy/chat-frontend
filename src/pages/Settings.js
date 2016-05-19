@@ -139,7 +139,7 @@ export default class Chat extends Component {
 
     handleUserSubmit(event) {
         event.preventDefault();
-        this.setState({ loading: true });
+        this.setState({ loading: true, errors: [] });
         updateUser({
             username: this.state.username,
             email: this.state.email
@@ -159,13 +159,21 @@ export default class Chat extends Component {
 
     handlePasswordSubmit(event) {
         event.preventDefault();
-        this.setState({ loading: true });
+        this.setState({ loading: true, errors: [] });
         updateUser({
             newpassword: this.state.newpassword,
             oldpassword: this.state.oldpassword
         })
         .fail(response => {
-            let passwordErrors = arrayToObject(JSON.parse(response.responseText).errors, "field");
+            let passwordErrors = [];
+            if(response.status === 403) {
+                passwordErrors = [{
+                    field: "oldpassword",
+                    errorMessage: this.getWord("Wrong password")
+                }]
+            }
+            else 
+                passwordErrors = arrayToObject(JSON.parse(response.responseText).errors, "field");
             this.setState({
                 passwordErrors
             })
