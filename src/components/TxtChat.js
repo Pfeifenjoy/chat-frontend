@@ -21,7 +21,6 @@ export default class TxtChat extends Component {
     componentWillMount() {
         //update if the active room changes
         this.handleEvents(RoomStore, room => {
-            console.log(RoomStore.activeRoom);
             this.setState({
                 room: RoomStore.activeRoom
             })
@@ -34,6 +33,10 @@ export default class TxtChat extends Component {
                 this.scrollDown();
             }
         }, "newMessage");
+    }
+
+    componentDidMount() {
+        setTimeout(this.scrollDown.bind(this), 100);
     }
 
     render() {
@@ -86,7 +89,6 @@ export default class TxtChat extends Component {
     }
 
     scrollDown() {
-        console.log("here");
         let chatWrapper = this.refs.chatWrapper;
         chatWrapper.scrollTop = chatWrapper.scrollHeight;
     }
