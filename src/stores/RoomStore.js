@@ -83,7 +83,7 @@ class RoomStore extends EventEmitter {
 
     setRooms(rooms) {
         this.data.rooms = arrayToObject(rooms);
-        if(this.data.rooms.findIndex(room => room.id === this.data.activeRoom) < 0){
+        if(rooms.findIndex(room => room.id === this.data.activeRoom) < 0){
             delete this.data.activeRoom;
             this.emit("activeRoomChange");
         }
