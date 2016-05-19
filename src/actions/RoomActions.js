@@ -37,17 +37,27 @@ export function exitRoom(room) {
 /**
  * refresh the rooms the user belongs to.
  */
+let refreshing = false;
 export function refreshRooms() {
+    if(refreshing) {
+        return;
+    }
+    refreshing = true;
     let username = UserStore.username;
     return ajax({
         url: ConfigStore.apiLocation + "/rooms",
         method: "GET"
     })
     .done(response => {
+        console.log(response);
         dispatcher.dispatch({
             type: constants.ROOMS_NEW_ROOMS,
             payload: response
         })
+        refreshing = false;
+    })
+    .fail(() => {
+        refreshing = false;
     })
 }
 
