@@ -44,12 +44,12 @@ export default class TxtChat extends Component {
             if(UserStore.user.id === message.author) {
                 return <div key={i} className="ownMessage">
                     <p>{ message.content }</p>
-                    <img src={message.author.smallIcon} className="circular"/>
+                    <img src={user.icon} className="circular"/>
                 </div>
             }
             else {
                 return <div key={i} className="answerMsg">
-                    <img src={message.author.smallIcon} className="circular"/>
+                    <img src={user.icon} className="circular"/>
                     <p>{ message.content }</p>
                 </div>
             }
