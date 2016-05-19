@@ -46,7 +46,11 @@ class RoomStore extends EventEmitter {
 
     addMessage(message) {
         //Get the room
-        let room = this.data.rooms[message.roomId];
+        let room = this.data.rooms[message.room];
+        if(!room) {
+            console.warn("unknow room for message", message);
+            return;
+        }
         room.messages = room.messages || [];
         room.messages.push(message)
         this.emit("newMessage", message, room);
@@ -79,7 +83,7 @@ class RoomStore extends EventEmitter {
             case constants.MESSAGE_TEXT_MESSAGE: {}
             case constants.MESSAGE_VIDEO_CALL_START: {}
             case constants.MESSAGE_VIDEO_CALL_END: {
-                this.addMessage(action)
+                this.addMessage(payload)
                 break;
             }
             case constants.ROOMS_NEW_ROOM: {

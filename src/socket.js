@@ -51,6 +51,7 @@ class SocketWrapper {
     onMessage(message) {
         //get message
         message = JSON.parse(message.data);
+        console.log(message);
 
         //get acknowledge messages
         if(message.type === constants.MESSAGE_ACKNOWLEDGE) {
